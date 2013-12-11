@@ -27,13 +27,13 @@ public class Case {
 	}
 
 	public String toString () {
-		String rep = pos.toString();
-		if (!elementsList.isEmpty ()) {
+		String rep = "" + pos;
+		if (elementsList != null && !elementsList.isEmpty ()) {
 			for (Element e : elementsList) { // What if elementsList is empty?
-				rep += "\n\t";
+				rep += "\n\t\t";
 				rep += e;
 			}
-		} else rep += "\n\tno Element here";
+		} else rep += "\n\t\tno Element here";
 		
 		return rep;
 	}
@@ -42,7 +42,16 @@ public class Case {
 		elementsList.add(e);
 	}
 
+	// Remove the first Element encountered in the elementsList which is the same as the one we want to delete
 	public void remove (Element e) {
 		// TODO We have to make sure that the removed element is the right one
+		if (elementsList != null && !elementsList.isEmpty()) {
+			for (Element x : elementsList) {
+				if (x.equals (e)) {
+					elementsList.remove(x); // TODO Check what is deletes: all the set of equal instances or only the one we asked for...
+					return;
+				}
+			}
+		}
 	}
 }

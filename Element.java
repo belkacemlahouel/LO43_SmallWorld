@@ -24,7 +24,7 @@ public class Element {
 	}
 
 	public String toString () {
-		return "element";
+		return "element " + pos;
 	}
 
 	public Element (Position pos_) {
@@ -35,4 +35,6 @@ public class Element {
 	public Element (int x, int y) {
 		pos = new Position (x, y); // TODO no twice the same information! This i not the same "Position" as the one (with the same coordinates) in the Board...
 	}
+
+	// TODO Override equals
 }
