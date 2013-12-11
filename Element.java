@@ -27,6 +27,11 @@ public class Element {
 		return "element";
 	}
 
+	public Element (Position pos_) {
+		// Keeping in memory just the reference of the Position pos_
+		pos = pos_; // Should try something to avoid unpleasant people who would like to modify it here TODO
+	}
+
 	public Element (int x, int y) {
 		pos = new Position (x, y); // TODO no twice the same information! This i not the same "Position" as the one (with the same coordinates) in the Board...
 	}

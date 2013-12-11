@@ -22,6 +22,10 @@ public class Case {
 		new Case (pos_);
 	}
 
+	public Position getPosition () {
+		return pos;
+	}
+
 	public String toString () {
 		String rep = pos.toString();
 		if (!elementsList.isEmpty ()) {

@@ -20,7 +20,7 @@ public class Board {
 		// I have to initialize each Case with a Position, and no Elements list
 		// Be careful: each Position belonging to a case should not be instancied for nothing...
 		// + initializations with the reading of the XML file; but here there is just some small initializations like an individual on [0, 0]
-		board[0][0].add (new Element (0, 0)); // TODO That's a copy of the Position!!
+		board[0][0].add (new Element (board[0][0].getPosition())); // TODO That's a copy of the Position actually!! I need to give the reference of the Position only...
 	}
 
 	public String toString () {
