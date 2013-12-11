@@ -13,6 +13,18 @@
 public class Element {
 	private Position pos;
 
+	// TODO remove thses attributes later
+	private int life;
+	private static final int dmg = 10;
+
+	public int getLife () {
+		return life;
+	}
+
+	public void attack_received (int dmg_) {
+		life -= dmg_; // TODO Maybe I can add the removing of the Element here - Bad idea
+	}
+
 	public Position getPosition () {
 		return pos;
 	}
@@ -24,16 +36,26 @@ public class Element {
 	}
 
 	public String toString () {
-		return "element " + pos;
+		return "element " + pos + " life: " + life;
 	}
 
 	public Element (Position pos_) {
 		// Keeping in memory just the reference of the Position pos_
 		pos = pos_; // Should try something to avoid unpleasant people who would like to modify it here TODO
+		life = 100;
 	}
 
 	public Element (int x, int y) {
 		pos = new Position (x, y); // TODO no twice the same information! This i not the same "Position" as the one (with the same coordinates) in the Board...
+	}
+
+	public void attack (Element e) { // TODO For the moment the attack is constant
+		if (e != null && e.getPosition().equals(pos)) {
+			e.attack_received(dmg); // TODO we could incorporate a system of people protecting themselves
+			// if (e.getLife () < 0) {
+				// TODO access to the Case at this Position on the Board to remove e!!!!!!! XXX FIXME XXX XXX XXX XXX XXX XXX XXX
+			// }
+		} // if the Element e has no more life (life < 0) then, he will be removed from e
 	}
 
 	// TODO Override equals

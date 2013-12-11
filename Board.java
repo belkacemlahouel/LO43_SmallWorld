@@ -8,7 +8,7 @@
 
 public class Board {
 	private Case[][] board;
-	private Element element; // TODO remove this after the tests finishes
+	private Element element1, element2; // TODO remove this after the tests finishes
 
 	public Board (int length, int width) {
 		board = new Case[length][width];
@@ -20,9 +20,13 @@ public class Board {
 		// I have to initialize each Case with a Position, and no Elements list
 		// Be careful: each Position belonging to a case should not be instancied for nothing...
 		// + initializations with the reading of the XML file; but here there is just some small initializations like an individual on [0, 0]
-		element = new Element (board[0][0].getPosition());
-		board[0][0].add (element); // TODO That's a copy of the Position actually!! I need to give the reference of the Position only...
-		move (element, board[1][2].getPosition());
+		element1 = new Element (board[0][0].getPosition());
+		element2 = new Element (board[1][2].getPosition());
+		board[0][0].add (element1); // TODO That's a copy of the Position actually!! I need to give the reference of the Position only...
+		board[1][2].add (element2);
+		move (element1, board[1][2].getPosition());
+		element1.attack (element2);
+		// Testing the attacks
 	}
 
 	public String toString () {
