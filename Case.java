@@ -18,7 +18,7 @@ public class Case {
 	}
 
 	public Case (int x_, int y_) {
-		Position pos_ = new Position (x_, y_); // how to "get" a Position from the ones already created?
+		Position pos_ = new Position (x_, y_);
 		new Case (pos_);
 	}
 

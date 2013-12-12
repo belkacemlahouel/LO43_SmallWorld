@@ -8,7 +8,20 @@
 
 public class Board {
 	private Case[][] board;
-	private Element element1, element2; // TODO remove this after the tests finishes
+	
+	public Position randPosition () {
+		int rand_x = Tools.rand (board.length, 0), rand_y = Tools.rand (board[0].length, 0);
+		System.out.println ("" + board[rand_x][rand_y].getPosition ());
+		return board[rand_x][rand_y].getPosition ();
+	}
+
+	public Case get (int i, int j) {
+		return board[i][j];
+	}
+
+	public Case get (Position pos) {
+		return board[pos.getX()][pos.getY()];
+	}
 
 	public Board (int length, int width) {
 		board = new Case[length][width];
@@ -20,29 +33,16 @@ public class Board {
 		// I have to initialize each Case with a Position, and no Elements list
 		// Be careful: each Position belonging to a case should not be instancied for nothing...
 		// + initializations with the reading of the XML file; but here there is just some small initializations like an individual on [0, 0]
-		element1 = new Element (board[0][0].getPosition());
-		element2 = new Element (board[1][2].getPosition());
-		board[0][0].add (element1); // TODO That's a copy of the Position actually!! I need to give the reference of the Position only...
-		board[1][2].add (element2);
-		move (element1, board[1][2].getPosition());
-		element1.attack (element2);
-		// Testing the attacks
 	}
 
 	public String toString () {
 		String rep = "length: " + board.length + " width: " + board[0].length;
 		for (int i=0 ; i<board.length ; ++i) {
-			for (int j=0 ; j<board[0].length ; ++j) { // Whatif board[0] do not exist?
+			for (int j=0 ; j<board[0].length ; ++j) { // Whatif board[0] do not exist? TODO
 				rep += "\n\t";
 				rep += board[i][j].toString();
 			}
 		}
 		return rep;
-	}
-
-	public void move (Element e, Position new_pos) {
-		board[0][0].remove (e);
-		e.setPosition (new_pos);
-		board[new_pos.getX()][new_pos.getY()].add (e);
 	}
 }

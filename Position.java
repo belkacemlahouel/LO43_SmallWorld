@@ -22,4 +22,9 @@ public class Position {
 	public String toString () {
 		return "x: " + x + " y: " + y;
 	}
+	
+	// @Override
+	public boolean equals (Position pos) {
+		return pos.x == x && pos.y == y;
+	}
 }
