@@ -1,4 +1,5 @@
-# Compiling Java Programs  with Terminal ; just type ./make and the program will be compiled + executed + cleaning (rm *~)
+# Compiling and directly executing Java Programs  with Terminal ; just type ./make and the program will be compiled + executed
+# (.class files stored in ./class directory)
 
 echo "Compiling Application.java"
 javac Application.java -d class

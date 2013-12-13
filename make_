@@ -1,0 +1,4 @@
+# Compiling Java Programs  with Terminal ; just type ./make and the program will be compiled and .class files are stored in the right directory
+
+echo "Compiling Application.java"
+javac Application.java -d class
