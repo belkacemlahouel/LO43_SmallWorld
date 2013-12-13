@@ -37,7 +37,7 @@ public class Case {
 				rep += "\n\t\t";
 				rep += e;
 			}
-		} else rep += "\n\t\tno Element here";
+		} else rep += "\n\t\tNothing here";
 		
 		return rep;
 	}
@@ -46,27 +46,26 @@ public class Case {
 		elementsList.add(e);
 	}
 	
-	public synchronized void buryDeads () {
+	public synchronized void buryDeads () { // for the moment only for Humans, does not work for Resources
+		System.out.println ("\nOK");
 		Iterator<Element> it = elementsList.iterator();
 		while (it.hasNext()) {
 			Element x = it.next();
-			if (x.isDead()) {
+			if (x instanceof Human && ((Human)x).isDead()) {
 				it.remove();
 				return ; // assuming there's only one instance Element, all differents...
 			}
 		}
 	}
 
-	// Remove the first Element encountered in the elementsList which is the same as the one we want to delete
+	// Remove the first Element encountered in the elementsList which is the same as the one we want to delete. TODO check if there's only one like this
 	public synchronized void remove (Element e) {
-		// TODO We have to make sure that the removed element is the right one
 		if (elementsList != null && !elementsList.isEmpty()) {
-			// for (Element x : elementsList) { // We cannot delete while we go through the list!!!
 			Iterator<Element> it = elementsList.iterator();
 			while (it.hasNext()) {
 				Element x = it.next();
 				if (x.equals (e)) {
-					it.remove(); // TODO Check what is deletes: all the set of equal instances or only the one we asked for...
+					it.remove();
 					return;
 				}
 			}

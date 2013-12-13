@@ -9,62 +9,57 @@ import java.util.Iterator;
 
 public class SmallWorld extends Thread {
 	private Board small_world;
-	private ArrayList<Element> team_1, team_2;
+	private ArrayList<Human> team_1, team_2;
+	// private ArrayList<Resource> res;
 	
 	public SmallWorld () {
 
 		super ("Small World"); // Construction of the Thread
 
 		small_world = new Board (3, 3);
-		team_1 = new ArrayList<Element> (0);
-		team_2 = new ArrayList<Element> (0);
+		team_1 = new ArrayList<Human> (0);
+		team_2 = new ArrayList<Human> (0);
 
 		for (int i=0 ; i<3 ; ++i) { // These initializations should be done after parsing the XML file
-			// Placing the elements of team_1 on the first line, the elements of team_2 on the last line + addin them to the Cases on the Board (small_world)
-			team_1.add(new Element (small_world.get(0, i).getPosition(), "Element 1."+(i+1)));
+			// Placing the Humans from team_1 on the first line, the Humans from team_2 on the last line + adding them to the Cases on the Board (small_world)
+			team_1.add(new Human (small_world.get(0, i).getPosition(), "Human 1."+(i+1)));
 				small_world.get(0, i).add(team_1.get(i));
-			team_2.add(new Element (small_world.get(2, i).getPosition(), "Element 2."+(i+1)));
+			team_2.add(new Human (small_world.get(2, i).getPosition(), "Human 2."+(i+1)));
 				small_world.get(2, i).add(team_2.get(i));
 		}
-
-		// Testing the move function: moving the Element (1.1) in (0, 0) to (0, 1) where we can already find 1.2 (and BTW testing the presence of multiple elements on one Case)
-		move (team_1.get(0), small_world.get(0, 1).getPosition ()); // Move works, multiple elements on one Case works
-		
-		// start (); // Should I start the Thread here? Or in the main?
 	}
 	
-	public Element getFirstEnnemySamePos (Element e) { // Finding the ennemies on the same position than e
+	public Human getFirstEnnemySamePos (Human e) { // Finding the ennemies (Humans) on the same position than e
 		ArrayList<Element> tmp_elementsList = small_world.get(e.getPosition()).getElementsList();
 		if (!tmp_elementsList.isEmpty ()) {
 			for (Element tmp_e : tmp_elementsList) {
-				if (!areFriends (tmp_e, e)) { // e and tmp_e are in two different teams
-					return tmp_e;
+				if (tmp_e instanceof Human && !areFriends ((Human)tmp_e, e)) { // e and tmp_e (Humans) are in two different teams
+					return (Human) tmp_e;
 				}
 			}
 		}
 		return null;
 	}
 	
-	public boolean areFriends (Element e1, Element e2) {
+	public boolean areFriends (Human e1, Human e2) { // testing if two Humans are in the same team or not, assuming we just have two teams (of Humans) for the moment
 		return (team_1.contains(e1) && team_1.contains(e2)) ||
 				(team_2.contains(e1) && team_2.contains(e2));
 	}
 
 	public synchronized void run () {
 		
-		Element tmp;
+		Human tmp;
 		while (!team_1.isEmpty() && !team_2.isEmpty()) {
 			for (int i=0 ; i<3 ; ++i) {
-				if (team_1.size() > i) {
+				if (i >= 0 && i < team_1.size()) {
 					tmp = team_1.get(i);
 					move (tmp, small_world.randPosition ());
 					// Attacking the other people (Element) on this case, if they are from another team...
 					tmp.attack(getFirstEnnemySamePos (tmp));
-					// small_world.get(tmp.getPosition ()).buryDeads ();
 					buryDeads (tmp.getPosition ());
 				}
 				
-				if (team_2.size() > i) {
+				if (i >= 0 && i < team_2.size()) {
 					tmp = team_2.get(i);
 					move (tmp, small_world.randPosition ());
 					tmp.attack(getFirstEnnemySamePos (tmp));
@@ -87,28 +82,27 @@ public class SmallWorld extends Thread {
 	}
 	
 	public synchronized void buryDeads (Position p) {
-		small_world.get(p).buryDeads(); // burying deads in that position
+		small_world.get(p).buryDeads(); // burying deads (Humans only, for the moment) in that Position, which leads us to the Case from the Board
 		
-		// TODO burying deads from both teams!!!!
-		Iterator<Element> it = team_1.iterator();
+		Iterator<Human> it = team_1.iterator();
 		while (it.hasNext()) {
-			Element x = it.next();
+			Human x = it.next();
 			if (x.isDead()) {
 				it.remove();
-				return ; // assuming there's only one instance Element, all differents...
+				return ; // assuming there's only one instance Human, all differents...
 			}
 		}
 		it = team_2.iterator();
 		while (it.hasNext()) {
-			Element x = it.next();
+			Human x = it.next();
 			if (x.isDead()) {
 				it.remove();
-				return ; // assuming there's only one instance Element, all differents...
+				return ; // assuming there's only one instance Human, all differents...
 			}
 		}
 	}
 
-	public synchronized void move (Element e, Position new_pos) { // synchronized?
+	public synchronized void move (Human e, Position new_pos) { // synchronized?
 		if (!e.getPosition().equals(new_pos)) {
 			small_world.get(e.getPosition ()).remove (e);
 			e.setPosition (new_pos);

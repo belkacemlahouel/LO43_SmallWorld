@@ -11,7 +11,6 @@ public class Board {
 	
 	public Position randPosition () {
 		int rand_x = Tools.rand (board.length, 0), rand_y = Tools.rand (board[0].length, 0);
-		System.out.println ("" + board[rand_x][rand_y].getPosition ());
 		return board[rand_x][rand_y].getPosition ();
 	}
 
