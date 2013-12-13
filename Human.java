@@ -7,33 +7,28 @@
 public class Human extends Element {
 	
 	private static final int std_dmg = 20; // implementing a std_dmg attribute for generation of random damages
-	private int life = 100; // initialization at declaration
-	// private static final int max_life = 100; // to avoid over health, make the Human stop eating when it has enough health
-	
-	public int getLife () {
-		return life;
-	}
+	private static final int std_pick = 5;
+	private static final int max_life = 100; // to avoid over health, make the Human stop eating when it has enough health
 	
 	public Human (Position p, String name) {
 		super (p, name);
-	}
-
-	public void attack_received (int dmg_) {
-		life -= dmg_;
+		life = max_life;
 	}
 	
 	public String toString () {
-		return "Human " + name + " at " + pos + " life: " + life;
+		return "Human \"" + name + "\" at " + pos + " life: " + life;
 	}
 	
-	public void attack (Human e) {
+	public void attack (Element e) {
 		if (e != null && e.getPosition().equals(pos)) {
-			// Random value +- std_dmg
-			e.attack_received(std_dmg + Tools.rand (5, -5)); // returns a negative value?
+			if (e instanceof Human) {
+				e.attack_received(std_dmg + Tools.rand (5, -5)); // Random value +- std_dmg, does random returns a negative value?
+			} else if (e instanceof Resource && life < max_life) { // Assuming the guy does not want to pick up a Resource, if it is useless for him (already life == max_life)
+				int tmp = Tools.rand (2, -2);
+				life += Math.max(0, Math.min((life + tmp + std_pick), (max_life-life))); // Normally it's to avoid extra-health
+				e.attack_received(std_pick + tmp); // Not the same dmg for a Resource as for a Human
+			}
 		}
 	}
 	
-	public boolean isDead () {
-		return life <= 0;
-	}
 }

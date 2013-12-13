@@ -11,6 +11,12 @@
 public class Element { // TODO go abstract
 	protected Position pos;
 	protected String name;
+	protected int life ; // Resource: qty, Human: life
+	
+	public Element (Position pos_, String name_) {
+		name = name_;
+		pos = pos_; // Keeping in memory just the reference of the Position pos_
+	}
 
 	public Position getPosition () {
 		return pos;
@@ -21,13 +27,18 @@ public class Element { // TODO go abstract
 	public void setPosition (Position tmp_pos) {
 		pos = tmp_pos;
 	}
-
-	public Element (Position pos_, String name_) {
-		name = name_;
-
-		// Keeping in memory just the reference of the Position pos_
-		pos = pos_;
+	
+	public int getLife () {
+		return life;
 	}
-
+	
+	public boolean isDead () {
+		return life <= 0;
+	}
+	
+	public void attack_received (int dmg_) {
+		life -= dmg_;
+	}
+	
 	// TODO Override equals
 }

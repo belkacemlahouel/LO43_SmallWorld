@@ -46,12 +46,11 @@ public class Case {
 		elementsList.add(e);
 	}
 	
-	public synchronized void buryDeads () { // for the moment only for Humans, does not work for Resources
-		System.out.println ("\nOK");
+	public synchronized void buryDeads () { // for the moment only for Humans, does not work for Resources, now maybe for Resources too
 		Iterator<Element> it = elementsList.iterator();
 		while (it.hasNext()) {
 			Element x = it.next();
-			if (x instanceof Human && ((Human)x).isDead()) {
+			if (x.isDead()) {
 				it.remove();
 				return ; // assuming there's only one instance Element, all differents...
 			}
