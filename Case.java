@@ -6,11 +6,15 @@
 */
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 
 public class Case {
-	private List<Element> elementsList;
+	private ArrayList<Element> elementsList;
 	private Position pos;
+	
+	public ArrayList<Element> getElementsList () {
+		return elementsList;
+	}
 
 	public Case (Position p) {
 		pos = p;
@@ -41,14 +45,28 @@ public class Case {
 	public void add (Element e) {
 		elementsList.add(e);
 	}
+	
+	public synchronized void buryDeads () {
+		Iterator<Element> it = elementsList.iterator();
+		while (it.hasNext()) {
+			Element x = it.next();
+			if (x.isDead()) {
+				it.remove();
+				return ; // assuming there's only one instance Element, all differents...
+			}
+		}
+	}
 
 	// Remove the first Element encountered in the elementsList which is the same as the one we want to delete
-	public void remove (Element e) {
+	public synchronized void remove (Element e) {
 		// TODO We have to make sure that the removed element is the right one
 		if (elementsList != null && !elementsList.isEmpty()) {
-			for (Element x : elementsList) {
+			// for (Element x : elementsList) { // We cannot delete while we go through the list!!!
+			Iterator<Element> it = elementsList.iterator();
+			while (it.hasNext()) {
+				Element x = it.next();
 				if (x.equals (e)) {
-					elementsList.remove(x); // TODO Check what is deletes: all the set of equal instances or only the one we asked for...
+					it.remove(); // TODO Check what is deletes: all the set of equal instances or only the one we asked for...
 					return;
 				}
 			}

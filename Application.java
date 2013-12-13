@@ -14,6 +14,6 @@ public class Application {
 
 		System.out.println ("\n\t########################################\n");
 
-		small_world.run (); // We need to relaunch the Thread here, check the status of the Thread after the first loop
+		small_world.run (); // The "while (true)" loop is inside the Thread named "Small World"
 	}
 }

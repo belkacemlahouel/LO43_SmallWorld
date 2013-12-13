@@ -5,6 +5,7 @@
 */
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class SmallWorld extends Thread {
 	private Board small_world;
@@ -25,32 +26,88 @@ public class SmallWorld extends Thread {
 			team_2.add(new Element (small_world.get(2, i).getPosition(), "Element 2."+(i+1)));
 				small_world.get(2, i).add(team_2.get(i));
 		}
-		
+
 		// Testing the move function: moving the Element (1.1) in (0, 0) to (0, 1) where we can already find 1.2 (and BTW testing the presence of multiple elements on one Case)
 		move (team_1.get(0), small_world.get(0, 1).getPosition ()); // Move works, multiple elements on one Case works
 		
-		start (); // Why starting the Thread here?
+		// start (); // Should I start the Thread here? Or in the main?
 	}
 	
-	public void run () {
+	public Element getFirstEnnemySamePos (Element e) { // Finding the ennemies on the same position than e
+		ArrayList<Element> tmp_elementsList = small_world.get(e.getPosition()).getElementsList();
+		if (!tmp_elementsList.isEmpty ()) {
+			for (Element tmp_e : tmp_elementsList) {
+				if (!areFriends (tmp_e, e)) { // e and tmp_e are in two different teams
+					return tmp_e;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public boolean areFriends (Element e1, Element e2) {
+		return (team_1.contains(e1) && team_1.contains(e2)) ||
+				(team_2.contains(e1) && team_2.contains(e2));
+	}
+
+	public synchronized void run () {
+		
 		Element tmp;
-		while (true) {
+		while (!team_1.isEmpty() && !team_2.isEmpty()) {
 			for (int i=0 ; i<3 ; ++i) {
-				tmp = team_1.get(i);
-				move (tmp, small_world.randPosition ());
-				// Attacking the people on this case, if they are from another team...
-				tmp = team_2.get(i);
-				move (tmp, small_world.randPosition ());
+				if (team_1.size() > i) {
+					tmp = team_1.get(i);
+					move (tmp, small_world.randPosition ());
+					// Attacking the other people (Element) on this case, if they are from another team...
+					tmp.attack(getFirstEnnemySamePos (tmp));
+					// small_world.get(tmp.getPosition ()).buryDeads ();
+					buryDeads (tmp.getPosition ());
+				}
+				
+				if (team_2.size() > i) {
+					tmp = team_2.get(i);
+					move (tmp, small_world.randPosition ());
+					tmp.attack(getFirstEnnemySamePos (tmp));
+					small_world.get(tmp.getPosition ()).buryDeads ();
+					buryDeads (tmp.getPosition ());
+				}
 			}
 			System.out.println ("" + this);
 			try {
-				Thread.sleep(500);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println ("\n\n\tEnd of Small World...");
+		if (!team_2.isEmpty ()) System.out.println ("\tTeam 2 wins!");
+		else if (!team_1.isEmpty ()) System.out.println ("\tTeam 1 wins!");
+		else System.out.println ("\tNobody wins!");
 	}
 	
+	public synchronized void buryDeads (Position p) {
+		small_world.get(p).buryDeads(); // burying deads in that position
+		
+		// TODO burying deads from both teams!!!!
+		Iterator<Element> it = team_1.iterator();
+		while (it.hasNext()) {
+			Element x = it.next();
+			if (x.isDead()) {
+				it.remove();
+				return ; // assuming there's only one instance Element, all differents...
+			}
+		}
+		it = team_2.iterator();
+		while (it.hasNext()) {
+			Element x = it.next();
+			if (x.isDead()) {
+				it.remove();
+				return ; // assuming there's only one instance Element, all differents...
+			}
+		}
+	}
+
 	public synchronized void move (Element e, Position new_pos) { // synchronized?
 		if (!e.getPosition().equals(new_pos)) {
 			small_world.get(e.getPosition ()).remove (e);
@@ -58,7 +115,7 @@ public class SmallWorld extends Thread {
 			small_world.get(new_pos).add (e);
 		}
 	}
-	
+
 	public String toString () {
 		return "" + small_world;
 	}

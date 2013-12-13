@@ -17,7 +17,7 @@ public class Element {
 	// How to add a doubled reference on the Board so I can implement the move method here?
 
 	private int life;
-	private static final int dmg = 10;
+	private static final int dmg = 20;
 
 	public boolean isDead () {
 		return life <= 0;
