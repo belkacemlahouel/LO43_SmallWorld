@@ -6,7 +6,7 @@
 
 public class Human extends Element {
 	
-	private static final int dmg = 20; // implementing a std_dmg attribute for generation of random damages
+	private static final int std_dmg = 20; // implementing a std_dmg attribute for generation of random damages
 	private int life = 100; // initialization at declaration
 	// private static final int max_life = 100; // to avoid over health, make the Human stop eating when it has enough health
 	
@@ -28,7 +28,8 @@ public class Human extends Element {
 	
 	public void attack (Human e) {
 		if (e != null && e.getPosition().equals(pos)) {
-			e.attack_received(dmg);
+			// Random value +- std_dmg
+			e.attack_received(std_dmg + Tools.rand (5, -5)); // returns a negative value?
 		}
 	}
 	
