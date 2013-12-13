@@ -1,3 +1,4 @@
+// TEST
 
 /*
  *	Class containing the main method
