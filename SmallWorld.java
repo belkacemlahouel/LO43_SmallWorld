@@ -17,6 +17,10 @@ public class SmallWorld extends Thread {
 	private ArrayList<Human> team_1, team_2;
 	private ArrayList<Resource> res;
 	private SmallWorldGUI gui;
+
+	public ArrayList<Position> getPossiblePositions (Human e) {
+		return small_world(e.getReach ()); // TODO add Cases that cannot be crossed!
+	} // switch to Individual after that...
 	
 	public SmallWorld () {
 
