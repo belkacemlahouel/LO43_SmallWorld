@@ -4,36 +4,45 @@
  * There's a Board, and the methods on the board for the management of this "SmallWorld" application
 */
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * @author luc
+ *
+ */
 public class SmallWorld extends Thread {
 	private Board small_world;
 	private ArrayList<Human> team_1, team_2;
 	private ArrayList<Resource> res;
+	private SmallWorldGUI gui;
 
 	public ArrayList<Position> getPossiblePositions (Human e) {
 		return small_world(e.getReach ()); // TODO add Cases that cannot be crossed!
-	} // switch to Individual after that
+	} // switch to Individual after that...
 	
 	public SmallWorld () {
 
 		super ("Small World"); // Construction of the Thread
 
-		small_world = new Board (3, 3);
+		small_world = new Board (50,50);
 		team_1 = new ArrayList<Human> (0);
 		team_2 = new ArrayList<Human> (0);
 		res = new ArrayList<Resource> (0);
 
+		res.add(new Resource(new Position(5,7),"rock"));
+
 		for (int i=0 ; i<3 ; ++i) { // These initializations should be done after parsing the XML file
 			// Placing the Humans from team_1 on the first line, the Humans from team_2 on the last line + adding them to the Cases on the Board (small_world)
-			team_1.add(new Human (small_world.get(0, i).getPosition(), "Human 1."+(i+1)));
+			team_1.add(new Human (small_world.get(0, i).getPosition(), "human"));
 				small_world.get(0, i).add(team_1.get(i));
-			team_2.add(new Human (small_world.get(2, i).getPosition(), "Human 2."+(i+1)));
+			team_2.add(new Human (small_world.get(2, i).getPosition(), "human"));
 				small_world.get(2, i).add(team_2.get(i));
-			res.add(new Resource (small_world.get(1, i).getPosition(), "Resource R."+(i+1)));
+			res.add(new Resource (small_world.get(1, i).getPosition(), "rock"));
 				small_world.get(1, i).add(res.get(i));
 		}
+		gui = new SmallWorldGUI (this);
 	}
 	
 	public Human getFirstEnnemySamePos (Human e) { // Finding the ennemies (Humans) on the same position than e
@@ -83,7 +92,7 @@ public class SmallWorld extends Thread {
 				
 				if (i >= 0 && i < team_2.size()) {
 					tmp = team_2.get(i);
-					move (tmp, small_world.randPosition ());
+					move (tmp, small_world.randPosition ()); // small world is the BOARD
 					tmp.attack(getFirstElementSamePos (tmp));
 					small_world.get(tmp.getPosition ()).buryDeads ();
 					buryDeads (tmp.getPosition ());
@@ -91,8 +100,11 @@ public class SmallWorld extends Thread {
 			}
 			System.out.println ("" + this);
 			System.out.println ("\n\t########################################\n");
+			
+			gui.updateMapPanel();
+			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -135,5 +147,21 @@ public class SmallWorld extends Thread {
 
 	public String toString () {
 		return "" + small_world;
+	}
+
+	public ArrayList<Human> getTeam_1() {
+		return team_1;
+	}
+
+	public void setTeam_1(ArrayList<Human> team_1) {
+		this.team_1 = team_1;
+	}
+
+	public ArrayList<Resource> getRes() {
+		return res;
+	}
+
+	public void setRes(ArrayList<Resource> res) {
+		this.res = res;
 	}
 }
