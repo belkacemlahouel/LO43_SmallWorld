@@ -1,5 +1,3 @@
-// TEST
-
 /*
  *	Class containing the main method
  *	UTBM - LO43 - A2013
@@ -10,7 +8,9 @@
 
 public class Application {
 	public static void main (String[] agrs) {
-		SmallWorld small_world = new SmallWorld ();
+		
+		
+		SmallWorld small_world = new SmallWorld();
 		System.out.println ("" + small_world);
 
 		System.out.println ("\n\t########################################\n");
