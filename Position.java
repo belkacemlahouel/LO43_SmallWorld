@@ -27,4 +27,15 @@ public class Position {
 	public boolean equals (Position pos) {
 		return pos.x == x && pos.y == y;
 	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+
+
 }

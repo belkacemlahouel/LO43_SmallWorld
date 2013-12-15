@@ -14,4 +14,5 @@ public class Resource extends Element {
 	public String toString () {
 		return "Resource \"" + name + "\" at " + pos + " life: " + life;
 	}
+
 }

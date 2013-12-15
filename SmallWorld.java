@@ -18,15 +18,12 @@ public class SmallWorld extends Thread {
 	private ArrayList<Resource> res;
 	private SmallWorldGUI gui;
 
-	public ArrayList<Position> getPossiblePositions (Human e) {
-		return small_world(e.getReach ()); // TODO add Cases that cannot be crossed!
-	} // switch to Individual after that...
 	
 	public SmallWorld () {
 
 		super ("Small World"); // Construction of the Thread
 
-		small_world = new Board (50,50);
+		small_world = new Board (60,60);
 		team_1 = new ArrayList<Human> (0);
 		team_2 = new ArrayList<Human> (0);
 		res = new ArrayList<Resource> (0);
@@ -39,7 +36,7 @@ public class SmallWorld extends Thread {
 				small_world.get(0, i).add(team_1.get(i));
 			team_2.add(new Human (small_world.get(2, i).getPosition(), "human"));
 				small_world.get(2, i).add(team_2.get(i));
-			res.add(new Resource (small_world.get(1, i).getPosition(), "rock"));
+			res.add(new Resource (small_world.randPosition(), "rock"));
 				small_world.get(1, i).add(res.get(i));
 		}
 		gui = new SmallWorldGUI (this);
@@ -81,7 +78,7 @@ public class SmallWorld extends Thread {
 		
 		Human tmp;
 		while (!team_1.isEmpty() && !team_2.isEmpty()) {
-			for (int i=0 ; i<3 ; ++i) {
+			for (int i=0 ; i<Math.max(team_1.size(), team_2.size()) ; ++i) {
 				if (i >= 0 && i < team_1.size()) {
 					tmp = team_1.get(i);
 					move (tmp, small_world.randPosition ());
@@ -98,8 +95,8 @@ public class SmallWorld extends Thread {
 					buryDeads (tmp.getPosition ());
 				}
 			}
-			System.out.println ("" + this);
-			System.out.println ("\n\t########################################\n");
+			//System.out.println ("" + this);
+			//System.out.println ("\n\t########################################\n");
 			
 			gui.updateMapPanel();
 			
@@ -139,10 +136,18 @@ public class SmallWorld extends Thread {
 
 	public synchronized void move (Human e, Position new_pos) { // synchronized?
 		if (!e.getPosition().equals(new_pos)) {
+			e.setOldPos(e.getPosition ());
 			small_world.get(e.getPosition ()).remove (e);
 			e.setPosition (new_pos);
 			small_world.get(new_pos).add (e);
 		}
+	}
+	
+	public void addHuman()
+	{
+		Human h = new Human(small_world.randPosition(),"human");
+		this.team_1.add(h);
+		this.gui.getPan2().getHumList().add(new ElementGUI(h));
 	}
 
 	public String toString () {
