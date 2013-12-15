@@ -19,7 +19,7 @@ public class MenuPanel extends JPanel {
 	    menuGrid.setVgap(5);
 	    this.setLayout(menuGrid);
 	    this.setBackground(Color.WHITE);
-	    this.setPreferredSize(new Dimension(150,720));
+	    this.setPreferredSize(new Dimension(176,720));
 	    JLabel lab1 = new JLabel ("Menu");
 	    JButton butt1 = new JButton("Pause");
 	    JButton butt2 = new JButton("Play");
@@ -37,8 +37,6 @@ public class MenuPanel extends JPanel {
 	    this.add(butt1);
 	    this.add(butt2);
 	    this.add(butt3);
-	    
-	    
 	    
 	}
 	

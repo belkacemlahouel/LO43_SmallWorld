@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 
 public class ElementGUI {
 	private Image imgElement;
-	private Position oldPos;
 	private Element elem;
 	boolean endMove;
 	
@@ -32,21 +31,16 @@ public class ElementGUI {
 	        e.printStackTrace();
 	    } 
 		
-		oldPos = null;
 		elem = r;
 	}
 	
-	public Position getOldPos() {
-		return oldPos;
+
+	public Element getElem() {
+		return elem;
 	}
 
-	public void setOldPos(Position oldPos) {
-		this.oldPos = oldPos;
-	}
-	
-	public void setOldPos(int x,int y) {
-		this.oldPos.setX(x);
-		this.oldPos.setY(y);
+	public void setElem(Element elem) {
+		this.elem = elem;
 	}
 
 	public Position getPos() {

@@ -4,12 +4,11 @@
  * A Human has certain capabilities that Resources do not have
 */
 
-public class Human extends Element {
+public class Human extends Individual {
 	
 	private static final int std_dmg = 20; // implementing a std_dmg attribute for generation of random damages
 	private static final int std_pick = 5;
 	private static final int max_life = 100; // to avoid over health, make the Human stop eating when it has enough health
-	private Position oldPos;
 	
 	public Human (Position p, String name) {
 		super (p, name);
@@ -32,12 +31,8 @@ public class Human extends Element {
 		}
 	}
 
-	public Position getOldPos() {
-		return oldPos;
-	}
 
-	public void setOldPos(Position oldPos) {
-		this.oldPos = oldPos;
-	}
+	
+
 	
 }

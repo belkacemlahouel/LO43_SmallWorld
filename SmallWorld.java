@@ -136,7 +136,6 @@ public class SmallWorld extends Thread {
 
 	public synchronized void move (Human e, Position new_pos) { // synchronized?
 		if (!e.getPosition().equals(new_pos)) {
-			e.setOldPos(e.getPosition ());
 			small_world.get(e.getPosition ()).remove (e);
 			e.setPosition (new_pos);
 			small_world.get(new_pos).add (e);

@@ -82,27 +82,11 @@ public class MapPanel extends JPanel {
 	
 	public void drawHumList(Graphics g)
 	{		
-		//boolean finishedDraw = false;
 		
 		for(int n=0;n<this.humList.size();n++)
 		{
 			g.drawImage(humList.get(n).getImgElement(),humList.get(n).getPos().getX()*10,humList.get(n).getPos().getY()*10, this);
 		}
-		
-		/*while(!finishedDraw)
-		{
-			
-			finishedDraw = true;
-			for(int n=0;n<this.humList.size();n++)
-			{
-				if(this.humList.get(n).getOldPos() != this.humList.get(n).getPos())
-				{
-					finishedDraw = false;
-					humList.get(n).setOldPos(this.diffX(humList.get(n).getOldPos(),humList.get(n).getPos())/this.diffX(humList.get(n).getOldPos(),humList.get(n).getPos()),this.diffY(humList.get(n).getOldPos(),humList.get(n).getPos())/this.diffY(humList.get(n).getOldPos(),humList.get(n).getPos()));
-					g.drawImage(humList.get(n).getImgElement(),humList.get(n).getOldPos().getX()*10,humList.get(n).getOldPos().getY()*10, this);
-				}
-			} 
-		}*/
 		
 	}
 	
