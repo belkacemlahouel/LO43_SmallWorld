@@ -16,11 +16,11 @@ public class SmallWorld extends Thread {
 	private Board small_world;
 	private ArrayList<Human> team_1, team_2;
 	private ArrayList<Resource> res;
-	private SmallWorldGUI gui;
+	//private SmallWorldGUI gui;
 
-	public ArrayList<Position> getPossiblePositions (Human e) {
-		return small_world(e.getReach ()); // TODO add Cases that cannot be crossed!
-	} // switch to Individual after that...
+	//public ArrayList<Position> getPossiblePositions (Human e) {
+		//return small_world(e.getReach ()); // TODO add Cases that cannot be crossed!
+	//} // switch to Individual after that...
 	
 	public SmallWorld () {
 
@@ -33,7 +33,7 @@ public class SmallWorld extends Thread {
 
 		res.add(new Resource(new Position(5,7),"rock"));
 
-		for (int i=0 ; i<3 ; ++i) { // These initializations should be done after parsing the XML file
+		/*for (int i=0 ; i<3 ; ++i) { // These initializations should be done after parsing the XML file
 			// Placing the Humans from team_1 on the first line, the Humans from team_2 on the last line + adding them to the Cases on the Board (small_world)
 			team_1.add(new Human (small_world.get(0, i).getPosition(), "human"));
 				small_world.get(0, i).add(team_1.get(i));
@@ -41,8 +41,20 @@ public class SmallWorld extends Thread {
 				small_world.get(2, i).add(team_2.get(i));
 			res.add(new Resource (small_world.get(1, i).getPosition(), "rock"));
 				small_world.get(1, i).add(res.get(i));
-		}
-		gui = new SmallWorldGUI (this);
+		}*/
+		//gui = new SmallWorldGUI (this);
+	}
+	
+	public void setBoard(Board b) {
+		small_world = b;
+	}
+	
+	public void addres(Resource s){
+		res.add(s);
+	}
+	
+	public Board getBoard(){
+		return small_world;
 	}
 	
 	public Human getFirstEnnemySamePos (Human e) { // Finding the ennemies (Humans) on the same position than e
@@ -101,7 +113,7 @@ public class SmallWorld extends Thread {
 			System.out.println ("" + this);
 			System.out.println ("\n\t########################################\n");
 			
-			gui.updateMapPanel();
+			//gui.updateMapPanel();
 			
 			try {
 				Thread.sleep(500);
@@ -163,5 +175,13 @@ public class SmallWorld extends Thread {
 
 	public void setRes(ArrayList<Resource> res) {
 		this.res = res;
+	}
+	
+	public void addTeam1 (Human h) {
+		team_1.add(h);
+	}
+	
+	public void addTeam2 (Human h) {
+		team_2.add(h);
 	}
 }

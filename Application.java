@@ -9,10 +9,9 @@
 public class Application {
 	public static void main (String[] agrs) {
 		
+		SmallWorldParser SWP = new SmallWorldParser();
+		SmallWorld small_world = SWP.createSW("Map.xml");
 		
-		SmallWorld small_world = new SmallWorld();
-		System.out.println ("" + small_world);
-
 		System.out.println ("\n\t########################################\n");
 
 		small_world.run (); // The "while (true)" loop is inside the Thread named "Small World"
