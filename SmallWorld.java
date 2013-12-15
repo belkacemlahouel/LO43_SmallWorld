@@ -8,41 +8,39 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * @author luc
- *
- */
 public class SmallWorld extends Thread {
 	private Board small_world;
 	private ArrayList<Human> team_1, team_2;
 	private ArrayList<Resource> res;
-	private SmallWorldGUI gui;
 
-	public ArrayList<Position> getPossiblePositions (Human e) {
-		return small_world(e.getReach ()); // TODO add Cases that cannot be crossed!
-	} // switch to Individual after that...
-	
+	/*
+	 *	Method implementing the reaches for Human moves for Humans
+	 *	For Humans: reach = 1. So they move from one Position to another, next to it
+	 *	But wa could imagine species, for which the reach is bigger (faster Individuals), how would I implement it?
+	 *	TODO add Positions that cannot be crossed...
+	*/
+	public Position getBestNextPosition (Human e, Position final_pos) { // or ArrayLIst<Position> with the complete path...
+		return small_world.getNextPosition (e, final_pos);
+	}
+
 	public SmallWorld () {
 
 		super ("Small World"); // Construction of the Thread
 
-		small_world = new Board (50,50);
+		small_world = new Board (4,4);
 		team_1 = new ArrayList<Human> (0);
 		team_2 = new ArrayList<Human> (0);
 		res = new ArrayList<Resource> (0);
 
-		res.add(new Resource(new Position(5,7),"rock"));
-
 		for (int i=0 ; i<3 ; ++i) { // These initializations should be done after parsing the XML file
 			// Placing the Humans from team_1 on the first line, the Humans from team_2 on the last line + adding them to the Cases on the Board (small_world)
-			team_1.add(new Human (small_world.get(0, i).getPosition(), "human"));
+			team_1.add(new Human (small_world.get(0, i).getPosition(), "1."+(i+1)));
 				small_world.get(0, i).add(team_1.get(i));
-			team_2.add(new Human (small_world.get(2, i).getPosition(), "human"));
+			team_2.add(new Human (small_world.get(2, i).getPosition(), "2."+(i+1)));
 				small_world.get(2, i).add(team_2.get(i));
-			res.add(new Resource (small_world.get(1, i).getPosition(), "rock"));
+			res.add(new Resource (small_world.get(1, i).getPosition(), "R."+(i+1)));
 				small_world.get(1, i).add(res.get(i));
 		}
-		gui = new SmallWorldGUI (this);
 	}
 	
 	public Human getFirstEnnemySamePos (Human e) { // Finding the ennemies (Humans) on the same position than e
@@ -80,11 +78,17 @@ public class SmallWorld extends Thread {
 	public synchronized void run () {
 		
 		Human tmp;
+		Position tmp_pos, rand_pos;
+
 		while (!team_1.isEmpty() && !team_2.isEmpty()) {
 			for (int i=0 ; i<3 ; ++i) {
 				if (i >= 0 && i < team_1.size()) {
 					tmp = team_1.get(i);
-					move (tmp, small_world.randPosition ());
+					rand_pos = small_world.randPosition ();
+					tmp_pos = getBestNextPosition(tmp, rand_pos); // tmp_pos: an intermediary following the aim (randPosition)
+					System.out.println ("" + tmp + "\t" + rand_pos + "\t" + tmp_pos);
+					move (tmp, tmp_pos);
+					// move (tmp, small_world.randPosition ());
 					// Attacking the other people (Element) on this case, if they are from another team...
 					tmp.attack(getFirstElementSamePos (tmp));
 					buryDeads (tmp.getPosition ());
@@ -92,7 +96,11 @@ public class SmallWorld extends Thread {
 				
 				if (i >= 0 && i < team_2.size()) {
 					tmp = team_2.get(i);
-					move (tmp, small_world.randPosition ()); // small world is the BOARD
+					rand_pos = small_world.randPosition ();
+					tmp_pos = getBestNextPosition(tmp, rand_pos);
+					System.out.println ("" + tmp + "\t" + rand_pos + "\t" + tmp_pos);
+					move (tmp, tmp_pos);
+					// move (tmp, small_world.randPosition ()); // small world is the BOARD
 					tmp.attack(getFirstElementSamePos (tmp));
 					small_world.get(tmp.getPosition ()).buryDeads ();
 					buryDeads (tmp.getPosition ());
@@ -100,8 +108,6 @@ public class SmallWorld extends Thread {
 			}
 			System.out.println ("" + this);
 			System.out.println ("\n\t########################################\n");
-			
-			gui.updateMapPanel();
 			
 			try {
 				Thread.sleep(500);
@@ -147,21 +153,5 @@ public class SmallWorld extends Thread {
 
 	public String toString () {
 		return "" + small_world;
-	}
-
-	public ArrayList<Human> getTeam_1() {
-		return team_1;
-	}
-
-	public void setTeam_1(ArrayList<Human> team_1) {
-		this.team_1 = team_1;
-	}
-
-	public ArrayList<Resource> getRes() {
-		return res;
-	}
-
-	public void setRes(ArrayList<Resource> res) {
-		this.res = res;
 	}
 }
