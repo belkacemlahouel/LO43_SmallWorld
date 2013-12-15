@@ -31,7 +31,7 @@ public class SmallWorldGUI extends JFrame{
 	    getContentPane().setBackground(Color.GREEN);        
 	    getContentPane().setLayout(new BorderLayout());
 	    
-	    pan1 = new MenuPanel();
+	    pan1 = new MenuPanel(sw);
 	    
 	    pan2 = new MapPanel(sw.getRes(),sw.getTeam_1());
 	    	    
@@ -44,9 +44,26 @@ public class SmallWorldGUI extends JFrame{
 	
 	/* This method updates the map, with all the new positions and so on*/
 	
+	public MenuPanel getPan1() {
+		return pan1;
+	}
+
+	public void setPan1(MenuPanel pan1) {
+		this.pan1 = pan1;
+	}
+
+	public MapPanel getPan2() {
+		return pan2;
+	}
+
+	public void setPan2(MapPanel pan2) {
+		this.pan2 = pan2;
+	}
+
 	public void updateMapPanel()
 	{
 		pan2.repaint();
 	}
+	
 	
 }

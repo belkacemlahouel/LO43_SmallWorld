@@ -32,6 +32,11 @@ public class Element { // TODO go abstract
 		pos = tmp_pos;
 	}
 	
+	public void setPosition (int x, int y) {
+		pos.setX(x);
+		pos.setY(y);
+	}
+
 	public int getLife () {
 		return life;
 	}

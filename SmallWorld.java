@@ -27,7 +27,8 @@ public class SmallWorld extends Thread {
 
 		super ("Small World"); // Construction of the Thread
 
-		small_world = new Board (4,4);
+		small_world = new Board (60,60);
+
 		team_1 = new ArrayList<Human> (0);
 		team_2 = new ArrayList<Human> (0);
 		res = new ArrayList<Resource> (0);
@@ -81,7 +82,7 @@ public class SmallWorld extends Thread {
 		Position tmp_pos, rand_pos;
 
 		while (!team_1.isEmpty() && !team_2.isEmpty()) {
-			for (int i=0 ; i<3 ; ++i) {
+			for (int i=0 ; i<Math.max(team_1.size(), team_2.size()) ; ++i) {
 				if (i >= 0 && i < team_1.size()) {
 					tmp = team_1.get(i);
 					rand_pos = small_world.randPosition ();
@@ -106,8 +107,8 @@ public class SmallWorld extends Thread {
 					buryDeads (tmp.getPosition ());
 				}
 			}
-			System.out.println ("" + this);
-			System.out.println ("\n\t########################################\n");
+			//System.out.println ("" + this);
+			//System.out.println ("\n\t########################################\n");
 			
 			try {
 				Thread.sleep(500);
@@ -149,6 +150,13 @@ public class SmallWorld extends Thread {
 			e.setPosition (new_pos);
 			small_world.get(new_pos).add (e);
 		}
+	}
+	
+	public void addHuman()
+	{
+		Human h = new Human(small_world.randPosition(),"human");
+		this.team_1.add(h);
+		this.gui.getPan2().getHumList().add(new ElementGUI(h));
 	}
 
 	public String toString () {

@@ -4,7 +4,7 @@
  * A Human (e.g.) has certain capabilities that Resources do not have (e.g. attack or move)
 */
 
-public class Human extends Element {
+public class Human extends Individual {
 	
 	private static final int std_dmg = 20; // implementing a std_dmg attribute for generation of random damages
 	private static final int std_pick = 5;
@@ -41,5 +41,4 @@ public class Human extends Element {
 	public int getReach () {
 		return reach;
 	}
-	
 }
