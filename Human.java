@@ -12,7 +12,7 @@ public class Human extends Individual {
 	private static final int reach = 1;
 	
 	public Human (Position p, String name) {
-		super (p, name);
+		super (p, "human");
 		life = max_life;
 	}
 	
