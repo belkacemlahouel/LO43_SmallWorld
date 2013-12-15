@@ -10,8 +10,8 @@ import java.util.Iterator;
 
 public class SmallWorld extends Thread {
 	private Board small_world;
-	private ArrayList<Human> team_1, team_2;
-	private ArrayList<Resource> res;
+	private ArrayList<Tribe> tribeList;
+	private ArrayList<Resource> res; /* At the beginning, we put the resources of the map, it doesn't belong to the Individuals */
 	private SmallWorldGUI gui;
 	
 	/*
@@ -20,8 +20,8 @@ public class SmallWorld extends Thread {
 	 *	But wa could imagine species, for which the reach is bigger (faster Individuals), how would I implement it?
 	 *	TODO add Positions that cannot be crossed...
 	*/
-	public Position getBestNextPosition (Human e, Position final_pos) { // or ArrayLIst<Position> with the complete path...
-		return small_world.getNextPosition (e, final_pos);
+	public Position getBestNextPosition (Individual tmp, Position final_pos) { // or ArrayLIst<Position> with the complete path...
+		return small_world.getNextPosition (tmp, final_pos);
 	}
 
 	//public ArrayList<Position> getPossiblePositions (Human e) {
@@ -32,21 +32,17 @@ public class SmallWorld extends Thread {
 
 		super ("Small World"); // Construction of the Thread
 		
-		team_1 = new ArrayList<Human> (0);
-		team_2 = new ArrayList<Human> (0);
+		tribeList = new ArrayList<Tribe>();
+		Tribe team_1 = new Tribe();
+		Tribe team_2 = new Tribe();
+		team_1.setTribeIndex(1);
+		team_2.setTribeIndex(2);
 		res = new ArrayList<Resource> (0);
+		
+		tribeList.add(team_1);
+		tribeList.add(team_2);
 
 		res.add(new Resource(new Position(5,7),"rock"));
-
-		/*for (int i=0 ; i<3 ; ++i) { // These initializations should be done after parsing the XML file
-			// Placing the Humans from team_1 on the first line, the Humans from team_2 on the last line + adding them to the Cases on the Board (small_world)
-			team_1.add(new Human (small_world.get(0, i).getPosition(), "1."+(i+1)));
-				small_world.get(0, i).add(team_1.get(i));
-			team_2.add(new Human (small_world.get(2, i).getPosition(), "2."+(i+1)));
-				small_world.get(2, i).add(team_2.get(i));
-			res.add(new Resource (small_world.get(1, i).getPosition(), "R."+(i+1)));
-				small_world.get(1, i).add(res.get(i));
-			}*/
 		
 		gui = new SmallWorldGUI (this);
 	}
@@ -57,17 +53,18 @@ public class SmallWorld extends Thread {
 	
 	public void addres(Resource s){
 		res.add(s);
+		this.gui.getPan2().getResList().add(new ElementGUI(s));
 	}
 	
 	public Board getBoard(){
 		return small_world;
 	}
 	
-	public Human getFirstEnnemySamePos (Human e) { // Finding the ennemies (Humans) on the same position than e
+	public Human getFirstEnnemySamePos (Individual e) { // Finding the ennemies (individuals) on the same position than e
 		ArrayList<Element> tmp_elementsList = small_world.get(e.getPosition()).getElementsList();
 		if (!tmp_elementsList.isEmpty ()) {
 			for (Element tmp_e : tmp_elementsList) {
-				if (tmp_e instanceof Human && !areFriends ((Human)tmp_e, e)) { // e and tmp_e (Humans) are in two different teams
+				if (tmp_e instanceof Individual && !areFriends ((Individual)tmp_e, e)) { // e and tmp_e (Humans) are in two different teams
 					return (Human) tmp_e;
 				}
 			}
@@ -75,13 +72,13 @@ public class SmallWorld extends Thread {
 		return null;
 	}
 	
-	public Element getFirstElementSamePos (Human e) { // Finding the ennemies (Humans) or Resources on the same position than e; Humans > Resources
+	public Element getFirstElementSamePos (Individual tmp) { // Finding the ennemies (Humans) or Resources on the same position than e; Humans > Resources
 		Resource tmp_r = null;
-		ArrayList<Element> tmp_elementsList = small_world.get(e.getPosition()).getElementsList();
+		ArrayList<Element> tmp_elementsList = small_world.get(tmp.getPosition()).getElementsList();
 		if (!tmp_elementsList.isEmpty ()) {
 			for (Element tmp_e : tmp_elementsList) {
-				if (tmp_e instanceof Human && !areFriends ((Human)tmp_e, e)) {
-					return (Human)tmp_e;
+				if (tmp_e instanceof Individual && !areFriends ((Individual)tmp_e, tmp)) {
+					return (Individual)tmp_e;
 				} else if (tmp_r == null && tmp_e instanceof Resource) {
 					tmp_r = (Resource) tmp_e;
 				}
@@ -90,106 +87,96 @@ public class SmallWorld extends Thread {
 		return tmp_r; // either returns null, or the reference on the first Resource met in the list
 	}
 	
-	public boolean areFriends (Human e1, Human e2) { // testing if two Humans are in the same team or not, assuming we just have two teams (of Humans) for the moment
-		return (team_1.contains(e1) && team_1.contains(e2)) ||
-				(team_2.contains(e1) && team_2.contains(e2));
+	public boolean areFriends (Individual e1, Individual e2) { // testing if two Individuals are in the same team or not
+		for(int i=0;i<tribeList.size();i++)
+		{
+			if(tribeList.get(i).getPopulation().contains(e1) && tribeList.get(i).getPopulation().contains(e2))
+				return true;
+		}
+		return false;
 	}
 
 	public synchronized void run () {
 		
-		Human tmp;
+		Individual tmp;
 		Position tmp_pos, rand_pos;
 
-		while (!team_1.isEmpty() && !team_2.isEmpty()) {
-			for (int i=0 ; i<Math.max(team_1.size(), team_2.size()) ; ++i) {
-				if (i >= 0 && i < team_1.size()) {
-					tmp = team_1.get(i);
+		while(tribeList.size()>1){
+			for(int i=0;i<tribeList.size();i++)
+			{
+				for(int j=0;j<tribeList.get(i).getPopulation().size();j++)
+				{
+					tmp = tribeList.get(i).getPopulation().get(j);
 					rand_pos = small_world.randPosition ();
 					tmp_pos = getBestNextPosition(tmp, rand_pos); // tmp_pos: an intermediary following the aim (randPosition)
-					System.out.println ("" + tmp + "\t" + rand_pos + "\t" + tmp_pos);
+					//System.out.println ("" + tmp + "\t" + rand_pos + "\t" + tmp_pos);
 					move (tmp, tmp_pos);
-					// move (tmp, small_world.randPosition ());
-					// Attacking the other people (Element) on this case, if they are from another team...
 					tmp.attack(getFirstElementSamePos (tmp));
-					buryDeads (tmp.getPosition ());
-				}
-				
-				if (i >= 0 && i < team_2.size()) {
-					tmp = team_2.get(i);
-					rand_pos = small_world.randPosition ();
-					tmp_pos = getBestNextPosition(tmp, rand_pos);
-					System.out.println ("" + tmp + "\t" + rand_pos + "\t" + tmp_pos);
-					move (tmp, tmp_pos);
-					// move (tmp, small_world.randPosition ()); // small world is the BOARD
-					tmp.attack(getFirstElementSamePos (tmp));
-					small_world.get(tmp.getPosition ()).buryDeads ();
 					buryDeads (tmp.getPosition ());
 				}
 			}
+			
+		
 			//System.out.println ("" + this);
 			//System.out.println ("\n\t########################################\n");
 			
 			gui.updateMapPanel();
-			
+		
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		System.out.println ("\n\n\tEnd of Small World...");
-		if (!team_2.isEmpty ()) System.out.println ("\tTeam 2 wins!");
-		else if (!team_1.isEmpty ()) System.out.println ("\tTeam 1 wins!");
-		else System.out.println ("\tNobody wins!");
+			/*System.out.println ("\n\n\tEnd of Small World...");
+			if (!team_2.isEmpty ()) System.out.println ("\tTeam 2 wins!");
+			else if (!team_1.isEmpty ()) System.out.println ("\tTeam 1 wins!");
+			else System.out.println ("\tNobody wins!");*/
 	}
+		
+		
 	
 	public synchronized void buryDeads (Position p) {
-		small_world.get(p).buryDeads(); // burying deads (Humans only, for the moment) in that Position, which leads us to the Case from the Board
+		small_world.get(p).buryDeads(); // burying deads in that Position, which leads us to the Case from the Board
 		
-		Iterator<Human> it = team_1.iterator();
-		while (it.hasNext()) {
-			Human x = it.next();
-			if (x.isDead()) {
-				it.remove();
-				return ; // assuming there's only one instance Human, all differents...
-			}
-		}
-		it = team_2.iterator();
-		while (it.hasNext()) {
-			Human x = it.next();
-			if (x.isDead()) {
-				it.remove();
-				return ; // assuming there's only one instance Human, all differents...
+		for(int i=0;i<tribeList.size();i++)
+		{
+			for(int j=0;j<tribeList.get(i).getPopulation().size();j++)
+			{
+				
+				if(tribeList.get(i).getPopulation().get(j).isDead())
+					tribeList.get(i).getPopulation().remove(j);
 			}
 		}
 	}
 
-	public synchronized void move (Human e, Position new_pos) { // synchronized?
-		if (!e.getPosition().equals(new_pos)) {
-			small_world.get(e.getPosition ()).remove (e);
-			e.setPosition (new_pos);
-			small_world.get(new_pos).add (e);
+	public synchronized void move (Individual tmp, Position new_pos) { // synchronized?
+		if (!tmp.getPosition().equals(new_pos)) {
+			small_world.get(tmp.getPosition ()).remove (tmp);
+			tmp.setPosition (new_pos);
+			small_world.get(new_pos).add (tmp);
 		}
 	}
 	
-	public void addHuman()
+	/* This method adds the specified individual in the specified tribe */
+	
+	public void addIndividual(Tribe t,Individual i)
 	{
-		Human h = new Human(small_world.randPosition(),"human");
-		this.team_1.add(h);
-		this.gui.getPan2().getHumList().add(new ElementGUI(h));
+		this.tribeList.get(tribeList.indexOf(t)).getPopulation().add(i);
+		this.gui.getPan2().getIndivList().add(new ElementGUI(i));
+	}
+	public void addIndividual(Individual i,int tribeIndex)
+	{
+		tribeList.get(tribeIndex-1).getPopulation().add(i);
+		this.gui.getPan2().getIndivList().add(new ElementGUI(i));
 	}
 
 	public String toString () {
 		return "" + small_world;
 	}
 
-	public ArrayList<Human> getTeam_1() {
-		return team_1;
-	}
-
-	public void setTeam_1(ArrayList<Human> team_1) {
-		this.team_1 = team_1;
+	public Tribe getTribe(int n) {
+		return tribeList.get(n);
 	}
 
 	public ArrayList<Resource> getRes() {
@@ -199,14 +186,14 @@ public class SmallWorld extends Thread {
 	public void setRes(ArrayList<Resource> res) {
 		this.res = res;
 	}
-	
-	public void addTeam1 (Human h) {
-		team_1.add(h);
-		this.gui.getPan2().getHumList().add(new ElementGUI(h));
 
+	public ArrayList<Tribe> getTribeList() {
+		return tribeList;
+	}
+
+	public void setTribeList(ArrayList<Tribe> tribeList) {
+		this.tribeList = tribeList;
 	}
 	
-	public void addTeam2 (Human h) {
-		team_2.add(h);
-	}
+
 }

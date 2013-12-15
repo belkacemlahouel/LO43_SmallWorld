@@ -15,34 +15,17 @@ import javax.swing.JPanel;
 public class MapPanel extends JPanel {
 	
 	private ArrayList<ElementGUI> resList;
-	private ArrayList<ElementGUI> humList;
-	public ArrayList<ElementGUI> getResList() {
-		return resList;
-	}
-
-	public void setResList(ArrayList<ElementGUI> resList) {
-		this.resList = resList;
-	}
-
-	public ArrayList<ElementGUI> getHumList() {
-		return humList;
-	}
-
-	public void setHumList(ArrayList<ElementGUI> humList) {
-		this.humList = humList;
-	}
+	private ArrayList<ElementGUI> indivList;
 
 	private static final int  caseSize = 10; // A case has 10px length and width
 	
 	/* The idea is to create the map Panel with a given XML or ElementList */
 
-	public MapPanel(ArrayList<Resource> resList_,ArrayList<Human> humList_)
+	public MapPanel(ArrayList<Resource> resList_,ArrayList<Tribe> tribeList_)
 	{
 		super();
 		resList = new ArrayList<ElementGUI>();
-		humList = new ArrayList<ElementGUI>();
-		createElementGUIResList(resList_);
-		createElementGUIHumList(humList_);
+		indivList = new ArrayList<ElementGUI>();
 		
 	    this.setPreferredSize(new Dimension(1100,720));  
 	    this.setVisible(true);
@@ -68,7 +51,7 @@ public class MapPanel extends JPanel {
 	      }    
 	    
 	    drawResList(g);
-	    drawHumList(g);
+	    drawIndivList(g);
 	    
 	 }
 
@@ -80,38 +63,13 @@ public class MapPanel extends JPanel {
 		}
 	}
 	
-	public void drawHumList(Graphics g)
+	public void drawIndivList(Graphics g)
 	{		
-		
-		for(int n=0;n<this.humList.size();n++)
+		for(int n=0;n<this.indivList.size();n++)
 		{
-			g.drawImage(humList.get(n).getImgElement(),humList.get(n).getPos().getX()*10,humList.get(n).getPos().getY()*10, this);
+			g.drawImage(indivList.get(n).getImgElement(),indivList.get(n).getPos().getX()*10,indivList.get(n).getPos().getY()*10, this);
 		}
 		
-	}
-	
-	/* 
-	 * This method creates the graphical version of the Resource list
-	 */
-	
-	public void createElementGUIResList(ArrayList<Resource> resList_)
-	{
-		for(int i=0;i<resList_.size();i++)
-		{
-			this.resList.add(new ElementGUI(resList_.get(i)));
-		}
-	}
-	
-	/* 
-	 * This method creates the graphical version of the Human list
-	 */
-	
-	public void createElementGUIHumList(ArrayList<Human> humList_)
-	{
-		for(int i=0;i<humList_.size();i++)
-		{
-			this.humList.add(new ElementGUI(humList_.get(i)));
-		}
 	}
 	
 	/* This function computes the difference on the X axis beetwen this and another position p */
@@ -127,6 +85,21 @@ public class MapPanel extends JPanel {
 	{
 		return p1.getY() - p2.getY();
 	}
+
+	public ArrayList<ElementGUI> getIndivList() {
+		return indivList;
+	}
+
+	public void setIndivList(ArrayList<ElementGUI> indivList) {
+		this.indivList = indivList;
+	}
 	
+	public ArrayList<ElementGUI> getResList() {
+		return resList;
+	}
+
+	public void setResList(ArrayList<ElementGUI> resList) {
+		this.resList = resList;
+	}
 	
 }

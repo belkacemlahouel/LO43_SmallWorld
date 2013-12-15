@@ -33,7 +33,7 @@ public class SmallWorldGUI extends JFrame{
 	    
 	    pan1 = new MenuPanel(sw);
 	    
-	    pan2 = new MapPanel(sw.getRes(),sw.getTeam_1());
+	    pan2 = new MapPanel(sw.getRes(),sw.getTribeList());
 	    	    
 	    getContentPane().add(pan1,BorderLayout.WEST);
 	    getContentPane().add(pan2,BorderLayout.EAST);

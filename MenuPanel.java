@@ -23,14 +23,12 @@ public class MenuPanel extends JPanel {
 	    JLabel lab1 = new JLabel ("Menu");
 	    JButton butt1 = new JButton("Pause");
 	    JButton butt2 = new JButton("Play");
-	    JButton butt3 = new JButton("Ajouter humain");
+	    JButton butt3 = new JButton("Ajouter Team 1");
 	    
 	    butt3.addActionListener(new ActionListener(){
 	    	
-	    	public void actionPerformed(ActionEvent arg0){
-	    		
-	    		sw.addHuman();
-	    
+	    	public void actionPerformed(ActionEvent arg0){	
+	    		sw.addIndividual(new Human(new Position(5,5),"human"),1);
 	    	}
 		});
 	    this.add(lab1);

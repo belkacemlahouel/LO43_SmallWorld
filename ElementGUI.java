@@ -23,6 +23,17 @@ public class ElementGUI {
 		elem = h;
 	}
 	
+	public ElementGUI(Individual i)
+	{
+		try{
+			imgElement = ImageIO.read(new File(i.name + ".png")); // The file of the element is referred as it's name + the .png file extension
+	      } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		
+		elem = i;
+	}
+	
 	public ElementGUI(Resource r)
 	{
 		try{

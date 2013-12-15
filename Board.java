@@ -28,7 +28,7 @@ public class Board {
 	 *	Should add a method to get a direct Position from a starting Position and a reach, in one direction
 	 *	Firstly we move on x, then on y (for the Human, but it might be different for the other Individuals)
 	*/
-	public Position getNextPosition (Human e, Position final_pos) {
+	public Position getNextPosition (Individual e, Position final_pos) {
 		int tmp_x = e.getPosition().getX(), tmp_y = e.getPosition().getY(), tmp_dist = 0;
 
 		if ((Math.abs(e.getPosition().getX() - final_pos.getX()) > 0 || Math.abs(e.getPosition().getY() - final_pos.getY()) > 0)) {

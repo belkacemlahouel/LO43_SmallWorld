@@ -140,14 +140,29 @@ public class SmallWorldHandler extends DefaultHandler  {
 					}
 				}
 				Human h = new Human(ca.getPosition(), name);
-				if (team == 1){
-					smallworld.addTeam1(h);
-				}
-				else if (team == 2){
-					smallworld.addTeam2(h);
-				}
+				smallworld.addIndividual(h,team);
 				h.setLife(l);
 				ca.add(h);
+			}
+			else if (rawName.equals("robot")){
+				String name ="";
+				int  l = 0, team = 0;
+				for (int index = 0; index < attributs.getLength(); index++){
+					if (attributs.getQName(index).equals("name")){
+						name = attributs.getValue(index);
+					}
+					
+					else if (attributs.getQName(index).equals("life")) {
+						l = Integer.parseInt(attributs.getValue(index));
+					}
+					else if (attributs.getQName(index).equals("team")) {
+						team = Integer.parseInt(attributs.getValue(index));
+					}
+				}
+				Robot r = new Robot(ca.getPosition());
+				smallworld.addIndividual(r,team);
+				r.setLife(l);
+				ca.add(r);
 			}
 		}
 		
