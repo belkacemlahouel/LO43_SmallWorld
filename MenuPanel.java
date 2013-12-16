@@ -28,7 +28,7 @@ public class MenuPanel extends JPanel {
 	    butt3.addActionListener(new ActionListener(){
 	    	
 	    	public void actionPerformed(ActionEvent arg0){	
-	    		sw.addIndividual(new Human(new Position(5,5),"human"),1);
+	    		sw.addIndividual(new Robot(new Position(5,5),"human"),1);
 	    	}
 		});
 	    this.add(lab1);

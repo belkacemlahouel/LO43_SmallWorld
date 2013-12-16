@@ -28,15 +28,20 @@ public class SmallWorldGUI extends JFrame{
 	    this.setLocationRelativeTo(null);
 	    this.setResizable(false);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-	    getContentPane().setBackground(Color.GREEN);        
 	    getContentPane().setLayout(new BorderLayout());
 	    
 	    pan1 = new MenuPanel(sw);
 	    
-	    pan2 = new MapPanel(sw.getRes(),sw.getTribeList());
+	    JPanel pan3 = new JPanel();
+	    
+	    /*We use pan3 just to center the MapPanel pan2 */
+	    pan3.setLayout(new FlowLayout());
+	    pan3.setPreferredSize(new Dimension(1100,720));
+	    pan2 = new MapPanel(sw.getBoard());
+	    pan3.add(pan2);
 	    	    
 	    getContentPane().add(pan1,BorderLayout.WEST);
-	    getContentPane().add(pan2,BorderLayout.EAST);
+	    getContentPane().add(pan3,BorderLayout.EAST);
 	    this.setVisible(true);
 	    getContentPane().validate();
 	    
@@ -64,6 +69,12 @@ public class SmallWorldGUI extends JFrame{
 	{
 		pan2.repaint();
 	}
+	
+	/* TODO : - Make a more generic graphical interface (which changes its size
+	 * 			depending on the XML file
+	 * 		  - Add a "ressource" pannel
+	 * 		  - Separate the "name" and the "raceName"
+	 */
 	
 	
 }

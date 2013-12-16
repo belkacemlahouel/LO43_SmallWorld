@@ -2,6 +2,8 @@ public class Individual extends Element{
 	private final int reach = 1;
 	private final int std_dmg = 20; // implementing a std_dmg attribute for generation of random damages
 	private final int std_pick = 5;
+	private final String raceName;
+	// TODO : add a "goalPosition"
 	
 	/*
 	 *	std_dmg +- random value
@@ -25,8 +27,14 @@ public class Individual extends Element{
 		return reach;
 	}
 	
-	public Individual(Position pos_, String name_) {
+	public Individual(Position pos_, String name_,String raceName_) {
 		super(pos_, name_);
+		raceName = raceName_;
 		
 	}	
+	
+	public String getRaceName() {
+		return raceName;
+	}
+	
 }

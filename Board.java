@@ -24,6 +24,14 @@ public class Board {
 		}
 	}
 
+	public Case[][] getBoard() {
+		return board;
+	}
+
+	public void setBoard(Case[][] board) {
+		this.board = board;
+	}
+
 	/*
 	 *	Should add a method to get a direct Position from a starting Position and a reach, in one direction
 	 *	Firstly we move on x, then on y (for the Human, but it might be different for the other Individuals)
