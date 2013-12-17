@@ -1,3 +1,7 @@
+package kernel;
+
+import kernel.*;
+import xml_parser.*;
 
 /*
  *	This class represents the map
@@ -22,6 +26,14 @@ public class Board {
 				board[l][w] = new Case (new Position (l, w));
 			}
 		}
+	}
+
+	public Case[][] getBoard() {
+		return board;
+	}
+
+	public void setBoard(Case[][] board) {
+		this.board = board;
 	}
 
 	/*

@@ -1,3 +1,7 @@
+package gui;
+
+import kernel.*;
+import xml_parser.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,18 +20,21 @@ public class MapPanel extends JPanel {
 	
 	private ArrayList<ElementGUI> resList;
 	private ArrayList<ElementGUI> indivList;
+	private final int xAxisLength;
+	private final int yAxisLength;
 
 	private static final int  caseSize = 10; // A case has 10px length and width
 	
 	/* The idea is to create the map Panel with a given XML or ElementList */
 
-	public MapPanel(ArrayList<Resource> resList_,ArrayList<Tribe> tribeList_)
+	public MapPanel(Board b)
 	{
 		super();
 		resList = new ArrayList<ElementGUI>();
 		indivList = new ArrayList<ElementGUI>();
-		
-	    this.setPreferredSize(new Dimension(1100,720));  
+		xAxisLength = b.getBoard().length;
+		yAxisLength = b.getBoard()[0].length;
+	    this.setPreferredSize(new Dimension(xAxisLength*caseSize,yAxisLength*caseSize));  
 	    this.setVisible(true);
 	}
 	
@@ -37,10 +44,10 @@ public class MapPanel extends JPanel {
 	    int n;
 	    
 	    try {
-	        Image img = ImageIO.read(new File("grass10px.png"));
-	        for(y=0;y<72;y++)
+	        Image img = ImageIO.read(new File("data//grass10px.png"));
+	        for(y=0;y<yAxisLength;y++)
 		    {
-		    	for(x=0;x<110;x++)
+		    	for(x=0;x<xAxisLength;x++)
 		    	{
 			        g.drawImage(img, x*caseSize, y*caseSize, this);
 		    	}

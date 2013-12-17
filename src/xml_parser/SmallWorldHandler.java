@@ -1,3 +1,7 @@
+package xml_parser;
+
+import kernel.*;
+import gui.*;
 
 /*
  * LE MORVAN VALENTIN - INFO 01
@@ -93,6 +97,7 @@ public class SmallWorldHandler extends DefaultHandler  {
 				}
 				Board b = new Board(l,w);
 				smallworld.setBoard(b);
+				smallworld.setGui(new SmallWorldGUI(smallworld));
 			}
 			else if (rawName.equals("case"))
 			{
@@ -159,7 +164,7 @@ public class SmallWorldHandler extends DefaultHandler  {
 						team = Integer.parseInt(attributs.getValue(index));
 					}
 				}
-				Robot r = new Robot(ca.getPosition());
+				Robot r = new Robot(ca.getPosition(),"Trevor");
 				smallworld.addIndividual(r,team);
 				r.setLife(l);
 				ca.add(r);
