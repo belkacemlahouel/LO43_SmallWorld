@@ -1,8 +1,6 @@
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
+package kernel;
 
-/*
+/**
  *	An Element is something on the map
  *	It can either be an Individual or a Resource
  *	This is an abstract class
@@ -59,5 +57,8 @@ public class Element { // TODO go abstract
 		life -= dmg_;
 	}
 	
+	public String getName () {
+		return name;
+	}
 	// TODO Override equals
 }

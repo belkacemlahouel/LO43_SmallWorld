@@ -1,3 +1,7 @@
+package kernel;
+
+import kernel.*;
+import xml_parser.*;
 
 /*
  * Implementation of static methods used as tools during the project

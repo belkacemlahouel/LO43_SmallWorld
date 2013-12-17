@@ -1,3 +1,7 @@
+package kernel;
+
+import kernel.*;
+import xml_parser.*;
 
 /*
  *	A Position is the set of coordinates (x, y) of an Element on the map (which is the Board)

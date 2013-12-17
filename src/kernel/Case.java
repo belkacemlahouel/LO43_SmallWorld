@@ -1,3 +1,7 @@
+package kernel;
+
+import kernel.*;
+import xml_parser.*;
 
 /*
  *	Class managing the Cases

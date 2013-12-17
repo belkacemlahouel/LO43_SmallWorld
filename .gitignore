@@ -1,2 +1,7 @@
-*~
-*.class
+build.xml
+lib
+nbproject
+manifest.mf
+.gitignore
+build
+dist

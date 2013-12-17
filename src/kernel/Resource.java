@@ -1,3 +1,7 @@
+package kernel;
+
+import kernel.*;
+import xml_parser.*;
 
 /*
  * This class implements the Resources, inheriting from Element

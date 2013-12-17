@@ -1,3 +1,7 @@
+package kernel;
+
+import xml_parser.*;
+import gui.*;
 
 /*
  * Class containing the set of rules for the SmallWorld
@@ -43,10 +47,16 @@ public class SmallWorld extends Thread {
 		tribeList.add(team_2);
 
 		res.add(new Resource(new Position(5,7),"rock"));
-		
-		gui = new SmallWorldGUI (this);
 	}
 	
+	public SmallWorldGUI getGui() {
+		return gui;
+	}
+
+	public void setGui(SmallWorldGUI gui) {
+		this.gui = gui;
+	}
+
 	public void setBoard(Board b) {
 		small_world = b;
 	}

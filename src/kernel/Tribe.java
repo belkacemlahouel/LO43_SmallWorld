@@ -1,5 +1,9 @@
-import java.util.ArrayList;
+package kernel;
 
+import kernel.*;
+import xml_parser.*;
+
+import java.util.ArrayList;
 
 public class Tribe {
 	private ArrayList<Individual> population;
