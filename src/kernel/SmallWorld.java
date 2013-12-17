@@ -152,25 +152,20 @@ public class SmallWorld extends Thread {
 		// Are the dead tribes (defeated one) removed?
 	}
 	
-	// TODO EXTRA BULLSHIT
+	// Or we could just check after each action and bury deads on this Position...
 	public synchronized void buryDeads (Position p) {
 		small_world.get(p).buryDeads(); // burying deads in that Position, which leads us to the Case from the Board
 		
-		/*for(int i=0;i<tribeList.size();i++) {
-			for(int j=0;j<tribeList.get(i).getPopulation().size();j++) {
-				if(tribeList.get(i).getPopulation().get(j).isDead())
-					tribeList.get(i).getPopulation().remove(j);
+		for (Tribe t : tribe_list) {
+			Iterator<Individual> it = t.getPopulation().iterator();
+			while (it.hasNext()) {
+				Individual x = it.next();
+				if (x.isDead()) {
+					it.remove();
+					return ; // assuming there is not two identical Individuals
+				}
 			}
-		}*/
-		
-		/*Iterator<Element> it = elementsList.iterator();
-		while (it.hasNext()) {
-			Element x = it.next();
-			if (x.isDead()) {
-				it.remove();
-				return ; // assuming there's only one kind of instance of Element, all differents...
-			}
-		}*/
+		}
 	}
 
 	public synchronized void move (Individual tmp, Position new_pos) { // synchronized?
