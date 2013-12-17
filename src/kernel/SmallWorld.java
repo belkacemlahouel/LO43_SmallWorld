@@ -1,21 +1,17 @@
 package kernel;
 
-import xml_parser.*;
 import gui.*;
+import java.util.ArrayList;
 
 /*
  * Class containing the set of rules for the SmallWorld
  * There's a Board, and the methods on the board for the management of this "SmallWorld" application
 */
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class SmallWorld extends Thread {
 	private Board small_world;
 	private ArrayList<Tribe> tribeList;
-	private ArrayList<Resource> res; /* At the beginning, we put the resources of the map, it doesn't belong to the Individuals */
+	private ArrayList<Resource> res; // At the beginning, resources of the Board, it doesn't belong to Individuals
 	private SmallWorldGUI gui;
 	
 	/*
@@ -27,26 +23,32 @@ public class SmallWorld extends Thread {
 	public Position getBestNextPosition (Individual tmp, Position final_pos) { // or ArrayLIst<Position> with the complete path...
 		return small_world.getNextPosition (tmp, final_pos);
 	}
-
-	//public ArrayList<Position> getPossiblePositions (Human e) {
-		//return small_world(e.getReach ()); // TODO add Cases that cannot be crossed!
-	//} // switch to Individual after that...
 	
+	public Position getBestNextPosition (Individual tmp) {
+		Position final_pos = tmp.getAimPosition ();
+		if (final_pos == null || tmp.getPosition().equals(final_pos)) {
+			final_pos = small_world.randPosition(); // get Position, in function of the type of the Individual (inside)
+			tmp.setAimPosition (final_pos); // Random Position on this Board
+		}
+		
+		return small_world.getNextPosition (tmp, final_pos);
+	}
+
 	public SmallWorld () {
 
 		super ("Small World"); // Construction of the Thread
 		
 		tribeList = new ArrayList<Tribe>();
+		res = new ArrayList<Resource> ();
+		
 		Tribe team_1 = new Tribe();
 		Tribe team_2 = new Tribe();
 		team_1.setTribeIndex(1);
 		team_2.setTribeIndex(2);
-		res = new ArrayList<Resource> (0);
-		
 		tribeList.add(team_1);
 		tribeList.add(team_2);
 
-		res.add(new Resource(new Position(5,7),"rock"));
+		res.add (new Food (new Position(5, 7), "R.0"));
 	}
 	
 	public SmallWorldGUI getGui() {
@@ -61,35 +63,31 @@ public class SmallWorld extends Thread {
 		small_world = b;
 	}
 	
-	public void addres(Resource s){
-		res.add(s);
-		this.gui.getPan2().getResList().add(new ElementGUI(s));
-	}
-	
 	public Board getBoard(){
 		return small_world;
 	}
 	
-	public Human getFirstEnnemySamePos (Individual e) { // Finding the ennemies (individuals) on the same position than e
+	public Individual getFirstEnnemySamePos (Individual e) { // Finding the ennemies (Individuals) on the same position
 		ArrayList<Element> tmp_elementsList = small_world.get(e.getPosition()).getElementsList();
 		if (!tmp_elementsList.isEmpty ()) {
 			for (Element tmp_e : tmp_elementsList) {
 				if (tmp_e instanceof Individual && !areFriends ((Individual)tmp_e, e)) { // e and tmp_e (Humans) are in two different teams
-					return (Human) tmp_e;
+					return (Individual) tmp_e; // TODO
 				}
 			}
 		}
 		return null;
 	}
 	
-	public Element getFirstElementSamePos (Individual tmp) { // Finding the ennemies (Humans) or Resources on the same position than e; Humans > Resources
+	// Finding the ennemies (Humans) or Resources on the same position than e; Humans > Resources
+	public Element getFirstElementSamePos (Individual tmp) {
 		Resource tmp_r = null;
 		ArrayList<Element> tmp_elementsList = small_world.get(tmp.getPosition()).getElementsList();
 		if (!tmp_elementsList.isEmpty ()) {
 			for (Element tmp_e : tmp_elementsList) {
 				if (tmp_e instanceof Individual && !areFriends ((Individual)tmp_e, tmp)) {
 					return (Individual)tmp_e;
-				} else if (tmp_r == null && tmp_e instanceof Resource) {
+				} else if (tmp_r == null && tmp_e instanceof Resource) { // first condition useless
 					tmp_r = (Resource) tmp_e;
 				}
 			}
@@ -110,42 +108,56 @@ public class SmallWorld extends Thread {
 		
 		Individual tmp;
 		Position tmp_pos, rand_pos;
+		boolean has_played = false;
 
-		while(tribeList.size()>1){
-			for(int i=0;i<tribeList.size();i++)
-			{
-				for(int j=0;j<tribeList.get(i).getPopulation().size();j++)
-				{
+		// We should alternate between teams, not making all Individuals from one Tribe play after the another...
+		while (tribeList.size() > 1) {
+			for (int i=0 ; i<tribeList.size() ; i++) {
+				for( int j=0 ; j<tribeList.get(i).getPopulation().size() ; j++) {
+					has_played = false;
 					tmp = tribeList.get(i).getPopulation().get(j);
-					rand_pos = small_world.randPosition ();
-					tmp_pos = getBestNextPosition(tmp, rand_pos); // tmp_pos: an intermediary following the aim (randPosition)
-					//System.out.println ("" + tmp + "\t" + rand_pos + "\t" + tmp_pos);
+
+					Individual tmp_ind = getFirstEnnemySamePos (tmp);
+					if (tmp_ind != null) {
+						tmp.attack (tmp_ind);
+						buryDeads (tmp.getPosition ());
+						has_played = true;
+						System.out.print ("1");
+					}
+
+					// Implement the aim_position here
+					// tmp_pos = getBestNextPosition(tmp, rand_pos);
+					tmp_pos = getBestNextPosition (tmp);
 					move (tmp, tmp_pos);
-					tmp.attack(getFirstElementSamePos (tmp));
-					buryDeads (tmp.getPosition ());
+					
+					if (!has_played) {
+						tmp.attack(getFirstElementSamePos (tmp)); // if getFirstEnnemy != null, attack & has played = true
+						buryDeads (tmp.getPosition ());
+						System.out.print ("2");
+					}
+					
+					System.out.println ();
 				}
 			}
 			
-		
 			//System.out.println ("" + this);
 			//System.out.println ("\n\t########################################\n");
 			
 			gui.updateMapPanel();
-		
+			
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-			/*System.out.println ("\n\n\tEnd of Small World...");
-			if (!team_2.isEmpty ()) System.out.println ("\tTeam 2 wins!");
-			else if (!team_1.isEmpty ()) System.out.println ("\tTeam 1 wins!");
-			else System.out.println ("\tNobody wins!");*/
+		
+		System.out.println ("\n\n\tEnd of Small World...");
+		// Are the dead tribes (defeated one) removed?
 	}
 		
 		
-	
+	// TODO EXTRA BULLSHIT
 	public synchronized void buryDeads (Position p) {
 		small_world.get(p).buryDeads(); // burying deads in that Position, which leads us to the Case from the Board
 		
@@ -170,21 +182,35 @@ public class SmallWorld extends Thread {
 	
 	/* This method adds the specified individual in the specified tribe */
 	
-	public void addIndividual(Tribe t,Individual i)
-	{
+	public void addIndividual(Tribe t,Individual i) {
 		this.tribeList.get(tribeList.indexOf(t)).getPopulation().add(i);
 		this.gui.getPan2().getIndivList().add(new ElementGUI(i));
 	}
-	public void addIndividual(Individual i,int tribeIndex)
-	{
+	
+	public void addIndividual(Individual i,int tribeIndex) {
 		tribeList.get(tribeIndex-1).getPopulation().add(i);
 		this.gui.getPan2().getIndivList().add(new ElementGUI(i));
 	}
 
+	@Override
 	public String toString () {
 		return "" + small_world;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void addres(Resource s){
+		res.add(s);
+		this.gui.getPan2().getResList().add(new ElementGUI(s));
+	}
+	
 	public Tribe getTribe(int n) {
 		return tribeList.get(n);
 	}

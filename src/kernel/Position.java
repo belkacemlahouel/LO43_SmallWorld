@@ -1,8 +1,5 @@
 package kernel;
 
-import kernel.*;
-import xml_parser.*;
-
 /*
  *	A Position is the set of coordinates (x, y) of an Element on the map (which is the Board)
 */
@@ -23,6 +20,7 @@ public class Position {
 		return y;
 	}
 
+	@Override
 	public String toString () {
 		return "x: " + x + " y: " + y;
 	}
@@ -32,6 +30,7 @@ public class Position {
 		return pos.x == x && pos.y == y;
 	}
 
+	// TODO Bullshit, should remove those...
 	public void setX(int x) {
 		this.x = x;
 	}

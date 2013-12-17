@@ -1,7 +1,7 @@
 package kernel;
 
-import kernel.*;
-import xml_parser.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /*
  *	Class managing the Cases
@@ -9,10 +9,8 @@ import xml_parser.*;
  *		Recall: the Board should be implementing a singleton pattern
 */
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class Case {
+	
 	private ArrayList<Element> elementsList;
 	private Position pos;
 	
@@ -27,13 +25,14 @@ public class Case {
 
 	public Case (int x_, int y_) {
 		Position pos_ = new Position (x_, y_);
-		new Case (pos_);
+		new Case (pos_); // TODO Maybe reference issues here
 	}
 
 	public Position getPosition () {
 		return pos;
 	}
 
+	@Override
 	public String toString () {
 		String rep = "" + pos;
 		if (elementsList != null && !elementsList.isEmpty ()) {
@@ -50,13 +49,13 @@ public class Case {
 		elementsList.add(e);
 	}
 	
-	public synchronized void buryDeads () { // for the moment only for Humans, does not work for Resources, now maybe for Resources too
+	public synchronized void buryDeads () { // for all Elements
 		Iterator<Element> it = elementsList.iterator();
 		while (it.hasNext()) {
 			Element x = it.next();
 			if (x.isDead()) {
 				it.remove();
-				return ; // assuming there's only one instance Element, all differents...
+				return ; // assuming there's only one kind of instance of Element, all differents...
 			}
 		}
 	}

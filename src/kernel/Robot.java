@@ -1,18 +1,29 @@
 package kernel;
 
-import kernel.*;
-import xml_parser.*;
-
 public class Robot extends Individual {
-	private static final int max_life = 200;
 	
-	public Robot(Position pos_,String name_)
-	{
-		super(pos_,name_,"robot");
-		life = max_life;
+	public Robot (Position p, String name) {
+		super (p, name);
 	}
 
-	public static int getMaxLife() {
-		return max_life;
-	}
+	@Override
+	public int getReach() {return 3;}
+
+	@Override
+	public int getMaxLife() {return 50;}
+
+	@Override
+	public int getStdDmg() {return 15;}
+
+	@Override
+	public int getTotalDmg() {return getStdDmg () + Tools.rand(2, 2);}
+
+	@Override
+	public int getStdPick() {return 10;}
+
+	@Override
+	public int getTotalPick() {return getStdPick () + Tools.rand(1, 1);}
+
+	@Override
+	public String getRaceName() {return "Robot";}
 }

@@ -17,7 +17,7 @@ public class ElementGUI {
 	public ElementGUI(Individual i)
 	{
 		try{
-			imgElement = ImageIO.read(new File("data//" + i.getRaceName() + ".png")); // The file of the element is referred as it's name + the .png file extension
+			imgElement = ImageIO.read(new File("data//" + i.getRaceName () + ".png")); // The file of the element is referred as it's name + the .png file extension
 	      } catch (IOException e) {
 	        e.printStackTrace();
 	    }
@@ -49,9 +49,9 @@ public class ElementGUI {
 		return elem.getPosition();
 	}
 
-	public void setPosition(Position pos) {
+	/*public void setPosition(Position pos) {
 		elem.setPosition(pos);
-	}
+	}*/
 	
 	public void setPosition (int x, int y) {
 		elem.setPosition(x, y);

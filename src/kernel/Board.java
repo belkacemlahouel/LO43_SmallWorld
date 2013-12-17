@@ -1,19 +1,16 @@
 package kernel;
 
-import kernel.*;
-import xml_parser.*;
-
-/*
- *	This class represents the map
- *	On each case, there is a set of Elements
- *	There is references on the Elements stored in this case
- *	We should implement a singleton pattern
+/**
+ *	This class just represents the map
+ *	On each Case, there is a set of Elements
+ *	There is references on the Elements stored inside each case
+ *	We should implement a Singleton Pattern
 */
 
 public class Board {
 	private Case[][] board;
 
-	/*
+	/*	
 	 *	Constructor
 	 *	I have to initialize each Case with a Position, and no Elements list
 	 *	The one time Positions are instancied is here, and only here
@@ -84,9 +81,7 @@ public class Board {
 		return board[pos.getX()][pos.getY()];
 	}
 
-	/*
-	 *	@Override toString function
-	*/
+	@Override
 	public String toString () {
 		String rep = "length: " + board.length + " width: " + board[0].length;
 		for (int i=0 ; i<board.length ; ++i) {

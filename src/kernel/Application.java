@@ -1,7 +1,6 @@
 package kernel;
 
 import xml_parser.*;
-import gui.*;
 
 /*
  *	Class containing the main method, and lauching the project
