@@ -62,17 +62,14 @@ public class Board {
 		}
 	}
 	
-	/*
+	/**
 	 *	Returns a random Position belonging to the Board
-	*/
+	 */
 	public Position randPosition () {
 		int rand_x = Tools.rand (board.length, 0), rand_y = Tools.rand (board[0].length, 0);
 		return board[rand_x][rand_y].getPosition ();
 	}
 
-	/*
-	 *	Getters
-	*/
 	public Case get (int i, int j) {
 		return board[i][j];
 	}

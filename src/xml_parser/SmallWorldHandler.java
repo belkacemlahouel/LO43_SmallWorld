@@ -124,10 +124,10 @@ public class SmallWorldHandler extends DefaultHandler  {
 						l = Integer.parseInt(attributs.getValue(index));
 					}
 				}
-				Resource r = new Food(ca.getPosition(), name);
+				Resource r = new Food (ca.getPosition(), name);
 				r.setLife(l);
 				ca.add(r);
-				smallworld.addres(r);
+				smallworld.addResource (r); // normally it should be good if it's on the map...
 			}
 			else if (rawName.equals("human")){
 				String name ="";
