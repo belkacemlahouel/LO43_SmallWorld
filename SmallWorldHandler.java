@@ -124,45 +124,32 @@ public class SmallWorldHandler extends DefaultHandler  {
 				ca.add(r);
 				smallworld.addres(r);
 			}
-			else if (rawName.equals("human")){
-				String name ="";
-				int  l = 0, team = 0;
+			else if ((rawName.equals("individu"))){
+				String type = " ";
+				int team = 0;
+				//récupération des valeurs des attributs:
 				for (int index = 0; index < attributs.getLength(); index++){
-					if (attributs.getQName(index).equals("name")){
-						name = attributs.getValue(index);
-					}
-					
-					else if (attributs.getQName(index).equals("life")) {
-						l = Integer.parseInt(attributs.getValue(index));
+					if (attributs.getQName(index).equals("type")){
+						type = attributs.getQName(index);
 					}
 					else if (attributs.getQName(index).equals("team")) {
 						team = Integer.parseInt(attributs.getValue(index));
 					}
 				}
-				Human h = new Human(ca.getPosition(), name);
-				smallworld.addIndividual(h,team);
-				h.setLife(l);
-				ca.add(h);
-			}
-			else if (rawName.equals("robot")){
-				String name ="";
-				int  l = 0, team = 0;
-				for (int index = 0; index < attributs.getLength(); index++){
-					if (attributs.getQName(index).equals("name")){
-						name = attributs.getValue(index);
-					}
+				
+				//création de l'objet dans la team donnée:
+				if (type.equals("human")){
 					
-					else if (attributs.getQName(index).equals("life")) {
-						l = Integer.parseInt(attributs.getValue(index));
-					}
-					else if (attributs.getQName(index).equals("team")) {
-						team = Integer.parseInt(attributs.getValue(index));
-					}
+					Human h = new Human(ca.getPosition(),"");
+					smallworld.addIndividual(h,team);
+					ca.add(h);
 				}
-				Robot r = new Robot(ca.getPosition());
-				smallworld.addIndividual(r,team);
-				r.setLife(l);
-				ca.add(r);
+				else if (rawName.equals("robot")){
+					
+					Robot r = new Robot(ca.getPosition());
+					smallworld.addIndividual(r,team);
+					ca.add(r);
+				}
 			}
 		}
 		
