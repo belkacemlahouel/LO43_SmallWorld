@@ -1,5 +1,12 @@
 package kernel;
 
+import java.util.ArrayList;
+
+/**
+ * TODO define rules and prioriies in function of the type of the Individual
+ * @author Belkacem Lahouel
+ */
+
 public abstract class Individual extends Element {
 	
 	protected Position aim_position; // The Individual try to go to this Position, and its aimPosition does not change until then
@@ -10,21 +17,8 @@ public abstract class Individual extends Element {
 		life = getMaxLife (); // WTF?
 	}
 	
-	public Position getAimPosition () {
-		return aim_position;
-	}
-	
-	public void setAimPosition (Position p) {
-		aim_position = p;
-	}
-	
-	// The Position is initialized when the Element is created or set during the travel just for Individuals)
-	public void setPosition (Position tmp_pos) {
-		pos = tmp_pos;
-	}
-	
-	/*
-	 *	totla_dmg = std_dmg +- random value
+	/**
+	 *	total_dmg = std_dmg +- random value
 	 *	does random return a negative value eventually TODO
 	 *	avoid extra-health (one Individual life < max_life)
 	 *	The "dmg" on a Resource and on a Human is not the same (it depends on the type of the Individual)
@@ -42,6 +36,49 @@ public abstract class Individual extends Element {
 		}
 	}
 	
+	public Position newAim (SmallWorld sw) {
+		Position rep = null;
+		
+		// Use of sw to get the list of accessible Positions, in function of the vision
+			// Selection of the best Position to go
+			// If no accessible Position available, we need to find a random Position
+		
+		// Check if they are friends: send tribeList?
+		// I will have to compute the priority for each element: should I prefer closest elements?
+		// weakest ennemy (Individual): less life
+		
+		ArrayList<Case> case_list = sw.getBoard().getAround (this);
+		Element tmp_r = null, tmp_e = null;
+		
+		if (case_list == null || case_list.isEmpty()) System.out.println ("EMPTY");
+		
+		for (Case c : case_list) {
+			for (Element e : c.getElementsList()) {
+				if (tmp_r == null && e instanceof Resource) { // first Resource found
+					tmp_r = e;
+				} else if (tmp_e == null && e instanceof Individual &&
+							!sw.areFriends ((Individual)e, this)) { // first ennemy Individual found
+					tmp_e = e;
+				}
+			}
+		}
+		
+		if (tmp_e == null && tmp_r == null) {
+			rep = sw.getBoard().randPosition();
+		} else {
+			if (tmp_e != null) rep = tmp_e.getPosition(); // tmp_e & tmp_e.getPosition are connected???
+			else rep = tmp_r.getPosition();
+		}
+		
+		aim_position = rep;
+		
+		return rep;
+	}
+	
+	public Position getAimPosition () {return aim_position;}
+	// public void setAimPosition (Position p) {aim_position = p;}
+	public void setPosition (Position tmp_pos) {pos = tmp_pos;} // only when the Element is created or set during a move (Individuals)
+	
 	@Override
 	public String toString () {
 		return getRaceName () + "\"" + name + "\" at " + pos + " life: " + life;
@@ -54,4 +91,5 @@ public abstract class Individual extends Element {
 	public abstract int getStdPick (); // generation of random damages on resources: it's the quantity picked up each time
 	public abstract int getTotalPick ();
 	public abstract String getRaceName ();
+	public abstract int getVision ();
 }

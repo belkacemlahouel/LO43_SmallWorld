@@ -21,6 +21,6 @@ public class Application {
 		
 		System.out.println ("\n\t########################################\n");
 
-		small_world.run (); // The "while (true)" loop is inside the Thread named "Small World"
+		small_world.start (); // start or run? The "while (true)" loop is inside the Thread named "Small World"
 	}
 }

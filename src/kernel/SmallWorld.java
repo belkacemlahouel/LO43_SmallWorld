@@ -10,10 +10,15 @@ import java.util.Iterator;
 */
 
 public class SmallWorld extends Thread {
+	
 	private Board small_world;
 	private ArrayList<Tribe> tribe_list;
 	private ArrayList<Resource> resources; // At the beginning, resources of the Board, it doesn't belong to Individuals
 	private SmallWorldGUI gui;
+	
+	
+	
+	
 	
 	/*
 	 *	Method implementing the reaches for Human moves for Humans
@@ -21,18 +26,21 @@ public class SmallWorld extends Thread {
 	 *	But wa could imagine species, for which the reach is bigger (faster Individuals), how would I implement it?
 	 *	TODO add Positions that cannot be crossed...
 	*/
-	public Position getBestNextPosition (Individual tmp, Position final_pos) { // or ArrayLIst<Position> with the complete path...
+	/*public Position getNextPosition (Individual tmp, Position final_pos) { // or ArrayLIst<Position> with the complete path...
 		return small_world.getNextPosition (tmp, final_pos);
-	}
+		* 
+		* Should each Individual change its objectives at each loop?
+	}*/
 	
 	public Position getBestNextPosition (Individual tmp) {
 		Position final_pos = tmp.getAimPosition ();
 		if (final_pos == null || tmp.getPosition().equals(final_pos)) {
-			final_pos = small_world.randPosition(); // get Position, in function of the type of the Individual (inside)
-			tmp.setAimPosition (final_pos); // Random Position on this Board
+			// final_pos = small_world.randPosition(); // get Position, in function of the type of the Individual (inside)
+			// tmp.setAimPosition (final_pos); // Random Position on this Board
+			final_pos = tmp.newAim (this);
 		}
 		
-		return small_world.getNextPosition (tmp, final_pos);
+		return small_world.getNextPosition (tmp, tmp.newAim(this));
 	}
 
 	public SmallWorld () {
@@ -101,6 +109,22 @@ public class SmallWorld extends Thread {
 		return false;
 	}
 	
+	private int maxSizeTribeList () {
+		int tmp = 0;
+		for (Tribe e : tribe_list) {
+			if (e != null && !e.getPopulation().isEmpty()) tmp = Math.max (e.getPopulation().size(), tmp);
+		}
+		return tmp;
+	}
+	
+	public int nbRemainingTribes () {
+		int tmp = 0;
+		for (Tribe e: tribe_list) {
+			if (e != null && !e.getPopulation().isEmpty()) ++tmp;
+		}
+		return tmp;
+	}
+	
 	@Override
 	public synchronized void run () {
 		
@@ -109,30 +133,35 @@ public class SmallWorld extends Thread {
 		boolean has_played;
 
 		// We should alternate between teams, not making all Individuals from one Tribe play after the another...
-		while (tribe_list.size() > 1) {
+		/*while (tribe_list.size() > 1) {
 			for (int i=0 ; i<tribe_list.size() ; i++) {
-				for( int j=0 ; j<tribe_list.get(i).getPopulation().size() ; j++) {
-					has_played = false;
-					tmp = tribe_list.get(i).getPopulation().get(j);
+				for( int j=0 ; j<tribe_list.get(i).getPopulation().size() ; j++) {*/
+		while (nbRemainingTribes () > 1) {
+			for (int i=0 ; i<maxSizeTribeList() ; i++) {
+				for (int j=0 ; j<tribe_list.size() ; ++j) {
+					if (tribe_list.get(j).getPopulation().size()>i) {
+						has_played = false;
+						tmp = tribe_list.get(j).getPopulation().get(i);
 
-					Individual tmp_ind = getFirstEnnemySamePos (tmp);
-					if (tmp_ind != null) {
-						tmp.attack (tmp_ind);
-						buryDeads (tmp.getPosition ());
-						has_played = true;
-						System.out.print ("1");
-					}
+						Individual tmp_ind = getFirstEnnemySamePos (tmp);
+						if (tmp_ind != null) {
+							tmp.attack (tmp_ind);
+							buryDeads (tmp.getPosition ());
+							has_played = true;
+							// System.out.print ("1");
+						}
 
-					tmp_pos = getBestNextPosition (tmp);
-					move (tmp, tmp_pos);
-					
-					if (!has_played) {
-						tmp.attack(getFirstElementSamePos (tmp));
-						buryDeads (tmp.getPosition ());
-						System.out.print ("2");
+						tmp_pos = getBestNextPosition (tmp);
+						move (tmp, tmp_pos);
+
+						if (!has_played) {
+							tmp.attack(getFirstElementSamePos (tmp));
+							buryDeads (tmp.getPosition ());
+							// System.out.print ("2");
+						}
+
+						// System.out.println ();
 					}
-					
-					System.out.println ();
 				}
 			}
 			

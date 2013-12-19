@@ -26,4 +26,7 @@ public class Robot extends Individual {
 
 	@Override
 	public String getRaceName() {return "Robot";}
+	
+	@Override
+	public int getVision () {return 7;}
 }
