@@ -24,61 +24,34 @@ public class SmallWorldHandler extends DefaultHandler  {
 		return smallworld;
 	}
 	@Override
-	public void characters(char[] arg0, int arg1, int arg2) throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void characters(char[] arg0, int arg1, int arg2) throws SAXException {}
 
 	@Override
-	public void endDocument() throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void endDocument() throws SAXException {}
 
 	@Override
 	public void endElement(String arg0, String arg1, String arg2)
-			throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+			throws SAXException {}
 
 	@Override
-	public void endPrefixMapping(String arg0) throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void endPrefixMapping(String arg0) throws SAXException {}
 
 	@Override
 	public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
-			throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+			throws SAXException {}
 
 	@Override
 	public void processingInstruction(String arg0, String arg1)
-			throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+			throws SAXException {}
 
 	@Override
-	public void setDocumentLocator(Locator arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void setDocumentLocator(Locator arg0) {}
 
 	@Override
-	public void skippedEntity(String arg0) throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void skippedEntity(String arg0) throws SAXException {}
 
 	@Override
-	public void startDocument() throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void startDocument() throws SAXException {}
 
 	@Override
 	public void startElement(String nameSpaceURI, String LocalName, String rawName, 
@@ -129,45 +102,32 @@ public class SmallWorldHandler extends DefaultHandler  {
 				ca.add(r);
 				smallworld.addResource (r); // normally it should be good if it's on the map...
 			}
-			else if (rawName.equals("human")){
-				String name ="";
-				int  l = 0, team = 0;
+			else if ((rawName.equals("individu"))){
+				String type = " ";
+				int team = 0;
+				//récupération des valeurs des attributs:
 				for (int index = 0; index < attributs.getLength(); index++){
-					if (attributs.getQName(index).equals("name")){
-						name = attributs.getValue(index);
-					}
-					
-					else if (attributs.getQName(index).equals("life")) {
-						l = Integer.parseInt(attributs.getValue(index));
+					if (attributs.getQName(index).equals("type")){
+						type = attributs.getQName(index);
 					}
 					else if (attributs.getQName(index).equals("team")) {
 						team = Integer.parseInt(attributs.getValue(index));
 					}
 				}
-				Human h = new Human(ca.getPosition(), name);
-				smallworld.addIndividual(h,team);
-				h.setLife(l);
-				ca.add(h);
-			}
-			else if (rawName.equals("robot")){
-				String name ="";
-				int  l = 0, team = 0;
-				for (int index = 0; index < attributs.getLength(); index++){
-					if (attributs.getQName(index).equals("name")){
-						name = attributs.getValue(index);
-					}
+				
+				//création de l'objet dans la team donnée:
+				if (type.equals("human")){
 					
-					else if (attributs.getQName(index).equals("life")) {
-						l = Integer.parseInt(attributs.getValue(index));
-					}
-					else if (attributs.getQName(index).equals("team")) {
-						team = Integer.parseInt(attributs.getValue(index));
-					}
+					Human h = new Human(ca.getPosition(),"");
+					smallworld.addIndividual(h,team);
+					ca.add(h);
 				}
-				Robot r = new Robot(ca.getPosition(),"Trevor");
-				smallworld.addIndividual(r,team);
-				r.setLife(l);
-				ca.add(r);
+				else if (rawName.equals("robot")){
+					
+					Robot r = new Robot(ca.getPosition());
+					smallworld.addIndividual(r,team);
+					ca.add(r);
+				}
 			}
 		}
 		
@@ -175,9 +135,6 @@ public class SmallWorldHandler extends DefaultHandler  {
 
 	@Override
 	public void startPrefixMapping(String arg0, String arg1)
-			throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+			throws SAXException {}
 
 }
