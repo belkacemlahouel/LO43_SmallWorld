@@ -20,61 +20,34 @@ public class SmallWorldHandler extends DefaultHandler  {
 		return smallworld;
 	}
 	@Override
-	public void characters(char[] arg0, int arg1, int arg2) throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void characters(char[] arg0, int arg1, int arg2) throws SAXException {}
 
 	@Override
-	public void endDocument() throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void endDocument() throws SAXException {}
 
 	@Override
 	public void endElement(String arg0, String arg1, String arg2)
-			throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+			throws SAXException {}
 
 	@Override
-	public void endPrefixMapping(String arg0) throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void endPrefixMapping(String arg0) throws SAXException {}
 
 	@Override
 	public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
-			throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+			throws SAXException {}
 
 	@Override
 	public void processingInstruction(String arg0, String arg1)
-			throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+			throws SAXException {}
 
 	@Override
-	public void setDocumentLocator(Locator arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void setDocumentLocator(Locator arg0) {}
 
 	@Override
-	public void skippedEntity(String arg0) throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void skippedEntity(String arg0) throws SAXException {}
 
 	@Override
-	public void startDocument() throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void startDocument() throws SAXException {}
 
 	@Override
 	public void startElement(String nameSpaceURI, String LocalName, String rawName, 
@@ -157,9 +130,6 @@ public class SmallWorldHandler extends DefaultHandler  {
 
 	@Override
 	public void startPrefixMapping(String arg0, String arg1)
-			throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
+			throws SAXException {}
 
 }
