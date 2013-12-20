@@ -11,8 +11,7 @@ import javax.imageio.ImageIO;
 public class ElementGUI {
 	private Image imgElement;
 	private Element elem;
-	private boolean endMove;
-	private boolean isDead;
+	boolean endMove;
 	
 	
 	public ElementGUI(Individual i)
@@ -22,7 +21,7 @@ public class ElementGUI {
 	      } catch (IOException e) {
 	        e.printStackTrace();
 	    }
-				
+		
 		elem = i;
 	}
 	
@@ -65,24 +64,4 @@ public class ElementGUI {
 	public void setImgElement(Image imgElement) {
 		this.imgElement = imgElement;
 	}
-	
-	public boolean getIsDead()
-	{
-		return isDead;
-	}
-	
-	public void setDead()
-	{
-		isDead = true;
-		if(this.elem instanceof Individual)
-		{
-			try{
-				imgElement = ImageIO.read(new File("data//"+((Individual)elem).getRaceName() + "dead.png")); // The file of the element is referred as it's name + the .png file extension
-		      } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		}
-
-	}
-	
 }

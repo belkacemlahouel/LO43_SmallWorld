@@ -1,5 +1,7 @@
 package kernel;
 
+import java.util.ArrayList;
+
 /**
  *	This class just represents the map
  *	On each Case, there is a set of Elements
@@ -9,7 +11,27 @@ package kernel;
 
 public class Board {
 	private Case[][] board;
-
+	
+	public ArrayList<Case> getAround (Individual e) {
+		ArrayList<Case> rep = new ArrayList<Case> (0);
+		int min_x = Math.min(board.length, Math.max((e.getPosition().getX()-e.getVision()), 0)),
+			min_y = Math.min(board.length, Math.max((e.getPosition().getY()-e.getVision()), 0)), // check
+			max_x = Math.max(0, Math.min((e.getPosition().getX()+e.getVision()), board.length)),
+			max_y = Math.max(0, Math.min((e.getPosition().getY()+e.getVision()), board[0].length));
+		
+		for (int i=min_x ; i<max_x ; ++i) {
+			for (int j=min_y ; j<max_y ; ++j) {
+				if (Tools.distance(e.getPosition(), get(i, j).getPosition()) < e.getVision() &&
+					get(i, j).getElementsList() != null && !get(i, j).getElementsList().isEmpty()) {
+					
+					rep.add(get (i, j));
+				}
+			}
+		}
+		
+		return rep;
+	}
+	
 	/*	
 	 *	Constructor
 	 *	I have to initialize each Case with a Position, and no Elements list
@@ -62,17 +84,14 @@ public class Board {
 		}
 	}
 	
-	/*
+	/**
 	 *	Returns a random Position belonging to the Board
-	*/
+	 */
 	public Position randPosition () {
 		int rand_x = Tools.rand (board.length, 0), rand_y = Tools.rand (board[0].length, 0);
 		return board[rand_x][rand_y].getPosition ();
 	}
 
-	/*
-	 *	Getters
-	*/
 	public Case get (int i, int j) {
 		return board[i][j];
 	}

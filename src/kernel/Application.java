@@ -20,6 +20,7 @@ public class Application {
 		small_world = SWP.createSW("data//Map.xml");
 		
 		System.out.println ("\n\t########################################\n");
-		
+
+		small_world.start (); // start or run? The "while (true)" loop is inside the Thread named "Small World"
 	}
 }

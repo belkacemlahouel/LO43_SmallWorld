@@ -31,4 +31,7 @@ public class Human extends Individual {
 	
 	@Override
 	public String getRaceName() {return "Human";}
+	
+	@Override
+	public int getVision () {return 10;}
 }

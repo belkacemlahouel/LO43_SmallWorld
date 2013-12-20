@@ -2,6 +2,7 @@ package kernel;
 
 import gui.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /*
  * Class containing the set of rules for the SmallWorld
@@ -9,10 +10,15 @@ import java.util.ArrayList;
 */
 
 public class SmallWorld extends Thread {
+	
 	private Board small_world;
-	private ArrayList<Tribe> tribeList;
-	private ArrayList<Resource> res; // At the beginning, resources of the Board, it doesn't belong to Individuals
+	private ArrayList<Tribe> tribe_list;
+	private ArrayList<Resource> resources; // At the beginning, resources of the Board, it doesn't belong to Individuals
 	private SmallWorldGUI gui;
+	
+	
+	
+	
 	
 	/*
 	 *	Method implementing the reaches for Human moves for Humans
@@ -20,40 +26,41 @@ public class SmallWorld extends Thread {
 	 *	But wa could imagine species, for which the reach is bigger (faster Individuals), how would I implement it?
 	 *	TODO add Positions that cannot be crossed...
 	*/
-	public Position getBestNextPosition (Individual tmp, Position final_pos) { // or ArrayLIst<Position> with the complete path...
+	/*public Position getNextPosition (Individual tmp, Position final_pos) { // or ArrayLIst<Position> with the complete path...
 		return small_world.getNextPosition (tmp, final_pos);
-	}
+		* 
+		* Should each Individual change its objectives at each loop?
+	}*/
 	
 	public Position getBestNextPosition (Individual tmp) {
 		Position final_pos = tmp.getAimPosition ();
 		if (final_pos == null || tmp.getPosition().equals(final_pos)) {
-			final_pos = small_world.randPosition(); // get Position, in function of the type of the Individual (inside)
-			tmp.setAimPosition (final_pos); // Random Position on this Board
+			// final_pos = small_world.randPosition(); // get Position, in function of the type of the Individual (inside)
+			// tmp.setAimPosition (final_pos); // Random Position on this Board
+			final_pos = tmp.newAim (this);
 		}
 		
-		return small_world.getNextPosition (tmp, final_pos);
+		return small_world.getNextPosition (tmp, tmp.newAim(this));
 	}
 
 	public SmallWorld () {
 
 		super ("Small World"); // Construction of the Thread
 		
-		tribeList = new ArrayList<Tribe>();
-		res = new ArrayList<Resource> ();
+		tribe_list = new ArrayList<Tribe> ();
+		resources = new ArrayList<Resource> ();
 		
-		Tribe team_1 = new Tribe();
-		Tribe team_2 = new Tribe();
-		team_1.setTribeIndex(1);
-		team_2.setTribeIndex(2);
-		tribeList.add(team_1);
-		tribeList.add(team_2);
+		tribe_list.add(new Tribe ());
+		tribe_list.add(new Tribe ());
+
+		// resources.add (new Food (small_world.get(5, 7).getPosition (), "R.0"));
 	}
 	
 	public SmallWorldGUI getGui() {
 		return gui;
 	}
 
-	public void setGui(SmallWorldGUI gui) {
+	public void setGui (SmallWorldGUI gui) {
 		this.gui = gui;
 	}
 
@@ -94,49 +101,72 @@ public class SmallWorld extends Thread {
 	}
 	
 	public boolean areFriends (Individual e1, Individual e2) { // testing if two Individuals are in the same team or not
-		for(int i=0;i<tribeList.size();i++)
+		for(int i=0;i<tribe_list.size();i++)
 		{
-			if(tribeList.get(i).getPopulation().contains(e1) && tribeList.get(i).getPopulation().contains(e2))
+			if(tribe_list.get(i).getPopulation().contains(e1) && tribe_list.get(i).getPopulation().contains(e2))
 				return true;
 		}
 		return false;
 	}
-
+	
+	private int maxSizeTribeList () {
+		int tmp = 0;
+		for (Tribe e : tribe_list) {
+			if (e != null && !e.getPopulation().isEmpty()) tmp = Math.max (e.getPopulation().size(), tmp);
+		}
+		return tmp;
+	}
+	
+	public int nbRemainingTribes () {
+		int tmp = 0;
+		for (Tribe e: tribe_list) {
+			if (e != null && !e.getPopulation().isEmpty()) ++tmp;
+		}
+		return tmp;
+	}
+	
+	@Override
 	public synchronized void run () {
 		
 		Individual tmp;
-		Position tmp_pos, rand_pos;
-		boolean has_played = false;
+		Position tmp_pos; // , rand_pos;
+		boolean has_played;
 
 		// We should alternate between teams, not making all Individuals from one Tribe play after the another...
-		while (tribeList.size() > 1) {
-			for (int i=0 ; i<tribeList.size() ; i++) {
-				for( int j=0 ; j<tribeList.get(i).getPopulation().size() ; j++) {
-					has_played = false;
-					tmp = tribeList.get(i).getPopulation().get(j);
+		/*while (tribe_list.size() > 1) {
+			for (int i=0 ; i<tribe_list.size() ; i++) {
+				for( int j=0 ; j<tribe_list.get(i).getPopulation().size() ; j++) {*/
+		while (nbRemainingTribes () > 1) {
+			for (int i=0 ; i<maxSizeTribeList() ; i++) {
+				for (int j=0 ; j<tribe_list.size() ; ++j) {
+					if (tribe_list.get(j).getPopulation().size()>i) {
+						has_played = false;
+						tmp = tribe_list.get(j).getPopulation().get(i);
 
-					Individual tmp_ind = getFirstEnnemySamePos (tmp);
-					if (tmp_ind != null) {
-						tmp.attack (tmp_ind);
-						buryDeads (tmp.getPosition ());
-						has_played = true;
-						System.out.print ("1");
-					}
+						Individual tmp_ind = getFirstEnnemySamePos (tmp);
+						if (tmp_ind != null) {
+							tmp.attack (tmp_ind);
+							buryDeads (tmp.getPosition ());
+							has_played = true;
+							// System.out.print ("1");
+						}
 
-					// Implement the aim_position here
-					// tmp_pos = getBestNextPosition(tmp, rand_pos);
-					tmp_pos = getBestNextPosition (tmp);
-					move (tmp, tmp_pos);
-					
-					if (!has_played) {
-						tmp.attack(getFirstElementSamePos (tmp)); // if getFirstEnnemy != null, attack & has played = true
-						buryDeads (tmp.getPosition ());
-						System.out.print ("2");
+						tmp_pos = getBestNextPosition (tmp);
+						move (tmp, tmp_pos);
+
+						if (!has_played) {
+							tmp.attack(getFirstElementSamePos (tmp));
+							buryDeads (tmp.getPosition ());
+							// System.out.print ("2");
+						}
+
+						// System.out.println ();
 					}
-					
-					System.out.println ();
 				}
 			}
+			
+			// System.out.println ("" + this);
+			// System.out.println ("\n\t########################################\n");
 			
 			gui.updateMapPanel();
 			
@@ -150,19 +180,19 @@ public class SmallWorld extends Thread {
 		System.out.println ("\n\n\tEnd of Small World...");
 		// Are the dead tribes (defeated one) removed?
 	}
-		
-		
-	// TODO EXTRA BULLSHIT
+	
+	// Or we could just check after each action and bury deads on this Position...
 	public synchronized void buryDeads (Position p) {
 		small_world.get(p).buryDeads(); // burying deads in that Position, which leads us to the Case from the Board
 		
-		for(int i=0;i<tribeList.size();i++)
-		{
-			for(int j=0;j<tribeList.get(i).getPopulation().size();j++)
-			{
-				
-				if(tribeList.get(i).getPopulation().get(j).isDead())
-					tribeList.get(i).getPopulation().remove(j);
+		for (Tribe t : tribe_list) {
+			Iterator<Individual> it = t.getPopulation().iterator();
+			while (it.hasNext()) {
+				Individual x = it.next();
+				if (x.isDead()) {
+					it.remove();
+					return ; // assuming there is not two identical Individuals
+				}
 			}
 		}
 	}
@@ -175,46 +205,37 @@ public class SmallWorld extends Thread {
 		}
 	}
 	
-	/* This method adds the specified individual in the specified tribe */
-	
-	public void addIndividual(Tribe t,Individual i) {
-		this.tribeList.get(tribeList.indexOf(t)).getPopulation().add(i);
-		this.gui.getMap().getIndivList().add(new ElementGUI(i));
-	}
-	
-	public void addIndividual(Individual i,int tribeIndex) {
-		tribeList.get(tribeIndex).getPopulation().add(i);
-		this.gui.getMap().getIndivList().add(new ElementGUI(i));
-	}
-
 	@Override
 	public String toString () {
 		return "" + small_world;
 	}
 
 	
-	public void addres(Resource s){
-		res.add(s);
-		this.gui.getMap().getResList().add(new ElementGUI(s));
+	
+	
+	
+	// This method adds the Individual to the Tribe (in parameters)
+	
+	public void addResource (Resource r) {
+		resources.add (r);
+		this.gui.getPan2().getResList().add(new ElementGUI(r)); // TODO
 	}
 	
-	public Tribe getTribe(int n) {
-		return tribeList.get(n);
+	public void addIndividual(Tribe t,Individual i) {
+		this.tribe_list.get(tribe_list.indexOf(t)).getPopulation().add(i);
+		this.gui.getPan2().getIndivList().add(new ElementGUI(i));
 	}
-
-	public ArrayList<Resource> getRes() {
-		return res;
+	
+	public void addIndividual(Individual i,int tribeIndex) {
+		tribe_list.get(tribeIndex-1).getPopulation().add(i);
+		this.gui.getPan2().getIndivList().add(new ElementGUI(i));
 	}
-
-	public void setRes(ArrayList<Resource> res) {
-		this.res = res;
+	
+	public Tribe getTribeAt (int index) {
+		return tribe_list.get(index);
 	}
-
-	public ArrayList<Tribe> getTribeList() {
-		return tribeList;
-	}
-
-	public void setTribeList(ArrayList<Tribe> tribeList) {
-		this.tribeList = tribeList;
+	
+	public ArrayList<Tribe> getTribeList () {
+		return tribe_list;
 	}
 }

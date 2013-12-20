@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
+<!DOCTYPE SmallWorld[
+		<!ELEMENT SmallWorld (board)>
+		<!ELEMENT board (case*)>
+		<!ELEMENT case (ressource*, individual*)>
+		<!ELEMENT ressource EMPTY>
+		<!ELEMENT individual EMPTY>
+
+		<!ATTLIST board l CDATA #REQUIRED
+						w CDATA #REQUIRED>
+		<!ATTLIST case x CDATA #REQUIRED
+						y CDATA #REQUIRED>
+		<!ATTLIST ressource name CDATA #REQUIRED
+							life CDATA "10">
+		<!ATTLIST individual  type (human|robot) #REQUIRED
+							team CDATA #REQUIRED>
+		
+]>
+
 <SmallWorld>
 	<board l="60" w="60">
 		<case x="8" y="8">
 			<ressource name="rock" life="15" />
-			<human life="15" team = "1"/>
+			<individual type = "human" team = "2"/>
 		</case>
 		<case x="1" y="2">
-			<robot life="15" team = "0"/>
+			<individual type = "robot" team = "2"/>
 		</case>
 		<case x="5" y="12">
 			<ressource name="tree" life="10"/>
