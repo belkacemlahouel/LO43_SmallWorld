@@ -57,6 +57,7 @@ public class MapPanel extends JPanel {
 	        e.printStackTrace();
 	      }    
 	    
+	    changeElementGUIToDead();
 	    drawResList(g);
 	    drawIndivList(g);
 	    
@@ -74,7 +75,7 @@ public class MapPanel extends JPanel {
 	{		
 		for(int n=0;n<this.indivList.size();n++)
 		{
-			g.drawImage(indivList.get(n).getImgElement(),indivList.get(n).getPos().getX()*10,indivList.get(n).getPos().getY()*10, this);
+			g.drawImage(indivList.get(n).getImgElement(),indivList.get(n).getPos().getX()*10,indivList.get(n).getPos().getY()*10,this);
 		}
 		
 	}
@@ -107,6 +108,20 @@ public class MapPanel extends JPanel {
 
 	public void setResList(ArrayList<ElementGUI> resList) {
 		this.resList = resList;
+	}
+	
+	public void changeElementGUIToDead()
+	{
+		for(int i=0;i<indivList.size();i++)
+		{
+			if(indivList.get(i).getElem().isDead())
+			{
+				if(!indivList.get(i).getIsDead())
+				{
+					indivList.get(i).setDead();
+				}
+			}
+		}
 	}
 	
 }

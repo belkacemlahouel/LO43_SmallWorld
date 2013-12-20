@@ -102,32 +102,33 @@ public class SmallWorldHandler extends DefaultHandler  {
 				ca.add(r);
 				smallworld.addResource (r); // normally it should be good if it's on the map...
 			}
-			else if ((rawName.equals("individu"))){
+			else if ((rawName.equals("individual"))){
 				String type = " ";
 				int team = 0;
-				//récupération des valeurs des attributs:
+				//rÃ©cupÃ©ration des valeurs des attributs:
 				for (int index = 0; index < attributs.getLength(); index++){
 					if (attributs.getQName(index).equals("type")){
-						type = attributs.getQName(index);
+						type = attributs.getValue(index);
 					}
 					else if (attributs.getQName(index).equals("team")) {
 						team = Integer.parseInt(attributs.getValue(index));
 					}
 				}
 				
-				//création de l'objet dans la team donnée:
+				//crÃ©ation de l'objet dans la team donnÃ©e:
 				if (type.equals("human")){
 					
 					Human h = new Human(ca.getPosition(),"");
-					smallworld.addIndividual(h,team);
+					smallworld.addIndividual(h,team-1);
 					ca.add(h);
 				}
-				else if (rawName.equals("robot")){
+				else if (type.equals("robot")){
 					
-					Robot r = new Robot(ca.getPosition());
-					smallworld.addIndividual(r,team);
+					Robot r = new Robot(ca.getPosition(),"");
+					smallworld.addIndividual(r,team-1);
 					ca.add(r);
 				}
+				
 			}
 		}
 		

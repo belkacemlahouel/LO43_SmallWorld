@@ -162,6 +162,8 @@ public class SmallWorld extends Thread {
 
 						// System.out.println ();
 					}
+					
+					System.out.println ();
 				}
 			}
 			
@@ -218,17 +220,17 @@ public class SmallWorld extends Thread {
 	
 	public void addResource (Resource r) {
 		resources.add (r);
-		this.gui.getPan2().getResList().add(new ElementGUI(r)); // TODO
+		this.gui.getMap().getResList().add(new ElementGUI(r)); // TODO
 	}
 	
 	public void addIndividual(Tribe t,Individual i) {
 		this.tribe_list.get(tribe_list.indexOf(t)).getPopulation().add(i);
-		this.gui.getPan2().getIndivList().add(new ElementGUI(i));
+		this.gui.getMap().getIndivList().add(new ElementGUI(i));
 	}
 	
 	public void addIndividual(Individual i,int tribeIndex) {
-		tribe_list.get(tribeIndex-1).getPopulation().add(i);
-		this.gui.getPan2().getIndivList().add(new ElementGUI(i));
+		tribe_list.get(tribeIndex).getPopulation().add(i);
+		this.gui.getMap().getIndivList().add(new ElementGUI(i));
 	}
 	
 	public Tribe getTribeAt (int index) {

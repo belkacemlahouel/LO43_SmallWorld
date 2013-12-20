@@ -1,6 +1,11 @@
 package kernel;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 /**
  * TODO define rules and prioriies in function of the type of the Individual
@@ -25,8 +30,19 @@ public abstract class Individual extends Element {
 	 *	A Human with full life could pick up the Resource to make the others not take it... For the moment it's not possible because useless
 	*/
 	public void attack (Element e) {
+	
+		
 		if (e != null && e.getPosition().equals(pos)) {
 			if (e instanceof Individual) {
+				try {
+			        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("data//kick.wav").getAbsoluteFile());
+			        Clip clip = AudioSystem.getClip();
+			        clip.open(audioInputStream);
+			        clip.start();
+			    } catch(Exception ex) {
+			        System.out.println("Error while playing sound.");
+			        ex.printStackTrace();
+			    }
 				e.attack_received(getTotalDmg ());
 			} else if (e instanceof Resource && life < getMaxLife ()) {
 				int tmp = getTotalPick ();

@@ -2,14 +2,19 @@ package gui;
 
 import kernel.*;
 import xml_parser.*;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -20,13 +25,16 @@ import javax.swing.JPanel;
 
 public class SmallWorldGUI extends JFrame{
 	
-	private MenuPanel pan1;
-	private MapPanel pan2;
-	private WeakReference<SmallWorld> sw; // Weak
+	private MainMenuPanel mainMenu;
+	private MenuPanel leftBar;
+	private MapPanel map;
+	private MapBackgroundPanel mapBg;
+	private ResourcePanel resPan;
+	private SmallWorld sw;
 	
 	public SmallWorldGUI(SmallWorld sw)
 	{
-	    this.sw = new WeakReference<SmallWorld> (sw);
+		this.sw = sw;
 		this.setTitle("SmallWorld");
 	    this.setSize(1280, 720);
 	    this.setLocationRelativeTo(null);
@@ -34,44 +42,65 @@ public class SmallWorldGUI extends JFrame{
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 	    getContentPane().setLayout(new BorderLayout());
 	    
-	    pan1 = new MenuPanel(sw);
+	    mainMenu = new MainMenuPanel(this);
+	    leftBar = new MenuPanel(this,sw); 
+	    map = new MapPanel(sw.getBoard());
+	    resPan = new ResourcePanel(this);
 	    
-	    JPanel pan3 = new JPanel();
-	    
-	    /*We use pan3 just to center the MapPanel pan2 */
-	    pan3.setLayout(new FlowLayout());
-	    pan3.setPreferredSize(new Dimension(1100,720));
-	    pan2 = new MapPanel(sw.getBoard());
-	    pan3.add(pan2);
-	    	    
-	    getContentPane().add(pan1,BorderLayout.WEST);
-	    getContentPane().add(pan3,BorderLayout.EAST);
+	    setGlassPane(resPan); // We add the resource panel over all the others
+	    getContentPane().add(mainMenu);
+	    this.getGlassPane().setVisible(false);
 	    this.setVisible(true);
+
 	    getContentPane().validate();
 	    
 	}
 	
+	/* This method changes the main menu into the game view, then starts the game automatically */
+	
+	public ResourcePanel getResPan() {
+		return resPan;
+	}
+
+	public void setResPan(ResourcePanel resPan) {
+		this.resPan = resPan;
+	}
+
+	public void startGame()
+	{
+		mainMenu.setVisible(false);
+		this.remove(mainMenu);
+	    mapBg = new MapBackgroundPanel();
+	    getContentPane().add(leftBar);
+	    getContentPane().add(mapBg,BorderLayout.EAST);
+	    mapBg.add(map);
+	    getContentPane().validate();
+	    
+	    sw.start();
+	}
+	
+	
 	/* This method updates the map, with all the new positions and so on*/
 	
-	public MenuPanel getPan1() {
-		return pan1;
+	public MenuPanel getLeftBar() {
+		return leftBar;
 	}
 
-	public void setPan1(MenuPanel pan1) {
-		this.pan1 = pan1;
+	public void setLeftBar(MenuPanel leftBar) {
+		this.leftBar = leftBar;
 	}
 
-	public MapPanel getPan2() {
-		return pan2;
+	public MapPanel getMap() {
+		return map;
 	}
 
-	public void setPan2(MapPanel pan2) {
-		this.pan2 = pan2;
+	public void setMap(MapPanel map) {
+		this.map = map;
 	}
 
 	public void updateMapPanel()
 	{
-		pan2.repaint();
+		map.repaint();
 	}
 	
 	/* TODO : - Make a more generic graphical interface (which changes its size
