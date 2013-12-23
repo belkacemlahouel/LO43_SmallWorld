@@ -110,4 +110,11 @@ public class SmallWorldGUI extends JFrame{
 	 */
 	
 	
+	/*
+	 * @author Belkacem
+	 * Action after clicking on the play/pause button
+	 */
+	public boolean getPlay () {
+		return leftBar.getPlay();
+	}
 }

@@ -137,40 +137,42 @@ public class SmallWorld extends Thread {
 			for (int i=0 ; i<tribe_list.size() ; i++) {
 				for( int j=0 ; j<tribe_list.get(i).getPopulation().size() ; j++) {*/
 		while (nbRemainingTribes () > 1) {
-			for (int i=0 ; i<maxSizeTribeList() ; i++) {
-				for (int j=0 ; j<tribe_list.size() ; ++j) {
-					if (tribe_list.get(j).getPopulation().size()>i) {
-						has_played = false;
-						tmp = tribe_list.get(j).getPopulation().get(i);
+			if (gui.getPlay()) {
+				for (int i=0 ; i<maxSizeTribeList() ; i++) {
+					for (int j=0 ; j<tribe_list.size() ; ++j) {
+						if (tribe_list.get(j).getPopulation().size()>i) {
+							has_played = false;
+							tmp = tribe_list.get(j).getPopulation().get(i);
 
-						Individual tmp_ind = getFirstEnnemySamePos (tmp);
-						if (tmp_ind != null) {
-							tmp.attack (tmp_ind);
-							buryDeads (tmp.getPosition ());
-							has_played = true;
-							// System.out.print ("1");
+							Individual tmp_ind = getFirstEnnemySamePos (tmp);
+							if (tmp_ind != null) {
+								tmp.attack (tmp_ind);
+								buryDeads (tmp.getPosition ());
+								has_played = true;
+								// System.out.print ("1");
+							}
+
+							tmp_pos = getBestNextPosition (tmp);
+							move (tmp, tmp_pos);
+
+							if (!has_played) {
+								tmp.attack(getFirstElementSamePos (tmp));
+								buryDeads (tmp.getPosition ());
+								// System.out.print ("2");
+							}
+
+							// System.out.println ();
 						}
 
-						tmp_pos = getBestNextPosition (tmp);
-						move (tmp, tmp_pos);
-
-						if (!has_played) {
-							tmp.attack(getFirstElementSamePos (tmp));
-							buryDeads (tmp.getPosition ());
-							// System.out.print ("2");
-						}
-
-						// System.out.println ();
+						System.out.println ();
 					}
-					
-					System.out.println ();
 				}
+
+				// System.out.println ("" + this);
+				// System.out.println ("\n\t########################################\n");
+
+				gui.updateMapPanel();
 			}
-			
-			// System.out.println ("" + this);
-			// System.out.println ("\n\t########################################\n");
-			
-			gui.updateMapPanel();
 			
 			try {
 				Thread.sleep(200);

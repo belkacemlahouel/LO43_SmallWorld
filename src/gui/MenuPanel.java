@@ -29,6 +29,12 @@ public class MenuPanel extends JPanel{
 	private JLabel mainTitle,barTitle;
 	private JComboBox tribesComboBox;
 	
+	/*
+	 * @author Belkacem
+	 * Boolean for the integration of the action on the play/pause button
+	 */
+	private boolean play = true;
+	
 	public MenuPanel(final SmallWorldGUI swGUI,final SmallWorld sw)
 	{
 		
@@ -49,6 +55,16 @@ public class MenuPanel extends JPanel{
 	    addIndiv = new JButton("Ajouter individu");
 	    mainTitle = new JLabel ("Menu");
 	    pause = new JButton("Play/Pause");
+		
+		/*
+		 * @author Belkacem
+		 * Implmentation of the action after clicking on the play/pause button
+		 */
+		pause.addActionListener (new ActionListener () {
+			public void actionPerformed (ActionEvent e) {
+				play = !play;
+			}
+		});
 	    
 	    addIndiv.addActionListener(new ActionListener(){
 	    	
@@ -72,5 +88,11 @@ public class MenuPanel extends JPanel{
 	}
 
 	
-	
+	/*
+	 * @author Belkacem
+	 * Takes care of the action performed on the play/pause button
+	 */
+	public boolean getPlay () {
+		return play;
+	}
 }
