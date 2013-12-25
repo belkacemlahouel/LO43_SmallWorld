@@ -34,9 +34,8 @@ public class SmallWorldGUI extends JFrame{
 
 	private SmallWorld sw;
 	
-	public SmallWorldGUI(SmallWorld sw)
+	public SmallWorldGUI(SmallWorldParser SWP)
 	{
-		this.sw = sw;
 		this.setTitle("SmallWorld");
 	    this.setSize(1280, 720);
 	    this.setLocationRelativeTo(null);
@@ -44,14 +43,10 @@ public class SmallWorldGUI extends JFrame{
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 	    getContentPane().setLayout(new BorderLayout());
 	    
-	    mainMenu = new MainMenuPanel(this);
-	    map = new MapPanel(sw.getBoard());
-	    resPan = new ResourcePanel(this);
-	    leftBar = new MenuPanel(this,this.sw,resPan); 
-	    
-	    setGlassPane(resPan); // We add the resource panel over all the others
+	    mainMenu = new MainMenuPanel(this,SWP);
 	    getContentPane().add(mainMenu);
-	    this.getGlassPane().setVisible(false);
+	    
+	 
 	    this.setVisible(true);
 
 	    getContentPane().validate();
@@ -60,6 +55,10 @@ public class SmallWorldGUI extends JFrame{
 	
 	/* This method changes the main menu into the game view, then starts the game automatically */
 	
+	public void setSw(SmallWorld sw) {
+		this.sw = sw;
+	}
+
 	public ResourcePanel getResPan() {
 		return resPan;
 	}
@@ -71,6 +70,15 @@ public class SmallWorldGUI extends JFrame{
 	public void startGame()
 	{
 		mainMenu.setVisible(false);
+		
+		map = new MapPanel(sw.getBoard(),sw.getTribe_list(),sw.getResources());
+		
+	    resPan = new ResourcePanel(this);
+	    leftBar = new MenuPanel(this,this.sw,resPan); 
+		
+	    setGlassPane(resPan); // We add the resource panel over all the others
+	    this.getGlassPane().setVisible(false);
+
 		this.remove(mainMenu);
 	    mapBg = new MapBackgroundPanel();
 	    getContentPane().add(leftBar);
@@ -94,10 +102,6 @@ public class SmallWorldGUI extends JFrame{
 
 	public MapPanel getMap() {
 		return map;
-	}
-
-	public void setMap(MapPanel map) {
-		this.map = map;
 	}
 
 	public void updateMapPanel()
@@ -133,4 +137,5 @@ public class SmallWorldGUI extends JFrame{
 	public void showWinners (String type, int num) {
 		leftBar.showWinners(type, num);
 	}
+	
 }

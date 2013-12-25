@@ -70,7 +70,6 @@ public class SmallWorldHandler extends DefaultHandler  {
 				}
 				Board b = new Board(l,w);
 				smallworld.setBoard(b);
-				smallworld.setGui(new SmallWorldGUI(smallworld));
 			}
 			else if (rawName.equals("case"))
 			{

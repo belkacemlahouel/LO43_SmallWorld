@@ -2,6 +2,7 @@ package gui;
 
 import kernel.*;
 import xml_parser.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -27,14 +28,30 @@ public class MapPanel extends JPanel {
 	
 	/* The idea is to create the map Panel with a given XML or ElementList */
 
-	public MapPanel(Board b)
+	public MapPanel(Board b,ArrayList<Tribe> swTribeList,ArrayList<Resource> swResList)
 	{
 		super();
 		resList = new ArrayList<ElementGUI>();
 		indivList = new ArrayList<ElementGUI>();
 		xAxisLength = b.getBoard().length;
 		yAxisLength = b.getBoard()[0].length;
-	    this.setPreferredSize(new Dimension(xAxisLength*caseSize,yAxisLength*caseSize));  
+	    this.setPreferredSize(new Dimension(xAxisLength*caseSize,yAxisLength*caseSize));
+	    
+	    /* We create the ElementGUI depending on the Tribe List and the Resource List of the SmallWorld */
+	    
+	    for(int i=0;i<swTribeList.size();i++)
+	    {
+	    	for(int j=0;j<swTribeList.get(i).getPopulation().size();j++)
+	    	{
+	    		indivList.add(new ElementGUI(swTribeList.get(i).getPopulation().get(j)));
+	    	}
+	    }
+	    
+	    for(Resource e:swResList)
+	    {
+	    	resList.add(new ElementGUI(e));
+	    }
+	    
 	    this.setVisible(true);
 	}
 	
@@ -122,6 +139,11 @@ public class MapPanel extends JPanel {
 				}
 			}
 		}
+	}
+	
+	public void addIndividualGUI(ElementGUI e)
+	{
+		indivList.add(e);
 	}
 	
 }

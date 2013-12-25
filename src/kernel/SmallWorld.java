@@ -190,17 +190,22 @@ public class SmallWorld extends Thread {
 	// This method adds the Individual to the Tribe (in parameters)
 	public void addResource (Resource r) {
 		resources.add (r);
-		this.gui.getMap().getResList().add(new ElementGUI(r)); // TODO
 	}
 	
+	public ArrayList<Tribe> getTribe_list() {
+		return tribe_list;
+	}
+
+	public ArrayList<Resource> getResources() {
+		return resources;
+	}
+
 	public void addIndividual(Tribe t,Individual i) {
 		this.tribe_list.get(tribe_list.indexOf(t)).getPopulation().add(i);
-		this.gui.getMap().getIndivList().add(new ElementGUI(i));
 	}
 	
 	public void addIndividual(Individual i,int tribeIndex) {
 		tribe_list.get(tribeIndex).getPopulation().add(i);
-		this.gui.getMap().getIndivList().add(new ElementGUI(i));
 	}
 	
 	public Tribe getTribeAt (int index) {

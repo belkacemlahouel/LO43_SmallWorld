@@ -15,13 +15,18 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
+import xml_parser.SmallWorldParser;
+import kernel.SmallWorld;
+
 public class MainMenuPanel extends JPanel {
-	JButton start,edit;
+	JButton start,edit,load;
+	JFileChooser loadFileChooser;
 	Clip titleTheme;
 
-	public MainMenuPanel(final SmallWorldGUI swGUI)
+	public MainMenuPanel(final SmallWorldGUI swGUI,final SmallWorldParser SWP)
 	{
 		super();
 		
@@ -30,11 +35,21 @@ public class MainMenuPanel extends JPanel {
 		
 		start = new JButton("Demarrage rapide");
 		edit = new JButton("Editer une map");
+		load = new JButton("Charger fichier");
+		try {
+			loadFileChooser = new JFileChooser(new File("data//save").getCanonicalFile());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		start.addActionListener(new ActionListener(){
 	    	
 	    	public void actionPerformed(ActionEvent arg0){	
 	    		titleTheme.stop();
+	    		SmallWorld sw = SWP.createSW("data//save//default.xml");
+	    		sw.setGui(swGUI);
+	    		swGUI.setSw(sw);
 	    		swGUI.startGame();
 	    	}
 		});
@@ -49,6 +64,21 @@ public class MainMenuPanel extends JPanel {
 	        ex.printStackTrace();
 	    }
 		
+		load.addActionListener(new ActionListener(){
+	    	
+	    	public void actionPerformed(ActionEvent arg0){	
+	    		loadFileChooser.showOpenDialog(null);
+	    		if(loadFileChooser.getSelectedFile() != null)
+	    		{
+	    			titleTheme.stop();
+		    		SmallWorld sw = SWP.createSW(loadFileChooser.getSelectedFile().getPath());
+		    		sw.setGui(swGUI);
+		    		swGUI.setSw(sw);
+		    		swGUI.startGame();
+	    		}
+	    	}
+		});
+		
 
 		
 		gbc1.fill = GridBagConstraints.HORIZONTAL;
@@ -62,6 +92,9 @@ public class MainMenuPanel extends JPanel {
 		gbc1.gridx = 1;
 		gbc1.gridy = 2;
 		this.add(edit,gbc1);
+		gbc1.gridx = 1;
+		gbc1.gridy = 3;
+		this.add(load,gbc1);
 	}
 	
 	public void paintComponent(Graphics g)

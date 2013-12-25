@@ -1,6 +1,7 @@
 package kernel;
 
 import xml_parser.*;
+import gui.*;
 
 /*
  *	Class containing the main method, and lauching the project
@@ -16,8 +17,7 @@ public class Application {
 	public static void main (String[] agrs) {
 		
 		SmallWorldParser SWP = new SmallWorldParser();
-		SmallWorld small_world;
-		small_world = SWP.createSW("data//Map.xml");
+		SmallWorldGUI  swGUI = new SmallWorldGUI(SWP);
 		
 		System.out.println ("\n\t########################################\n");
 	}
