@@ -2,47 +2,36 @@ package kernel;
 
 import java.io.File;
 import java.util.ArrayList;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-/**
- * TODO define rules and prioriies in function of the type of the Individual
- * @author Belkacem Lahouel
- */
-
 public abstract class Individual extends Element {
 	
-	protected Position aim_position; // The Individual try to go to this Position, and its aimPosition does not change until then
+	protected Position aim_position;
+	protected Element target_element;
+	protected int priority;
 	
 	public Individual (Position pos_, String name_) {
 		super(pos_, name_);
 		aim_position = null;
-		life = getMaxLife (); // WTF?
+		life = getMaxLife ();
 	}
 	
-	/**
-	 *	total_dmg = std_dmg +- random value
-	 *	does random return a negative value eventually TODO
-	 *	avoid extra-health (one Individual life < max_life)
-	 *	The "dmg" on a Resource and on a Human is not the same (it depends on the type of the Individual)
-	 *	A Human with full life could pick up the Resource to make the others not take it... For the moment it's not possible because useless
-	*/
 	public void attack (Element e) {
-	
-		
 		if (e != null && e.getPosition().equals(pos)) {
 			if (e instanceof Individual) {
+				
 				try {
 			        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("data//kick.wav").getAbsoluteFile());
 			        Clip clip = AudioSystem.getClip();
 			        clip.open(audioInputStream);
 			        clip.start();
 			    } catch(Exception ex) {
-			        System.out.println("Error while playing sound.");
+			        System.err.println("- Error while playing sound.");
 			        ex.printStackTrace();
 			    }
+				
 				e.attack_received(getTotalDmg ());
 			} else if (e instanceof Resource && life < getMaxLife ()) {
 				int tmp = getTotalPick ();
@@ -52,60 +41,195 @@ public abstract class Individual extends Element {
 		}
 	}
 	
+	/*
+	 * Use of sw to get the list of accessible Positions, in function of the vision
+	 * Selection of the best Position to go
+	 * If no accessible Position available, we need to find a random Position
+	 * Check if they are friends: send tribeList?
+	 * I will have to compute the priority for each element: should I prefer closest elements?
+	 * weakest ennemy (Individual): less life
+	 * 
+	 * go void
+	 */
 	public Position newAim (SmallWorld sw) {
-		Position rep = null;
+		Position back_up = aim_position;
 		
-		// Use of sw to get the list of accessible Positions, in function of the vision
-			// Selection of the best Position to go
-			// If no accessible Position available, we need to find a random Position
-		
-		// Check if they are friends: send tribeList?
-		// I will have to compute the priority for each element: should I prefer closest elements?
-		// weakest ennemy (Individual): less life
+		// target_element = null;
+		aim_position = null;
+		priority = 0;
 		
 		ArrayList<Case> case_list = sw.getBoard().getAround (this);
-		Element tmp_r = null, tmp_e = null;
-		
-		if (case_list == null || case_list.isEmpty()) System.out.println ("EMPTY");
-		
+		ArrayList<Element> elements_list = new ArrayList<Element> (0);
+		int tmp_prio = 0;
+				
 		for (Case c : case_list) {
-			for (Element e : c.getElementsList()) {
-				if (tmp_r == null && e instanceof Resource) { // first Resource found
-					tmp_r = e;
-				} else if (tmp_e == null && e instanceof Individual &&
-							!sw.areFriends ((Individual)e, this)) { // first ennemy Individual found
-					tmp_e = e;
-				}
+			elements_list.addAll (c.getElementsList());
+		}
+		
+		for (Element e : elements_list) {
+			tmp_prio = computePriority(sw, e);
+			if (tmp_prio > priority) {
+				priority = tmp_prio;
+				target_element = e;
+				aim_position = e.getPosition ();
 			}
 		}
 		
-		if (tmp_e == null && tmp_r == null) {
-			rep = sw.getBoard().randPosition();
-		} else {
-			if (tmp_e != null) rep = tmp_e.getPosition(); // tmp_e & tmp_e.getPosition are connected???
-			else rep = tmp_r.getPosition();
+		if (aim_position == null || priority == 0) {
+			if (back_up == null) aim_position = sw.getBoard().randPosition();
+			else if (Tools.distance (getPosition(), back_up) <= 5) aim_position = sw.getBoard().randPosition();
+			else aim_position = back_up;
 		}
 		
-		aim_position = rep;
-		
-		return rep;
+		return aim_position;
 	}
 	
-	public Position getAimPosition () {return aim_position;}
-	// public void setAimPosition (Position p) {aim_position = p;}
-	public void setPosition (Position tmp_pos) {pos = tmp_pos;} // only when the Element is created or set during a move (Individuals)
+	
+	
+	
+	public int computePriority (SmallWorld sw, Element e) {
+		int rep = 0;
+		
+		if (this instanceof Individual) {
+			/*
+			 * Computation of the number of ennemies and friends
+			 * Computation of the maximal std dmg that this element can receive
+			 * Computation of the maximal std dmg that i could receive
+			 * tot_received and tot_given are the sum of dmg received/given at the position of e
+			 * We do not count our supposed dmg inside tot_given
+			 */
+			int nb_ennemies = 0, nb_friends = 0, nb_resources = 0;
+			int tot_received = 0, tot_given = 0;
+			
+			System.out.println ("TYPE NAME: " + getTypeName() + " checking " + e.getTypeName ());
+			
+			ArrayList<Element> tmp = sw.getBoard().get(e.getPosition()).getElementsList();
+			for (Element g : tmp) {
+				if (g instanceof Individual) {
+					if (sw.areFriends (this, (Individual) g)) {
+						++ nb_friends;
+						tot_given += ((Individual)g).getStdDmg();
+					} else {
+						++ nb_ennemies;
+						tot_received += ((Individual)g).getStdDmg();
+					}
+				} else nb_resources += g.getLife ();
+			}
+			
+			if (nb_resources > 0 || nb_ennemies > 0) {
+				rep += nb_resources/4;
+				
+				/*
+				 * computatation of the distance part
+				 * this follows a mathematical inverse function
+				 * f : e |-> cst / distance (me, e)
+				 * beware with the division with 0
+				 * this cst may change following the type of Individual
+				 */
+				if (Tools.distance (getPosition(), e.getPosition()) != 0) {
+					rep += 20/Tools.distance (getPosition(), e.getPosition());
+				} else if (nb_ennemies > 0 || nb_resources > 0) rep += 30;
+
+				/*
+				 * computation of the Individual part
+				 * two cases: e is a Resource or an Individual
+				 * two cases: e is an ennemy or not
+				 * we give an importance to the type of the Individual
+				 * we take care of a possible ennemy in the 
+				 * If this is an ennemy, we check its remaining life and strength
+				 * 
+				 * Higher priority for places where there is more friends than ennemies...
+				 * We multiply the final priority with a ratio
+				 */
+				if (e instanceof Individual) {
+					if (sw.areFriends ((Individual)e, this)) {
+						/*
+						 * We should compute the maximal damages we could get from targeting this Element e
+						 * Because of supposed several ennemies at the same Position
+						 * f : dmg |-> 10/(remaining_life - dmg)
+						 * with dmg being the sum of all the dmg that this ennemy could receive
+						 * 
+						 * The more there is friends on that position, the more the Individual will try to go there
+						 * We need to check if there is also ennemies on this position
+						 */
+						if (tot_given > tot_received && nb_ennemies > 0) {
+							rep += nb_friends + (tot_given-tot_received);
+						}
+					} else {
+						/*
+						 * We can manage higher priorities if this is a friend in help
+						 * with ennemies on the same Position
+						 * 
+						 * If there is a lot of ennemies and we can kill them easily, we try to go there
+						 * There is a higher priority
+						 */
+						if (tot_given > tot_received) {
+							rep += 20*(nb_ennemies + (tot_given-tot_received));
+						}
+					}
+				} else if (e instanceof Resource) {
+					/*
+					 * for the Food, we take care of the remaining life of the current Individual
+					 * this follows an inverse mathematical function
+					 * f : life |-> cst / (life - critical_life)
+					 * critical_life is a cst as well, and again it may change following the type of Individual
+					 * 
+					 * TODO
+					 * And we should avoid to target this element if there is ennemies on the same pos
+					 * test the number of ennemies on a resource
+					 * bigger priority when the qty is large... override, in function of the type of the Individual
+					 */
+					if (e instanceof Food) {
+						if (getLife() <= getCriticalLife()) {
+							rep += 30;
+						} else {
+							rep += 20/(getLife()-getCriticalLife());
+						}
+					}
+
+					/*
+					 * TODO
+					 * We will treat other kind of Resources afterwards
+					 */
+				}
+			}
+		}
+		System.out.println ("\tPRIORITY: " + rep + "\n\t" + aim_position);
+		return rep;
+		
+		
+		/*
+		 * Maybe sometimes, they prefer to go on the same Position as an ennemy
+		 *		and they choose to pick up Resources > kill Individual
+		 * Sometimes also, they are on a Resource and they do not want to move away...
+		 *		So I have to create a new bunch of Individuals to unblock the game
+		 */
+	}
+	
+	/*
+	 * abstract methods for Individual class
+	 * replacing final and static attributes inside each kind of Individual (Human, Robot, etc)
+	 */
+	public abstract int		getReach ();
+	public abstract int		getMaxLife (); // to make the human avoid overhealth, we make him stop when its life is full
+	public abstract int		getStdDmg (); // generation of random damages, around one std value
+	public abstract int		getTotalDmg ();
+	public abstract int		getStdPick (); // generation of random damages on resources: it's the quantity picked up each time
+	public abstract int		getTotalPick ();
+	// public abstract String	getRaceName ();
+	public abstract int		getVision ();
+	
+	/*
+	 * getters and setters for Individual class
+	 * classic override on toString method
+	 */
+	public Position			getAimPosition ()				{return aim_position;}
+	public void				setPosition	(Position tmp_pos)	{pos = tmp_pos;}
+	public int				getCriticalLife ()				{return (int) getMaxLife()/5;}
+	// Normally we should have only call to this function...
+	public Element			getTargetElement ()				/*{Element tmp = target_element; target_element = null; return tmp;}*/
+															{return target_element;}
 	
 	@Override
-	public String toString () {
-		return getRaceName () + "\"" + name + "\" at " + pos + " life: " + life;
-	}
-	
-	public abstract int getReach ();
-	public abstract int getMaxLife (); // to make the human avoid overhealth, we make him stop when its life is full
-	public abstract int getStdDmg (); // generation of random damages, around one std value
-	public abstract int getTotalDmg ();
-	public abstract int getStdPick (); // generation of random damages on resources: it's the quantity picked up each time
-	public abstract int getTotalPick ();
-	public abstract String getRaceName ();
-	public abstract int getVision ();
+	public String toString () {return getTypeName () + "\"" + name + "\" at " + pos + " life: " + life;}
 }

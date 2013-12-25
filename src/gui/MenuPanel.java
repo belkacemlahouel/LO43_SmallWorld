@@ -21,21 +21,22 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /* The MenuPanel class corresponds to the panel that is on the left during the game, giving several options to the player */
 
 public class MenuPanel extends JPanel{
-	private JButton pause,addIndiv;
-	private JLabel mainTitle,barTitle;
+	private JButton pause, addIndiv;
+	private JLabel mainTitle, barTitle, game_over, winners;
 	private JComboBox tribesComboBox;
 	
 	/*
 	 * @author Belkacem
 	 * Boolean for the integration of the action on the play/pause button
 	 */
-	private boolean play = true;
+	private boolean play = false;
 	
-	public MenuPanel(final SmallWorldGUI swGUI,final SmallWorld sw)
+	public MenuPanel(final SmallWorldGUI swGUI, final SmallWorld sw)
 	{
 		
 		super();
@@ -49,11 +50,11 @@ public class MenuPanel extends JPanel{
 	    
 	    for(int i=0;i<sw.getTribeList().size();i++)
 	    {
-	    	tribesComboBox.addItem("Tribe "+(i+1));
+	    	tribesComboBox.addItem("Tribe " + (i+1));
 	    }
 	    
 	    addIndiv = new JButton("Ajouter individu");
-	    mainTitle = new JLabel ("Menu");
+	    mainTitle = new JLabel ("Menu d'actions");
 	    pause = new JButton("Play/Pause");
 		
 		/*
@@ -94,5 +95,31 @@ public class MenuPanel extends JPanel{
 	 */
 	public boolean getPlay () {
 		return play;
+	}
+
+	/*
+	 * @author Belkacem
+	 * disabling Buttons to stop possible clicks
+	 */
+	public void disableButtons() {
+		// pause.enable(false);
+		// addIndiv.enable(false);
+		
+		pause.setVisible (false);
+		addIndiv.setVisible (false);
+		tribesComboBox.setVisible (false);
+	}
+	
+	/*
+	 * @author belkacem
+	 * adding the printing of the winning team
+	 */
+	public void showWinners (String type, int num) {
+		game_over = new JLabel ("GAME OVER");
+		winners = new JLabel ("Tribe n°" + num + " (" + type + ") WON!");
+		winners.setVisible (true);
+		game_over.setVisible (true);
+		add (game_over);
+		add (winners);
 	}
 }

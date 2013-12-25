@@ -21,17 +21,23 @@
 <SmallWorld>
 	<board l="60" w="60">
 		<case x="8" y="8">
-			<ressource name="rock" life="15" />
+			<ressource name="rock" life="100" />
 			<individual type = "human" team = "2"/>
 		</case>
 		<case x="50" y="50">
 			<individual type = "robot" team = "1"/>
 		</case>
 		<case x="5" y="12">
-			<ressource name="tree" life="10"/>
+			<ressource name="tree" life="100"/>
 		</case>
 		<case x="25" y="14">
 			<ressource name="house" life="10"/>
+		</case>
+		<case x="20" y="20">
+			<ressource name="rock" life="100" />
+		</case>
+		<case x="30" y="30">
+			<ressource name="rock" life="100"/>
 		</case>
 	</board>
 </SmallWorld>

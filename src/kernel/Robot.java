@@ -25,8 +25,10 @@ public class Robot extends Individual {
 	public int getTotalPick() {return getStdPick () + Tools.rand(1, 1);}
 
 	@Override
-	public String getRaceName() {return "Robot";}
+	public String getTypeName() {return "Robot";}
 	
 	@Override
-	public int getVision () {return 7;}
+	public int getVision () {return 15;}
+	
+	
 }

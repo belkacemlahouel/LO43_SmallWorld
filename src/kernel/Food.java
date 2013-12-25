@@ -16,4 +16,9 @@ public class Food extends Resource {
 	public String toString () {
 		return "Food \"" + name + "\" at " + pos + " quantity: " + life;
 	}
+
+	@Override
+	public String getTypeName() {
+		return "Food";
+	}
 }
