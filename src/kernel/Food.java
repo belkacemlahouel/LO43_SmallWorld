@@ -18,8 +18,7 @@ public class Food extends Resource {
 	}
 
 	@Override
-	public String getResourceTypeName() {
-		// TODO Auto-generated method stub
-		return "food";
+	public String getTypeName() {
+		return "Food";
 	}
 }

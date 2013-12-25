@@ -22,14 +22,20 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /* The MenuPanel class corresponds to the panel that is on the left during the game, giving several options to the player */
 
 public class MenuPanel extends JPanel{
-	private JButton pause,addIndiv;
-	private JLabel mainTitle,barTitle;
+	private JButton pause, addIndiv;
+	private JLabel mainTitle, barTitle, game_over, winners;
 	private JComboBox tribesComboBox;
 	private JCheckBox viewResources;
+	/*
+	 * @author Belkacem
+	 * Boolean for the integration of the action on the play/pause button
+	 */
+	private boolean play = false;
 	
 	public MenuPanel(final SmallWorldGUI swGUI,final SmallWorld sw,final ResourcePanel resPan)
 	{
@@ -45,13 +51,23 @@ public class MenuPanel extends JPanel{
 	    
 	    for(int i=0;i<sw.getTribeList().size();i++)
 	    {
-	    	tribesComboBox.addItem("Tribe "+(i+1));
+	    	tribesComboBox.addItem("Tribe " + (i+1));
 	    }
 	    
 	    addIndiv = new JButton("Ajouter individu");
-	    mainTitle = new JLabel ("Menu");
+	    mainTitle = new JLabel ("Menu d'actions");
 	    pause = new JButton("Play/Pause");
 	    viewResources = new JCheckBox("Voir/Cacher ressources");
+		
+		/*
+		 * @author Belkacem
+		 * Implmentation of the action after clicking on the play/pause button
+		 */
+		pause.addActionListener (new ActionListener () {
+			public void actionPerformed (ActionEvent e) {
+				play = !play;
+			}
+		});
 	    
 	    addIndiv.addActionListener(new ActionListener(){
 	    	
@@ -87,5 +103,37 @@ public class MenuPanel extends JPanel{
 	}
 
 	
+	/*
+	 * @author Belkacem
+	 * Takes care of the action performed on the play/pause button
+	 */
+	public boolean getPlay () {
+		return play;
+	}
+
+	/*
+	 * @author Belkacem
+	 * disabling Buttons to stop possible clicks
+	 */
+	public void disableButtons() {
+		// pause.enable(false);
+		// addIndiv.enable(false);
+		
+		pause.setVisible (false);
+		addIndiv.setVisible (false);
+		tribesComboBox.setVisible (false);
+	}
 	
+	/*
+	 * @author belkacem
+	 * adding the printing of the winning team
+	 */
+	public void showWinners (String type, int num) {
+		game_over = new JLabel ("GAME OVER");
+		winners = new JLabel ("Tribe n°" + num + " (" + type + ") WON!");
+		winners.setVisible (true);
+		game_over.setVisible (true);
+		add (game_over);
+		add (winners);
+	}
 }

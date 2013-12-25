@@ -106,11 +106,31 @@ public class SmallWorldGUI extends JFrame{
 		resPan.repaint();
 	}
 	
-	/* TODO :
-	 * 		  - Add a "resource" panel
-	 */
-	
 	public SmallWorld getSw() {
 		return sw;
+	}
+	
+	/*
+	 * @author Belkacem
+	 * Action after clicking on the play/pause button
+	 */
+	public boolean getPlay () {
+		return leftBar.getPlay();
+	}
+
+	/*
+	 * @author Belkacem
+	 * disabling Buttons to stop possible clicks
+	 */
+	public void disableButtons () {
+		leftBar.disableButtons ();
+	}
+	
+	/*
+	 * @author Belkacem
+	 * adding the printing of the winning team
+	 */
+	public void showWinners (String type, int num) {
+		leftBar.showWinners(type, num);
 	}
 }

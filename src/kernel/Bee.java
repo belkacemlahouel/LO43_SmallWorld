@@ -24,8 +24,9 @@ public class Bee extends Individual{
 	public int getTotalPick() {return getStdPick() + Tools.rand(2, -2);}
 	
 	@Override
-	public String getRaceName() {return "Bee";}
+	public String getTypeName() {return "Bee";}
 	
 	@Override
 	public int getVision () {return 10;}
+
 }

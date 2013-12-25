@@ -18,7 +18,7 @@ public class ElementGUI {
 	public ElementGUI(Individual i)
 	{
 		try{
-			imgElement = ImageIO.read(new File("data//" + i.getRaceName () + ".png")); // The file of the element is referred as it's name + the .png file extension
+			imgElement = ImageIO.read(new File("data//" + i.getTypeName () + ".png")); // The file of the element is referred as it's name + the .png file extension
 	      } catch (IOException e) {
 	        e.printStackTrace();
 	    }
@@ -29,7 +29,7 @@ public class ElementGUI {
 	public ElementGUI(Resource r)
 	{
 		try{
-			imgElement = ImageIO.read(new File("data//" + r.getResourceTypeName() + ".png")); // The file of the element is referred as it's name + the .png file extension
+			imgElement = ImageIO.read(new File("data//" + r.getTypeName() + ".png")); // The file of the element is referred as it's name + the .png file extension
 	      } catch (IOException e) {
 	        e.printStackTrace();
 	    } 
@@ -77,12 +77,11 @@ public class ElementGUI {
 		if(this.elem instanceof Individual)
 		{
 			try{
-				imgElement = ImageIO.read(new File("data//"+((Individual)elem).getRaceName() + "dead.png")); // The file of the element is referred as it's name + the .png file extension
+				imgElement = ImageIO.read(new File("data//"+((Individual)elem).getTypeName() + "dead.png")); // The file of the element is referred as it's name + the .png file extension
 		      } catch (IOException e) {
 		        e.printStackTrace();
 		    }
 		}
 
 	}
-	
 }

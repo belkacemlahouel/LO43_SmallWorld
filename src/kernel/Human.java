@@ -30,8 +30,8 @@ public class Human extends Individual {
 	public int getTotalPick() {return getStdPick() + Tools.rand(2, -2);}
 	
 	@Override
-	public String getRaceName() {return "Human";}
+	public String getTypeName() {return "Human";}
 	
 	@Override
-	public int getVision () {return 10;}
+	public int getVision () {return 13;}
 }

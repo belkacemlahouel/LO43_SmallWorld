@@ -48,4 +48,6 @@ public abstract class Element {
 	public String getName () {
 		return name;
 	}
+	
+	public abstract String getTypeName ();
 }

@@ -7,8 +7,7 @@ public class Plutonium extends Resource {
 	}
 	
 	@Override
-	public String getResourceTypeName() {
-		// TODO Auto-generated method stub
-		return "plutonium";
+	public String getTypeName() {
+		return "Plutonium";
 	}
 }

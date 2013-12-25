@@ -36,5 +36,11 @@
 		<case x="50" y="1">
 			<individual type="bee" team="3"/>
 		</case>
+		<case x="20" y="20">
+			<ressource name="rock" life="100" />
+		</case>
+		<case x="30" y="30">
+			<ressource name="rock" life="100"/>
+		</case>
 	</board>
 </SmallWorld>

@@ -85,6 +85,43 @@ public class Board {
 	}
 	
 	/*
+	 * Override for the Individual type "Robot"
+	 * Normally, if it is an Individual, the first method is called
+	 * Unless it's a Robot, and this one is called
+	 */
+	public Position getNextPosition (Robot e, Position final_pos) {
+		
+		int tmp_x = e.getPosition().getX();
+		int tmp_y = e.getPosition().getY();						// (tmp_x, tmp_y) gives us the tmp (meaning intermediary) position of e
+		int tmp_dist = 0;										// distance done so far
+		int dist = Tools.distance (e.getPosition(), final_pos);	// distance to the final position
+		boolean horizontal;										// direction of the move
+		int tmp = 0;
+		
+		/*if (Tools.rand(1, 0) == 0) horizontal = false; // check if 1 || 0 are included
+		else horizontal = true;*/
+		horizontal = false;
+		
+		while (tmp_dist < dist && tmp_dist < e.getReach ()) {
+			tmp = Tools.rand (1, e.getReach ());
+
+			if (horizontal) {
+				tmp = Math.min (tmp, Math.max ((final_pos.getX() - tmp_x), 0));
+				tmp_x += tmp;
+			} else {
+				// tmp = Math.min ((final_pos.getY() - tmp_y), Math.max (tmp, 0));
+				tmp = Math.min (tmp, Math.max ((final_pos.getY() - tmp_y), 0));
+				tmp_y += tmp;
+			}
+			
+			horizontal = !horizontal;
+			tmp_dist += tmp;
+		}
+		
+		return get(tmp_x, tmp_y).getPosition();					// returning the intermediary Position, in the direction of final_pos
+	}
+	
+	/*
 	 *	Returns a random Position belonging to the Board
 	*/
 	public Position randPosition () {

@@ -7,8 +7,7 @@ public class Rock extends Resource{
 	}
 	
 	@Override
-	public String getResourceTypeName() {
-		// TODO Auto-generated method stub
-		return "rock";
+	public String getTypeName() {
+		return "Rock";
 	}
 }

@@ -7,7 +7,7 @@ public class Wood extends Resource{
 	}
 	
 	@Override
-	public String getResourceTypeName() {
+	public String getTypeName() {
 		// TODO Auto-generated method stub
 		return "wood";
 	}
