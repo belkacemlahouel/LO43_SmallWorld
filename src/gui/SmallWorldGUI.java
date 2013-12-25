@@ -30,6 +30,8 @@ public class SmallWorldGUI extends JFrame{
 	private MapPanel map;
 	private MapBackgroundPanel mapBg;
 	private ResourcePanel resPan;
+
+
 	private SmallWorld sw;
 	
 	public SmallWorldGUI(SmallWorld sw)
@@ -43,9 +45,9 @@ public class SmallWorldGUI extends JFrame{
 	    getContentPane().setLayout(new BorderLayout());
 	    
 	    mainMenu = new MainMenuPanel(this);
-	    leftBar = new MenuPanel(this,sw); 
 	    map = new MapPanel(sw.getBoard());
 	    resPan = new ResourcePanel(this);
+	    leftBar = new MenuPanel(this,this.sw,resPan); 
 	    
 	    setGlassPane(resPan); // We add the resource panel over all the others
 	    getContentPane().add(mainMenu);
@@ -101,13 +103,14 @@ public class SmallWorldGUI extends JFrame{
 	public void updateMapPanel()
 	{
 		map.repaint();
+		resPan.repaint();
 	}
 	
-	/* TODO : - Make a more generic graphical interface (which changes its size
-	 * 			depending on the XML file
-	 * 		  - Add a "ressource" pannel
-	 * 		  - Separate the "name" and the "raceName"
+	/* TODO :
+	 * 		  - Add a "resource" panel
 	 */
 	
-	
+	public SmallWorld getSw() {
+		return sw;
+	}
 }

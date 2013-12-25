@@ -16,4 +16,10 @@ public class Food extends Resource {
 	public String toString () {
 		return "Food \"" + name + "\" at " + pos + " quantity: " + life;
 	}
+
+	@Override
+	public String getResourceTypeName() {
+		// TODO Auto-generated method stub
+		return "food";
+	}
 }

@@ -11,4 +11,7 @@ public abstract class Resource extends Element {
 	public Resource (Position pos, String name) {
 		super (pos, name);
 	}
+	
+	public abstract String getResourceTypeName ();
+
 }

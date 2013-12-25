@@ -29,7 +29,7 @@ public class ElementGUI {
 	public ElementGUI(Resource r)
 	{
 		try{
-			imgElement = ImageIO.read(new File("data//" + r.getName() + ".png")); // The file of the element is referred as it's name + the .png file extension
+			imgElement = ImageIO.read(new File("data//" + r.getResourceTypeName() + ".png")); // The file of the element is referred as it's name + the .png file extension
 	      } catch (IOException e) {
 	        e.printStackTrace();
 	    } 

@@ -5,3 +5,4 @@ manifest.mf
 .gitignore
 build
 dist
+/bin

@@ -11,7 +11,7 @@
 						w CDATA #REQUIRED>
 		<!ATTLIST case x CDATA #REQUIRED
 						y CDATA #REQUIRED>
-		<!ATTLIST ressource name CDATA #REQUIRED
+		<!ATTLIST ressource type (metal|food|wood|plutonium|rock) #REQUIRED
 							life CDATA "10">
 		<!ATTLIST individual  type (human|robot) #REQUIRED
 							team CDATA #REQUIRED>
@@ -21,17 +21,20 @@
 <SmallWorld>
 	<board l="60" w="60">
 		<case x="8" y="8">
-			<ressource name="rock" life="15" />
+			<ressource type="rock" life="15" />
 			<individual type = "human" team = "2"/>
 		</case>
 		<case x="50" y="50">
 			<individual type = "robot" team = "1"/>
 		</case>
 		<case x="5" y="12">
-			<ressource name="tree" life="10"/>
+			<ressource type="wood" life="10"/>
 		</case>
 		<case x="25" y="14">
-			<ressource name="house" life="10"/>
+			<ressource type="food" life="10"/>
+		</case>
+		<case x="50" y="1">
+			<individual type="bee" team="3"/>
 		</case>
 	</board>
 </SmallWorld>

@@ -85,22 +85,50 @@ public class SmallWorldHandler extends DefaultHandler  {
 				ca = smallworld.getBoard().get(x,y);
 				}
 			}
-			else if (rawName.equals("ressource")){
-				String name ="";
+			else if (rawName.equals("ressource")){ // TODO Divide this in all the ressources (rock, food, metal etc. )
+				String type ="";
 				int  l = 0;
 				for (int index = 0; index < attributs.getLength(); index++){
-					if (attributs.getQName(index).equals("name")){
-						name = attributs.getValue(index);
+					if (attributs.getQName(index).equals("type")){
+						type = attributs.getValue(index);
 					}
 					
 					else if (attributs.getQName(index).equals("life")) {
 						l = Integer.parseInt(attributs.getValue(index));
 					}
 				}
-				Resource r = new Food (ca.getPosition(), name);
-				r.setLife(l);
-				ca.add(r);
-				smallworld.addResource (r); // normally it should be good if it's on the map...
+				
+				if (type.equals("rock")){
+					
+					Rock r = new Rock(ca.getPosition(),"");
+					smallworld.addResource(r);
+					ca.add(r);
+				}
+				else if (type.equals("metal")){
+					
+					Metal r = new Metal(ca.getPosition(),"");
+					smallworld.addResource(r);
+					ca.add(r);
+				}
+				else if (type.equals("food")){
+					
+					Food r = new Food(ca.getPosition(),"");
+					smallworld.addResource(r);
+					ca.add(r);
+				}
+				else if (type.equals("plutonium")){
+					
+					Plutonium r = new Plutonium(ca.getPosition(),"");
+					smallworld.addResource(r);
+					ca.add(r);
+				}
+				else if (type.equals("wood")){
+					
+					Wood r = new Wood(ca.getPosition(),"");
+					smallworld.addResource(r);
+					ca.add(r);
+				}
+
 			}
 			else if ((rawName.equals("individual"))){
 				String type = " ";
@@ -127,6 +155,12 @@ public class SmallWorldHandler extends DefaultHandler  {
 					Robot r = new Robot(ca.getPosition(),"");
 					smallworld.addIndividual(r,team-1);
 					ca.add(r);
+				}
+				else if (type.equals("bee")){
+					
+					Bee b = new Bee(ca.getPosition(),"");
+					smallworld.addIndividual(b,team-1);
+					ca.add(b);
 				}
 				
 			}

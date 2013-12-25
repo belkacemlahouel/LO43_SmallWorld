@@ -52,6 +52,7 @@ public class SmallWorld extends Thread {
 		
 		tribe_list.add(new Tribe ());
 		tribe_list.add(new Tribe ());
+		tribe_list.add(new Tribe ());
 
 		// resources.add (new Food (small_world.get(5, 7).getPosition (), "R.0"));
 	}
