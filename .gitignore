@@ -6,3 +6,5 @@ manifest.mf
 build
 dist
 /bin
+.project
+.classpath
