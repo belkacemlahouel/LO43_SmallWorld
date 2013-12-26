@@ -22,7 +22,7 @@ import xml_parser.SmallWorldParser;
 import kernel.SmallWorld;
 
 public class MainMenuPanel extends JPanel {
-	JButton start,edit,load;
+	JButton start,edit,load,exit;
 	JFileChooser loadFileChooser;
 	Clip titleTheme;
 
@@ -36,6 +36,7 @@ public class MainMenuPanel extends JPanel {
 		start = new JButton("Demarrage rapide");
 		edit = new JButton("Editer une map");
 		load = new JButton("Charger fichier");
+		exit = new JButton("Quitter");
 		try {
 			loadFileChooser = new JFileChooser(new File("data//save").getCanonicalFile());
 		} catch (IOException e) {
@@ -51,6 +52,12 @@ public class MainMenuPanel extends JPanel {
 	    		sw.setGui(swGUI);
 	    		swGUI.setSw(sw);
 	    		swGUI.startGame();
+	    	}
+		});
+		
+		exit.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent arg0){	
+	    	System.exit(0);
 	    	}
 		});
 		
@@ -95,6 +102,9 @@ public class MainMenuPanel extends JPanel {
 		gbc1.gridx = 1;
 		gbc1.gridy = 3;
 		this.add(load,gbc1);
+		gbc1.gridx = 1;
+		gbc1.gridy = 4;
+		this.add(exit,gbc1);
 	}
 	
 	public void paintComponent(Graphics g)

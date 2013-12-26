@@ -27,7 +27,7 @@ import javax.swing.JTextArea;
 /* The MenuPanel class corresponds to the panel that is on the left during the game, giving several options to the player */
 
 public class MenuPanel extends JPanel{
-	private JButton pause, addIndiv;
+	private JButton pause, addIndiv,exit;
 	private JLabel mainTitle, barTitle, game_over, winners;
 	private JComboBox tribesComboBox;
 	private JCheckBox viewResources;
@@ -58,6 +58,7 @@ public class MenuPanel extends JPanel{
 	    mainTitle = new JLabel ("Menu d'actions");
 	    pause = new JButton("Play/Pause");
 	    viewResources = new JCheckBox("Voir/Cacher ressources");
+	    exit = new JButton("Revenir au menu");
 		
 		/*
 		 * @author Belkacem
@@ -102,11 +103,20 @@ public class MenuPanel extends JPanel{
 			}
 	    });
 	    
+	    exit.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				play = false;
+				swGUI.abortGame();
+			}
+	    });
+	    
 	    this.add(mainTitle);
 	    this.add(pause);
 	    this.add(tribesComboBox);
 	    this.add(addIndiv);
 	    this.add(viewResources);
+	    this.add(exit);
 	}
 
 	

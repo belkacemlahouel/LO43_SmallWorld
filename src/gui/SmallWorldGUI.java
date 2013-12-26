@@ -67,6 +67,17 @@ public class SmallWorldGUI extends JFrame{
 		this.resPan = resPan;
 	}
 
+	public void abortGame()
+	{
+		sw = null;
+		
+		resPan.setVisible(false);
+		leftBar.setVisible(false);
+		mapBg.setVisible(false);
+		map.setVisible(false);
+		mainMenu.setVisible(true);
+	}
+	
 	public void startGame()
 	{
 		mainMenu.setVisible(false);
@@ -78,8 +89,6 @@ public class SmallWorldGUI extends JFrame{
 		
 	    setGlassPane(resPan); // We add the resource panel over all the others
 	    this.getGlassPane().setVisible(false);
-
-		this.remove(mainMenu);
 	    mapBg = new MapBackgroundPanel();
 	    getContentPane().add(leftBar);
 	    getContentPane().add(mapBg,BorderLayout.EAST);

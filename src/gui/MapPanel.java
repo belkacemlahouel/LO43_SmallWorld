@@ -146,7 +146,7 @@ public class MapPanel extends JPanel {
 		indivList.add(e);
 	}
 	
-	public ElementGUI getCorrespondingElementGUI(Individual i)
+	public synchronized ElementGUI getCorrespondingElementGUI(Individual i)
 	{
 		for(ElementGUI e:indivList)
 		{
