@@ -117,7 +117,7 @@ public abstract class Individual extends Element {
 			}
 			
 			if (nb_resources > 0 || nb_ennemies > 0) {
-				rep += nb_resources/4;
+				// rep += nb_resources/4;
 				
 				/*
 				 * computatation of the distance part
