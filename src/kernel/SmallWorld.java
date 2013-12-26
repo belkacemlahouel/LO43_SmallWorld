@@ -168,6 +168,7 @@ public class SmallWorld extends Thread {
 
 	public synchronized void move (Individual tmp, Position new_pos) { // synchronized?
 		if (!tmp.getPosition().equals(new_pos)) {
+			gui.getMap().getCorrespondingElementGUI(tmp).setPrec_position(tmp.getPosition ());
 			small_world.get(tmp.getPosition ()).remove (tmp);
 			tmp.setPosition (new_pos);
 			small_world.get(new_pos).add (tmp);

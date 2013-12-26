@@ -17,7 +17,7 @@ public abstract class Individual extends Element {
 		aim_position = null;
 		life = getMaxLife ();
 	}
-	
+
 	public void attack (Element e) {
 		if (e != null && e.getPosition().equals(pos)) {
 			if (e instanceof Individual) {
@@ -101,7 +101,7 @@ public abstract class Individual extends Element {
 			int nb_ennemies = 0, nb_friends = 0, nb_resources = 0;
 			int tot_received = 0, tot_given = 0;
 			
-			System.out.println ("TYPE NAME: " + getTypeName() + " checking " + e.getTypeName ());
+			//System.out.println ("TYPE NAME: " + getTypeName() + " checking " + e.getTypeName ());
 			
 			ArrayList<Element> tmp = sw.getBoard().get(e.getPosition()).getElementsList();
 			for (Element g : tmp) {
@@ -194,7 +194,7 @@ public abstract class Individual extends Element {
 				}
 			}
 		}
-		System.out.println ("\tPRIORITY: " + rep + "\n\t" + aim_position);
+		//System.out.println ("\tPRIORITY: " + rep + "\n\t" + aim_position);
 		return rep;
 		
 		

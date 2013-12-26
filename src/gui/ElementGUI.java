@@ -9,8 +9,9 @@ import javax.imageio.ImageIO;
 /* An Element GUI is the graphical version of the elements */
 
 public class ElementGUI {
-	private Image imgElement;
+	private Image imgElementUp,imgElementDown,imgElementLeft,imgElementRight,imgElementDead;
 	private Element elem;
+	private Position prec_position; // The precedent position in the movement 
 	private boolean endMove;
 	private boolean isDead;
 	
@@ -18,18 +19,39 @@ public class ElementGUI {
 	public ElementGUI(Individual i)
 	{
 		try{
-			imgElement = ImageIO.read(new File("data//" + i.getTypeName () + ".png")); // The file of the element is referred as it's name + the .png file extension
+			imgElementDown = ImageIO.read(new File("data//" + i.getTypeName () + "down.png")); // The file of the element is referred as it's name + the .png file extension
 	      } catch (IOException e) {
 	        e.printStackTrace();
 	    }
-				
+		try{
+			imgElementUp = ImageIO.read(new File("data//" + i.getTypeName () + "up.png")); // The file of the element is referred as it's name + the .png file extension
+	      } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		try{
+			imgElementRight = ImageIO.read(new File("data//" + i.getTypeName () + "Right.png")); // The file of the element is referred as it's name + the .png file extension
+	      } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		try{
+			imgElementLeft = ImageIO.read(new File("data//" + i.getTypeName () + "Left.png")); // The file of the element is referred as it's name + the .png file extension
+	      } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		try{
+			imgElementDead = ImageIO.read(new File("data//"+i.getTypeName() + "dead.png")); // The file of the element is referred as it's name + the .png file extension
+	      } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		
 		elem = i;
+		prec_position = i.getPosition();
 	}
 	
 	public ElementGUI(Resource r)
 	{
 		try{
-			imgElement = ImageIO.read(new File("data//" + r.getTypeName() + ".png")); // The file of the element is referred as it's name + the .png file extension
+			imgElementUp = ImageIO.read(new File("data//" + r.getTypeName() + ".png")); // For a resource, we simply use the image "up" because there is only one
 	      } catch (IOException e) {
 	        e.printStackTrace();
 	    } 
@@ -57,15 +79,27 @@ public class ElementGUI {
 	public void setPosition (int x, int y) {
 		elem.setPosition(x, y);
 	}
-
-	public Image getImgElement() {
-		return imgElement;
-	}
-
-	public void setImgElement(Image imgElement) {
-		this.imgElement = imgElement;
-	}
 	
+	public Image getImgElementUp() {
+		return imgElementUp;
+	}
+
+	public Image getImgElementDown() {
+		return imgElementDown;
+	}
+
+	public Image getImgElementLeft() {
+		return imgElementLeft;
+	}
+
+	public Image getImgElementRight() {
+		return imgElementRight;
+	}
+
+	public Image getImgElementDead() {
+		return imgElementDead;
+	}
+
 	public boolean getIsDead()
 	{
 		return isDead;
@@ -74,14 +108,43 @@ public class ElementGUI {
 	public void setDead()
 	{
 		isDead = true;
-		if(this.elem instanceof Individual)
-		{
-			try{
-				imgElement = ImageIO.read(new File("data//"+((Individual)elem).getTypeName() + "dead.png")); // The file of the element is referred as it's name + the .png file extension
-		      } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		}
-
 	}
+
+	public Position getPrec_position() {
+		return prec_position;
+	}
+
+	public void setPrec_position(Position prec_position) {
+		this.prec_position = prec_position;
+	}
+
+	/* This method returns the right image to put : left, down, up, right, dead */
+	
+	public Image getCorrespondingImg() {
+		if(isDead)
+		{
+			return imgElementDead;
+		}
+		else if(prec_position.getX() < elem.getPosition().getX())
+		{
+			return imgElementRight;
+		}
+		else if(prec_position.getX() > elem.getPosition().getX())
+		{
+			return imgElementLeft;
+		}
+		else if(prec_position.getY() < elem.getPosition().getY())
+		{
+			return imgElementDown;
+		}
+		else if(prec_position.getY() > elem.getPosition().getY())
+		{
+			return imgElementUp;
+		}
+		else
+		{
+			return imgElementUp;
+		}
+	}
+	
 }

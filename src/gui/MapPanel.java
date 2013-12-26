@@ -84,7 +84,7 @@ public class MapPanel extends JPanel {
 	{		
 		for(int n=0;n<resList.size();n++)
 		{
-        	g.drawImage(resList.get(n).getImgElement(),resList.get(n).getPos().getX()*10,resList.get(n).getPos().getY()*10, this);
+        	g.drawImage(resList.get(n).getImgElementUp(),resList.get(n).getPos().getX()*10,resList.get(n).getPos().getY()*10, this);
 		}
 	}
 	
@@ -92,7 +92,7 @@ public class MapPanel extends JPanel {
 	{		
 		for(int n=0;n<this.indivList.size();n++)
 		{
-			g.drawImage(indivList.get(n).getImgElement(),indivList.get(n).getPos().getX()*10,indivList.get(n).getPos().getY()*10,this);
+			g.drawImage(indivList.get(n).getCorrespondingImg(),indivList.get(n).getPos().getX()*10,indivList.get(n).getPos().getY()*10,this);
 		}
 		
 	}
@@ -144,6 +144,16 @@ public class MapPanel extends JPanel {
 	public void addIndividualGUI(ElementGUI e)
 	{
 		indivList.add(e);
+	}
+	
+	public ElementGUI getCorrespondingElementGUI(Individual i)
+	{
+		for(ElementGUI e:indivList)
+		{
+			if(e.getElem() == i) return e;
+		}
+		
+		return null;
 	}
 	
 }

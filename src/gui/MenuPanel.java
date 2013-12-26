@@ -76,19 +76,22 @@ public class MenuPanel extends JPanel{
 	    		if(sw.getTribeAt(tribesComboBox.getSelectedIndex()).getPopulation().get(0) instanceof Human)
 	    		{
 	    			Human h = new Human(sw.getBoard().randPosition(),"");
-	    			sw.addIndividual(h,tribesComboBox.getSelectedIndex());
 	    			swGUI.getMap().addIndividualGUI(new ElementGUI(h));
+	    			sw.addIndividual(h,tribesComboBox.getSelectedIndex());
+	    			
 	    		}
 	    		else if(sw.getTribeAt(tribesComboBox.getSelectedIndex()).getPopulation().get(0) instanceof Robot)
 	    		{
 	    			Robot h = new Robot(sw.getBoard().randPosition(),"");
+	    			swGUI.getMap().addIndividualGUI(new ElementGUI(h));
 	    			sw.addIndividual(h,tribesComboBox.getSelectedIndex());
-	    			swGUI.getMap().addIndividualGUI(new ElementGUI(h));	    		}
+	    				    		}
 	    		else if(sw.getTribeAt(tribesComboBox.getSelectedIndex()).getPopulation().get(0) instanceof Bee)
 	    		{
 	    			Bee h = new Bee(sw.getBoard().randPosition(),"");
+	    			swGUI.getMap().addIndividualGUI(new ElementGUI(h));
 	    			sw.addIndividual(h,tribesComboBox.getSelectedIndex());
-	    			swGUI.getMap().addIndividualGUI(new ElementGUI(h));	    		}
+	    				    		}
 	    	}
 		});
 	    
