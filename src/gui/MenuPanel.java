@@ -20,6 +20,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -27,10 +28,12 @@ import javax.swing.JTextArea;
 /* The MenuPanel class corresponds to the panel that is on the left during the game, giving several options to the player */
 
 public class MenuPanel extends JPanel{
-	private JButton pause, addIndiv,exit;
+	private JButton pause, addIndiv,save,exit;
 	private JLabel mainTitle, barTitle, game_over, winners;
 	private JComboBox tribesComboBox;
 	private JCheckBox viewResources;
+	private JFileChooser saveFileChooser;
+
 	/*
 	 * @author Belkacem
 	 * Boolean for the integration of the action on the play/pause button
@@ -58,8 +61,15 @@ public class MenuPanel extends JPanel{
 	    mainTitle = new JLabel ("Menu d'actions");
 	    pause = new JButton("Play/Pause");
 	    viewResources = new JCheckBox("Voir/Cacher ressources");
+	    save = new JButton("Sauvegarder partie");
 	    exit = new JButton("Revenir au menu");
-		
+	    try {
+			saveFileChooser = new JFileChooser(new File("data//save").getCanonicalFile());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 		/*
 		 * @author Belkacem
 		 * Implmentation of the action after clicking on the play/pause button
@@ -103,6 +113,18 @@ public class MenuPanel extends JPanel{
 			}
 	    });
 	    
+	    save.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				play = false;
+				String defaultName = new String("save.xml");
+				saveFileChooser.setSelectedFile(new File(defaultName));
+				saveFileChooser.showOpenDialog(null);
+				JDOMSave jdomSave = new JDOMSave();
+				jdomSave.SavetoXML(sw,saveFileChooser.getSelectedFile().getName());
+			}
+	    });
+	    
 	    exit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -116,6 +138,7 @@ public class MenuPanel extends JPanel{
 	    this.add(tribesComboBox);
 	    this.add(addIndiv);
 	    this.add(viewResources);
+	    this.add(save);
 	    this.add(exit);
 	}
 
