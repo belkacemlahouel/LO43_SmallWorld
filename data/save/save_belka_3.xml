@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SmallWorld>
+  <board l="60" w="60">
+    <case x="5" y="12">
+      <ressource type="wood" life="7" />
+      <individual type="human" life="100" team="2" />
+    </case>
+    <case x="25" y="14">
+      <ressource type="food" life="23" />
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="43" y="42">
+      <ressource type="wood" life="78" />
+      <ressource type="food" life="100" />
+      <individual type="robot" life="50" team="1" />
+      <individual type="robot" life="50" team="1" />
+      <individual type="robot" life="50" team="1" />
+    </case>
+  </board>
+</SmallWorld>
