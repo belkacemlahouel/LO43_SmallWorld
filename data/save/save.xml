@@ -1,28 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SmallWorld>
   <board l="60" w="60">
-    <case x="5" y="12">
-      <ressource type="wood" life="84" />
-      <individual type="human" team="2" />
+    <case x="5" y="23">
+      <individual type="robot" life="50" team="1" />
     </case>
-    <case x="25" y="14">
-      <ressource type="food" life="56" />
-      <individual type="robot" team="1" />
+    <case x="5" y="24">
+      <individual type="robot" life="50" team="1" />
     </case>
-    <case x="29" y="49">
-      <individual type="robot" team="1" />
+    <case x="5" y="59">
+      <individual type="robot" life="50" team="1" />
     </case>
-    <case x="30" y="35">
-      <individual type="robot" team="1" />
+    <case x="12" y="10">
+      <individual type="robot" life="50" team="1" />
     </case>
-    <case x="33" y="8">
-      <individual type="bee" team="3" />
+    <case x="18" y="20">
+      <individual type="robot" life="50" team="1" />
     </case>
-    <case x="43" y="42">
-      <ressource type="rock" life="56" />
-      <ressource type="wood" life="100" />
-      <ressource type="food" life="100" />
-      <individual type="robot" team="1" />
+    <case x="19" y="21">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="19" y="33">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="19" y="36">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="19" y="40">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="21" y="40">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="22" y="22">
+      <individual type="robot" life="15" team="1" />
+    </case>
+    <case x="22" y="36">
+      <individual type="robot" life="9" team="1" />
+    </case>
+    <case x="25" y="28">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="28" y="19">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="31" y="6">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="33" y="30">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="35" y="48">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="35" y="58">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="40" y="25">
+      <individual type="robot" life="10" team="1" />
+    </case>
+    <case x="42" y="12">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="42" y="39">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="44" y="28">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="49" y="50">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="51" y="18">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="51" y="27">
+      <individual type="robot" life="10" team="1" />
+    </case>
+    <case x="51" y="53">
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="52" y="26">
+      <individual type="robot" life="50" team="1" />
     </case>
   </board>
 </SmallWorld>
