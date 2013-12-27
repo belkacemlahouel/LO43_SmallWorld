@@ -16,6 +16,12 @@ public class SmallWorldHandler extends DefaultHandler  {
 	private SmallWorld smallworld = new SmallWorld();
 	private Case ca;
 	
+	/*
+	 * variable for the management of lifes during backup
+	 * @author Belkacem Lahouel
+	 */
+	private boolean new_game;
+	
 	public SmallWorldHandler (){
 		super();
 	}
@@ -130,8 +136,16 @@ public class SmallWorldHandler extends DefaultHandler  {
 
 			}
 			else if ((rawName.equals("individual"))){
+				
+				/*
+				 * @author Belkacem Lahouel
+				 * adding the life when a game is continued
+				 */
+				int life = 10;
+				
 				String type = " ";
 				int team = 0;
+				
 				//récupération des valeurs des attributs:
 				for (int index = 0; index < attributs.getLength(); index++){
 					if (attributs.getQName(index).equals("type")){
@@ -140,28 +154,55 @@ public class SmallWorldHandler extends DefaultHandler  {
 					else if (attributs.getQName(index).equals("team")) {
 						team = Integer.parseInt(attributs.getValue(index));
 					}
+					/*
+					 * @author Belkacem Lahouel
+					 * adding the implementation of the life when a backup is restored...
+					 */
+					else if (attributs.getQName(index).equals("life")) {
+						life = Integer.parseInt(attributs.getValue(index));
+					}
 				}
 				
 				//création de l'objet dans la team donnée:
 				if (type.equals("human")){
 					
 					Human h = new Human(ca.getPosition(),"");
+					/*
+					 * @author Belkacem Lahouel
+					 * Management of the life while backing up games
+					 */
+					if (!new_game) {
+						h.setLife(life);
+					}
 					smallworld.addIndividual(h,team-1);
 					ca.add(h);
 				}
 				else if (type.equals("robot")){
 					
 					Robot r = new Robot(ca.getPosition(),"");
+					/*
+					 * @author Belkacem Lahouel
+					 * Management of the life while backing up games
+					 */
+					if (!new_game) {
+						r.setLife(life);
+					}
 					smallworld.addIndividual(r,team-1);
 					ca.add(r);
 				}
 				else if (type.equals("bee")){
 					
 					Bee b = new Bee(ca.getPosition(),"");
+					/*
+					 * @author Belkacem Lahouel
+					 * Management of the life while backing up games
+					 */
+					if (!new_game) {
+						b.setLife(life);
+					}
 					smallworld.addIndividual(b,team-1);
 					ca.add(b);
 				}
-				
 			}
 		}
 		
@@ -171,4 +212,7 @@ public class SmallWorldHandler extends DefaultHandler  {
 	public void startPrefixMapping(String arg0, String arg1)
 			throws SAXException {}
 
+	
+	public void reload () {new_game = false;}
+	public void reset () {new_game = true;}
 }

@@ -75,7 +75,6 @@ public class JDOMSave {
 						 }
 						 //Case where the element is an individual:
 						 else if (elem instanceof Individual){
-							 
 							 org.jdom2.Element ind = new org.jdom2.Element("individual");
 							 if(elem instanceof Human){//The "type" attribute has to be set 
 								 Attribute type = new Attribute("type", "human");
@@ -89,6 +88,13 @@ public class JDOMSave {
 								 Attribute type = new Attribute("type", "bee");
 								 ind.setAttribute(type);
 							 }
+							 
+							 /*
+							  * @author Belkacem Lahouel
+							  * Implementation of life care on Individuals when continuing a game
+							  */
+							 Attribute life = new Attribute("life", Integer.toString(elem.getLife()));
+							 ind.setAttribute (life);
 							 
 							 // To set the "team" attribute we have to look for the individual in each team.
 							 for (int t = 0; t < sw.getTribe_list().size(); t++){

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SmallWorld>
+  <board l="60" w="60">
+    <case x="5" y="12">
+      <ressource type="wood" life="48" />
+      <individual type="human" life="35" team="2" />
+      <individual type="human" life="87" team="2" />
+    </case>
+    <case x="6" y="30">
+      <individual type="bee" life="100" team="3" />
+    </case>
+    <case x="14" y="40">
+      <individual type="human" life="46" team="2" />
+      <individual type="bee" life="12" team="3" />
+    </case>
+    <case x="23" y="1">
+      <individual type="human" life="83" team="2" />
+    </case>
+    <case x="23" y="55">
+      <individual type="human" life="32" team="2" />
+    </case>
+    <case x="25" y="14">
+      <ressource type="food" life="34" />
+      <individual type="robot" life="50" team="1" />
+      <individual type="robot" life="50" team="1" />
+    </case>
+    <case x="28" y="30">
+      <individual type="bee" life="100" team="3" />
+    </case>
+    <case x="30" y="27">
+      <individual type="bee" life="37" team="3" />
+    </case>
+    <case x="31" y="5">
+      <individual type="bee" life="100" team="3" />
+    </case>
+    <case x="31" y="27">
+      <individual type="bee" life="49" team="3" />
+    </case>
+    <case x="36" y="42">
+      <individual type="human" life="83" team="2" />
+    </case>
+    <case x="38" y="33">
+      <individual type="bee" life="100" team="3" />
+    </case>
+    <case x="43" y="34">
+      <individual type="bee" life="66" team="3" />
+    </case>
+    <case x="43" y="42">
+      <ressource type="rock" life="27" />
+      <ressource type="wood" life="100" />
+      <ressource type="food" life="100" />
+      <individual type="bee" life="83" team="3" />
+      <individual type="bee" life="100" team="3" />
+    </case>
+    <case x="43" y="46">
+      <individual type="bee" life="66" team="3" />
+    </case>
+    <case x="44" y="2">
+      <individual type="human" life="49" team="2" />
+    </case>
+    <case x="50" y="25">
+      <individual type="bee" life="59" team="3" />
+      <individual type="human" life="57" team="2" />
+    </case>
+  </board>
+</SmallWorld>

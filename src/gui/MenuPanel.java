@@ -77,6 +77,11 @@ public class MenuPanel extends JPanel{
 		pause.addActionListener (new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
 				play = !play;
+				/*
+				 * @author Belkacem
+				 * If we go to pause, we print the SmallWorld status
+				 */
+				if (!play) System.out.print("" + sw);
 			}
 		});
 	    
@@ -102,7 +107,13 @@ public class MenuPanel extends JPanel{
 	    			Bee h = new Bee(sw.getBoard().randPosition(),"");
 	    			swGUI.getMap().addIndividualGUI(new ElementGUI(h));
 	    			sw.addIndividual(h,tribesComboBox.getSelectedIndex());
-	    				    		}
+	    		}
+				
+				/*
+				 * @author Belkacem Lahouel
+				 * Printing each individual on the gui asap (when it it added to the game)
+				 */
+				swGUI.repaint();
 	    	}
 		});
 	    

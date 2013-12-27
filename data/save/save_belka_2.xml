@@ -2,26 +2,24 @@
 <SmallWorld>
   <board l="60" w="60">
     <case x="5" y="12">
-      <ressource type="wood" life="84" />
+      <ressource type="wood" life="37" />
       <individual type="human" team="2" />
+    </case>
+    <case x="21" y="44">
+      <individual type="robot" team="1" />
+    </case>
+    <case x="25" y="12">
+      <individual type="bee" team="3" />
     </case>
     <case x="25" y="14">
       <ressource type="food" life="56" />
       <individual type="robot" team="1" />
     </case>
-    <case x="29" y="49">
-      <individual type="robot" team="1" />
-    </case>
-    <case x="30" y="35">
-      <individual type="robot" team="1" />
-    </case>
-    <case x="33" y="8">
-      <individual type="bee" team="3" />
-    </case>
     <case x="43" y="42">
-      <ressource type="rock" life="56" />
+      <ressource type="rock" life="12" />
       <ressource type="wood" life="100" />
       <ressource type="food" life="100" />
+      <individual type="robot" team="1" />
       <individual type="robot" team="1" />
     </case>
   </board>

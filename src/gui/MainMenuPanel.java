@@ -22,9 +22,9 @@ import xml_parser.SmallWorldParser;
 import kernel.SmallWorld;
 
 public class MainMenuPanel extends JPanel {
-	JButton start,edit,load,exit;
-	JFileChooser loadFileChooser;
-	Clip titleTheme;
+	private JButton start,edit,load,exit, reload;
+	private JFileChooser loadFileChooser;
+	private Clip titleTheme;
 
 	public MainMenuPanel(final SmallWorldGUI swGUI,final SmallWorldParser SWP)
 	{
@@ -35,7 +35,8 @@ public class MainMenuPanel extends JPanel {
 		
 		start = new JButton("Demarrage rapide");
 		edit = new JButton("Editer une map");
-		load = new JButton("Charger fichier");
+		load = new JButton("Charger map");
+		reload = new JButton ("Reprendre une partie");
 		exit = new JButton("Quitter");
 		try {
 			loadFileChooser = new JFileChooser(new File("data//save").getCanonicalFile());
@@ -82,11 +83,41 @@ public class MainMenuPanel extends JPanel {
 		    		sw.setGui(swGUI);
 		    		swGUI.setSw(sw);
 		    		swGUI.startGame();
+					
+					/*
+					 * @author Belkacem
+					 * for the correction of the bug with lifes, when it comes to continue a game
+					 */
+					SWP.reset ();
 	    		}
 	    	}
 		});
 		
-
+		/*
+		 * @author Belkacem
+		 * for the correction of the bug with lifes, when it comes to continue a game
+		 */
+		reload.addActionListener(new ActionListener(){
+	    	
+	    	public void actionPerformed(ActionEvent arg0){	
+	    		loadFileChooser.showOpenDialog(null);
+	    		if(loadFileChooser.getSelectedFile() != null)
+	    		{
+	    			titleTheme.stop();
+		    		SmallWorld sw = SWP.createSW(loadFileChooser.getSelectedFile().getPath());
+		    		sw.setGui(swGUI);
+		    		swGUI.setSw(sw);
+		    		swGUI.startGame();
+					
+					/*
+					 * TODO
+					 * I should reset this value if I come back to the main menu
+					 * Normally the reset method (launched with load) helps
+					 */
+					SWP.reload();
+	    		}
+	    	}
+		});
 		
 		gbc1.fill = GridBagConstraints.HORIZONTAL;
 		gbc1.gridx = 1;
@@ -104,7 +135,16 @@ public class MainMenuPanel extends JPanel {
 		this.add(load,gbc1);
 		gbc1.gridx = 1;
 		gbc1.gridy = 4;
-		this.add(exit,gbc1);
+		this.add(reload,gbc1);
+		
+		/*
+		 * @author Belkacem Lahouel
+		 * Implementation of the backup
+		 * Taking care of lifes when using the back up...
+		 */
+		gbc1.gridx = 1;
+		gbc1.gridy = 5;
+		this.add(exit, gbc1);
 	}
 	
 	public void paintComponent(Graphics g)
