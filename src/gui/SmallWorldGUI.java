@@ -30,6 +30,7 @@ public class SmallWorldGUI extends JFrame{
 	private MapPanel map;
 	private MapBackgroundPanel mapBg;
 	private ResourcePanel resPan;
+	private EditorPanel editPan;
 
 
 	private SmallWorld sw;
@@ -43,7 +44,9 @@ public class SmallWorldGUI extends JFrame{
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 	    getContentPane().setLayout(new BorderLayout());
 	    
+	    editPan = new EditorPanel(this);
 	    mainMenu = new MainMenuPanel(this,SWP);
+	    mainMenu.setVisible(true);
 	    getContentPane().add(mainMenu);
 	    
 	 
@@ -76,14 +79,16 @@ public class SmallWorldGUI extends JFrame{
 		mapBg.setVisible(false);
 		map.setVisible(false);
 		mainMenu.setVisible(true);
+		editPan.setVisible(false);
+		remove(editPan);
 	}
 	
 	public void startGame()
 	{
 		mainMenu.setVisible(false);
+		editPan.setVisible(false);
 		
 		map = new MapPanel(sw.getBoard(),sw.getTribe_list(),sw.getResources());
-		
 	    resPan = new ResourcePanel(this);
 	    leftBar = new MenuPanel(this,this.sw,resPan); 
 		
@@ -96,6 +101,16 @@ public class SmallWorldGUI extends JFrame{
 	    getContentPane().validate();
 	    
 	    sw.start();
+	}
+	
+	public void editMap()
+	{
+		mainMenu.setVisible(false);
+		this.remove(mainMenu);
+		getContentPane().add(editPan);
+		editPan.setVisible(true);
+		getContentPane().validate();
+		editPan.repaint();
 	}
 	
 	

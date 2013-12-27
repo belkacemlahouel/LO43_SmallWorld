@@ -55,6 +55,12 @@ public class MainMenuPanel extends JPanel {
 	    	}
 		});
 		
+		edit.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent arg0){	
+	    		swGUI.editMap();
+	    	}
+		});
+		
 		exit.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent arg0){	
 	    	System.exit(0);

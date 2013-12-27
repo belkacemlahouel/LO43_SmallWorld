@@ -28,6 +28,20 @@ public class SmallWorld extends Thread {
 		tribe_list.add(new Tribe ());
 	}
 	
+	public SmallWorld (int nbTribes) {
+
+		super ("Small World"); // Construction of the Thread
+		
+		tribe_list = new ArrayList<Tribe> ();
+		
+		for(int i=0;i<nbTribes;i++)
+		{
+			tribe_list.add(new Tribe());
+		}
+		resources = new ArrayList<Resource> ();
+		
+	}
+	
 	public Position getBestNextPosition (Individual tmp) {
 		Position final_pos = tmp.getAimPosition ();
 		if (final_pos == null || tmp.getPosition().equals(final_pos)) {
