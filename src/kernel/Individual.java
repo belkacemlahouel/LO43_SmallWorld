@@ -11,11 +11,24 @@ public abstract class Individual extends Element {
 	protected Position aim_position;
 	protected Element target_element;
 	protected int priority;
+	protected Clip kick;
 	
 	public Individual (Position pos_, String name_) {
 		super(pos_, name_);
 		aim_position = null;
 		life = getMaxLife ();
+		
+		String[] soundsList = {"kick1","kick2","kick3"};
+		int rnd =(int)(Math.random() * (soundsList.length-1));
+		
+		try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("data//"+soundsList[rnd]+".wav").getAbsoluteFile());
+	        kick = AudioSystem.getClip();
+	        kick.open(audioInputStream);
+	    } catch(Exception ex) {
+	        System.err.println("- Error while playing sound.");
+	        ex.printStackTrace();
+	    }
 	}
 
 	public void attack (Element e) {
@@ -23,11 +36,8 @@ public abstract class Individual extends Element {
 			if (e instanceof Individual) {
 				
 				try {
-			        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("data//kick.wav").getAbsoluteFile());
-			        Clip clip = AudioSystem.getClip();
-			        clip.open(audioInputStream);
-			        clip.start();
-			    } catch(Exception ex) {
+					kick.start();
+				} catch(Exception ex) {
 			        System.err.println("- Error while playing sound.");
 			        ex.printStackTrace();
 			    }

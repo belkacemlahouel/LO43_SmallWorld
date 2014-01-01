@@ -15,8 +15,13 @@ import javax.swing.JPanel;
 
 public class MapBackgroundPanel extends JPanel {
 	
-	Clip mapTheme;
+	private Clip mapTheme;
 	
+	public Clip getMapTheme() {
+		return mapTheme;
+	}
+
+
 	public MapBackgroundPanel(){
 		super();
 		this.setLayout(new FlowLayout());
@@ -26,7 +31,6 @@ public class MapBackgroundPanel extends JPanel {
 	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("data//title.wav").getAbsoluteFile());
 	        mapTheme = AudioSystem.getClip();
 	        mapTheme.open(audioInputStream);
-	        mapTheme.start();
 	    } catch(Exception ex) {
 	        System.out.println("Error while playing sound.");
 	        ex.printStackTrace();

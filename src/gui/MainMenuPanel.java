@@ -165,5 +165,11 @@ public class MainMenuPanel extends JPanel {
 	      }
 		
 	}
+
+	public Clip getTitleTheme() {
+		return titleTheme;
+	}
+	
+	
 	
 }

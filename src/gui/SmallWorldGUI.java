@@ -29,7 +29,6 @@ public class SmallWorldGUI extends JFrame{
 	private MenuPanel leftBar;
 	private MapPanel map;
 	private MapBackgroundPanel mapBg;
-	private ResourcePanel resPan;
 	private EditorPanel editPan;
 
 
@@ -79,12 +78,17 @@ public class SmallWorldGUI extends JFrame{
 		mapBg.setVisible(false);
 		map.setVisible(false);
 		mainMenu.setVisible(true);
+		getContentPane().add(mainMenu);
 		editPan.setVisible(false);
 		remove(editPan);
+		mainMenu.repaint();
+		getContentPane().validate();
+		mainMenu.getTitleTheme().start();
 	}
 	
 	public void startGame()
 	{
+		mainMenu.getTitleTheme().stop();
 		mainMenu.setVisible(false);
 		editPan.setVisible(false);
 		
@@ -99,6 +103,7 @@ public class SmallWorldGUI extends JFrame{
 	    getContentPane().add(mapBg,BorderLayout.EAST);
 	    mapBg.add(map);
 	    getContentPane().validate();
+	    mapBg.getMapTheme().start();
 	    
 	    sw.start();
 	}
@@ -161,5 +166,15 @@ public class SmallWorldGUI extends JFrame{
 	public void showWinners (String type, int num) {
 		leftBar.showWinners(type, num);
 	}
+	
+	public MapBackgroundPanel getMapBg() {
+		return mapBg;
+	}
+
+	public void setMapBg(MapBackgroundPanel mapBg) {
+		this.mapBg = mapBg;
+	}
+
+	private ResourcePanel resPan;
 	
 }

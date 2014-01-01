@@ -151,6 +151,7 @@ public class MenuPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				play = false;
+				swGUI.getMapBg().getMapTheme().stop();
 				swGUI.abortGame();
 			}
 	    });
@@ -206,6 +207,8 @@ public class MenuPanel extends JPanel{
 		pause.setVisible (false);
 		addIndiv.setVisible (false);
 		tribesComboBox.setVisible (false);
+		addRes.setVisible(false);
+		resourcesComboBox.setVisible(false);
 	}
 	
 	/*
