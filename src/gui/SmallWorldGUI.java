@@ -88,7 +88,7 @@ public class SmallWorldGUI extends JFrame{
 		mainMenu.setVisible(false);
 		editPan.setVisible(false);
 		
-		map = new MapPanel(sw.getBoard(),sw.getTribe_list(),sw.getResources());
+		map = new MapPanel(sw.getBoard(),sw.getTribe_list(),sw.getResources(),this);
 	    resPan = new ResourcePanel(this);
 	    leftBar = new MenuPanel(this,this.sw,resPan); 
 		

@@ -167,17 +167,17 @@ public class EditorPanel extends JPanel{
 		/* 0 = small board, 1 = mean board, 2 = big board */
 		if(mapSize.getSelectedIndex() == 0)
 		{
-			Board b = new Board(30,30);
+			Board b = new Board(50,30);
 			sw.setBoard(b);
 		}
 		else if(mapSize.getSelectedIndex() == 1)
 		{
-			Board b = new Board(50,50);
+			Board b = new Board(70,50);
 			sw.setBoard(b);
 		}
 		else if(mapSize.getSelectedIndex() == 2)
 		{
-			Board b = new Board(70,70);
+			Board b = new Board(110,72);
 			sw.setBoard(b);
 		}
 	}

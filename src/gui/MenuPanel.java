@@ -24,15 +24,17 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JToggleButton;
 
 /* The MenuPanel class corresponds to the panel that is on the left during the game, giving several options to the player */
 
 public class MenuPanel extends JPanel{
 	private JButton pause, addIndiv,save,exit;
 	private JLabel mainTitle, barTitle, game_over, winners;
-	private JComboBox tribesComboBox;
+	private JComboBox tribesComboBox,resourcesComboBox;
 	private JCheckBox viewResources;
 	private JFileChooser saveFileChooser;
+	private JToggleButton addRes;
 
 	/*
 	 * @author Belkacem
@@ -54,9 +56,18 @@ public class MenuPanel extends JPanel{
 	    
 	    for(int i=0;i<sw.getTribeList().size();i++)
 	    {
-	    	tribesComboBox.addItem("Tribe " + (i+1));
+	    	tribesComboBox.addItem("Tribe " + (i+1) + " : " + sw.getTribeAt(i).getPopulation().get(0).getTypeName());
 	    }
 	    
+	    resourcesComboBox = new JComboBox();
+	    
+	    resourcesComboBox.addItem("Pierre");
+	    resourcesComboBox.addItem("Bois");
+	    resourcesComboBox.addItem("Metal");
+	    resourcesComboBox.addItem("Nourriture");
+	    resourcesComboBox.addItem("Plutonium");
+	    
+	    addRes = new JToggleButton("Ajouter ressource");
 	    addIndiv = new JButton("Ajouter individu");
 	    mainTitle = new JLabel ("Menu d'actions");
 	    pause = new JButton("Play/Pause");
@@ -148,12 +159,34 @@ public class MenuPanel extends JPanel{
 	    this.add(pause);
 	    this.add(tribesComboBox);
 	    this.add(addIndiv);
+	    this.add(resourcesComboBox);
+	    this.add(addRes);
 	    this.add(viewResources);
 	    this.add(save);
 	    this.add(exit);
 	}
 
 	
+	public JComboBox getResourcesComboBox() {
+		return resourcesComboBox;
+	}
+
+
+	public void setResourcesComboBox(JComboBox resourcesComboBox) {
+		this.resourcesComboBox = resourcesComboBox;
+	}
+
+
+	public JToggleButton getAddRes() {
+		return addRes;
+	}
+
+
+	public void setAddRes(JToggleButton addRes) {
+		this.addRes = addRes;
+	}
+
+
 	/*
 	 * @author Belkacem
 	 * Takes care of the action performed on the play/pause button
@@ -181,7 +214,7 @@ public class MenuPanel extends JPanel{
 	 */
 	public void showWinners (String type, int num) {
 		game_over = new JLabel ("GAME OVER");
-		winners = new JLabel ("Tribe nÂ°" + num + " (" + type + ") WON!");
+		winners = new JLabel ("Tribe n°" + num + " (" + type + ") WON!");
 		winners.setVisible (true);
 		game_over.setVisible (true);
 		add (game_over);

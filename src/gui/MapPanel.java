@@ -8,19 +8,23 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /* This class rules the display of the menu */
 
-public class MapPanel extends JPanel {
+public class MapPanel extends JPanel implements MouseListener {
 	
 	private ArrayList<ElementGUI> resList;
 	private ArrayList<ElementGUI> indivList;
+	private SmallWorldGUI swGUI;
 	private final int xAxisLength;
 	private final int yAxisLength;
 
@@ -28,14 +32,16 @@ public class MapPanel extends JPanel {
 	
 	/* The idea is to create the map Panel with a given XML or ElementList */
 
-	public MapPanel(Board b,ArrayList<Tribe> swTribeList,ArrayList<Resource> swResList)
+	public MapPanel(Board b,ArrayList<Tribe> swTribeList,ArrayList<Resource> swResList,SmallWorldGUI swGUI_)
 	{
 		super();
+		swGUI = swGUI_; // We need the reference to the MenuPanel, to add the resources on the map, and the board, to add it on them
 		resList = new ArrayList<ElementGUI>();
 		indivList = new ArrayList<ElementGUI>();
 		xAxisLength = b.getBoard().length;
 		yAxisLength = b.getBoard()[0].length;
 	    this.setPreferredSize(new Dimension(xAxisLength*caseSize,yAxisLength*caseSize));
+	    addMouseListener(this);
 	    
 	    /* We create the ElementGUI depending on the Tribe List and the Resource List of the SmallWorld */
 	    
@@ -154,6 +160,81 @@ public class MapPanel extends JPanel {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Case c = computePosition(e.getX(),e.getY());
+		
+		if(swGUI.getLeftBar().getAddRes().isSelected())
+		{
+			/*0 : rock, 1 : wood, 2 : metal, 3 : food, 4 : plutonium*/
+			switch(swGUI.getLeftBar().getResourcesComboBox().getSelectedIndex())
+			{
+				case 0:
+					Rock r = new Rock(c.getPosition(),"");
+					c.add(r);
+					resList.add(new ElementGUI(r));
+					break;
+				case 1:
+					Wood w = new Wood(c.getPosition(),"");
+					c.add(w);
+					resList.add(new ElementGUI(w));
+					break;
+				case 2:
+					Metal m = new Metal(c.getPosition(),"");
+					c.add(m);
+					resList.add(new ElementGUI(m));
+					break;
+				case 3:
+					Food f = new Food(c.getPosition(),"");
+					c.add(f);
+					resList.add(new ElementGUI(f));
+					break;
+				case 4:
+					Plutonium p = new Plutonium(c.getPosition(),"");
+					c.add(p);
+					resList.add(new ElementGUI(p));
+					break;
+			}
+		}
+	}
+
+	/* This function looks at the coordinates (in pixel) of the mouse on the map, and returns the case in the board where the resource
+	 * has to be
+	 */
+	
+	public Case computePosition(int x,int y)
+	{
+		int goodX, goodY;
+		goodX = x/caseSize;
+		goodY = y/caseSize;
+		
+		return swGUI.getSw().getBoard().get(goodX, goodY);
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
