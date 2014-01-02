@@ -101,6 +101,16 @@ public class EditorPanel extends JPanel{
 		add.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent arg0){
 	    		updateTribeEditorList(nbTribes.getSelectedIndex()+1);
+				
+				/*
+				 * @author Belkacem @date 02/01/14
+				 * The user can't change its map configuration
+				 */
+				add.setEnabled(false);
+				mapSize.setEnabled(false);
+				resSize.setEnabled(false);
+				nbTribes.setEnabled(false);
+				validate.setVisible(true);
 	    	}
 		});
 		
@@ -113,6 +123,22 @@ public class EditorPanel extends JPanel{
 	    		generateTribes(sw);
 	    		generateResources(sw);
 	    		swGUI.startGame();
+				
+				/*
+				 * @author Belkacem @date 02/01/14
+				 * Re-enabling the buttons so that the user can change its options if he comes back to this menu
+				 * Putting back the default values
+				 * Hiding again these buttons
+				 */
+				add.setEnabled(true);
+				mapSize.setEnabled(true);
+				resSize.setEnabled(true);
+				nbTribes.setEnabled(true);
+				mapSize.setSelectedIndex(0);
+				nbTribes.setSelectedIndex(0);
+				resSize.setSelectedIndex(0);
+				validate.setVisible(false);
+				updateTribeEditorList(0);
 	    	}
 		});
 	}
