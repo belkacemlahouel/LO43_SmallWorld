@@ -132,7 +132,12 @@ public class MainMenuPanel extends JPanel {
 		gbc1.insets = new Insets(10,10,10,10);
 		gbc1.gridy = 1;
 		this.add(start,gbc1);
-		gbc1.fill = GridBagConstraints.VERTICAL;
+
+		gbc1.fill = GridBagConstraints.BOTH; // gbc1.fill = GridBagConstraints.VERTICAL;
+		/*
+		 * @author Belkacem @date 02/01/14
+		 * Same size for all buttons
+		 */
 		gbc1.gridx = 1;
 		gbc1.gridy = 2;
 		this.add(edit,gbc1);
