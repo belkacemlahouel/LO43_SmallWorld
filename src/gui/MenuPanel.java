@@ -83,7 +83,7 @@ public class MenuPanel extends JPanel{
 	    
 		/*
 		 * @author Belkacem
-		 * Implmentation of the action after clicking on the play/pause button
+		 * Implementation of the action after clicking on the play/pause button
 		 */
 		pause.addActionListener (new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
@@ -212,12 +212,12 @@ public class MenuPanel extends JPanel{
 	}
 	
 	/*
-	 * @author belkacem
+	 * @author Belkacem
 	 * adding the printing of the winning team
 	 */
 	public void showWinners (String type, int num) {
 		game_over = new JLabel ("GAME OVER");
-		winners = new JLabel ("Tribe n°" + num + " (" + type + ") WON!");
+		winners = new JLabel ("Tribe nÂ°" + num + " (" + type + ") WON!");
 		winners.setVisible (true);
 		game_over.setVisible (true);
 		add (game_over);

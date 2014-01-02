@@ -14,7 +14,7 @@ public abstract class Individual extends Element {
 	protected Clip kick;
 	
 	public Individual (Position pos_, String name_) {
-		super(pos_, name_); 
+		super (pos_, name_);
 		aim_position = null;
 		life = getMaxLife ();
 		

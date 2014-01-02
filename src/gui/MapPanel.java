@@ -197,6 +197,8 @@ public class MapPanel extends JPanel implements MouseListener {
 					resList.add(new ElementGUI(p));
 					break;
 			}
+			
+			repaint ();
 		}
 	}
 
