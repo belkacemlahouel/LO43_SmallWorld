@@ -1,22 +1,33 @@
 @author Belkacem @date 27/12/13 - dernière version en date sur bitbucket
 	Faire des slots de sauvegarde => encapsulation ++, le joueur ne peut (à moins d'être un peu expérimenté) créer sa map sans passer par l'éditeur
 	Améliorer l'éditeur pour pouvoir choisir l'endroit des ressources
-	Améliorer l'affichage des status en cours de jeu
+#	Améliorer l'affichage des status en cours de jeu
 	Améliorer l'IA en créant (interfaces ?) des "pouvoirs"
 		Combatif, Recolteur, Sniper (longue vue), Intelligent (ferait attention aux mouvement après bouger), Médecin (peut soigner les autres), Puissant,...
 	Changer le mouvement (x++, y++) des individus par quelque chose de plus random... Choisir lequel des deux axes bouger
 	Implémenter des cases non traversables ? Dans lesquelles on ne mettrait par exemple des maisons, arbres, etc
-	Récoltes par tribu
+#	Récoltes par tribu
 	Civilisations
-	Bases
-	Implémenter les autres ressources, pour les Civilisations etc
+#	Bases
+#	Implémenter les autres ressources, pour les Civilisations etc
 	Lors du retour au menu principal (sans pause) il y a un bug : fermeture du thread Small World ?
 	Améliorer le traitement des sauvegardes : on pourrait seulement récupérer une map et donc osef des individus ou récupérer tout
 	Sprites avec une légère différence pour les types d'individus avec des pouvoirs (lunettes, gros, ...)
-	Sprites différents selon l'appartenance à la team
+	Sprites différents selon l'appartenance à la team, donc avec même des couleurs différentes... Si il y a deux équipes d'humains, il y a confusion
 	Génération de noms aléatoires (au moins pour les teams ?)
 	Suppression des cadavres et des ressources (disparition en fondu, progressive ?)
-	
+
+@author Luc
 +	Drag'n'Drop pour ajouter des ressources en milieu de jeu (Enfin, pas exactement du drag n drop...)
 +	Bug avec les audios : quand on revient au menu principal on est censé ré-écouter la bonne musique, or c'est la musique du jeu qui reste
 
+@author Belkacem
+	Ligne juste au dessus du MapPanel qui sert à rien, laide ; donc à enlever...
+#	Créer des tribus, qui ne sont jamais vides
+#	Mettre les boutons à la même taille, plus harmonieux
+#	Un Individu ne peut exister sans Tribu, ou alors la Tribu est un singleton de lui-même
++	Enlever le rond noir qui s'affiche quand on mets les status
+#	Une fois que l'on a choisi le nombre de tribus, on n'est pas censé pouvoir le changer après donc désactiver boutons
+#	Nombre de ressources (par défaut) aléatoire pour chaque type...
+	Etant donné la nature du projet (vivarium) ne sommes nous pas censés faire quelque chose qui marche même si il n'y a pas d'ennemis ?
+	Bug : quand on revient au menu après avoir fini une partie, la même liste des options précédentes est affichée... et directement plus besoin de cliquer sur le premier bouton
