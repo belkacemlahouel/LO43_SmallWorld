@@ -92,7 +92,8 @@ public class SmallWorldHandler extends DefaultHandler  {
 			 */
 			if (i != null) {
 				if (!new_game) i.setLife (life);
-				smallworld.addIndividual (i, tribe-1);
+				if (type.equals (smallworld.getTribeAt(tribe-1).getIndividualType())) smallworld.addIndividual (i, tribe-1);
+				else System.err.println ("- Error in the XML file, wrong type association between individual and tribe");
 				ca.add (i);
 			}
 		} else if (rawName.equals ("tribe")) {
