@@ -7,7 +7,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /*
  * Le Morvan Valentin - Info 01
  * Parser implementation for the XML file
- * The XML file can either describe just a map (reloading) or an entire game in pause
+ * The XML file can either describe just a map (loading map) or an entire game in pause (continue game)
  */
 
 public class SmallWorldHandler extends DefaultHandler  {
@@ -34,7 +34,7 @@ public class SmallWorldHandler extends DefaultHandler  {
 		
 		if (rawName.equals ("case")) {
 			int x = 1, y = 1;
-			for (int index = 0; index<attributs.getLength(); index++) {
+			for (int index = 0; index<attributs.getLength(); ++index) {
 				if		(attributs.getQName(index).equals ("x")) x = Integer.parseInt(attributs.getValue (index));
 				else if (attributs.getQName(index).equals ("y")) y = Integer.parseInt(attributs.getValue (index));
 				ca = smallworld.getBoard().get (x, y);
@@ -44,7 +44,7 @@ public class SmallWorldHandler extends DefaultHandler  {
 			Resource r = null;
 			int life = 0;
 			
-			for (int index=0 ; index<attributs.getLength() ; index++){
+			for (int index=0 ; index<attributs.getLength() ; ++index){
 				if		(attributs.getQName(index).equals ("type"))	type = attributs.getValue(index);
 				else if (attributs.getQName(index).equals ("life")) life = Integer.parseInt(attributs.getValue(index));
 			}
@@ -53,7 +53,7 @@ public class SmallWorldHandler extends DefaultHandler  {
 			else if (type.equals ("metal"))		r = new Metal		(ca.getPosition(), "");
 			else if (type.equals ("food"))		r = new Food		(ca.getPosition(), "");
 			else if (type.equals ("plutonium"))	r = new Plutonium	(ca.getPosition(), "");
-			else if (type.equals("wood"))		r = new Wood		(ca.getPosition(), "");
+			else if (type.equals ("wood"))		r = new Wood		(ca.getPosition(), "");
 			else System.err.println ("- Error, " + type + " as a Resource not found");
 			
 			if (r != null) {
@@ -66,14 +66,14 @@ public class SmallWorldHandler extends DefaultHandler  {
 			 * @author Belkacem Lahouel
 			 * adding the life backup when a game is continued
 			 */
-			int life = 10, team = 0;
+			int life = 10, tribe = 0;
 			String type = "";
 			Individual i = null;
 			
 			// récupération des valeurs des attributs:
-			for (int index = 0; index < attributs.getLength(); index++){
-				if		(attributs.getQName(index).equals ("type")) type = attributs.getValue(index);
-				else if (attributs.getQName(index).equals ("team")) team = Integer.parseInt(attributs.getValue(index));
+			for (int index=0 ; index<attributs.getLength() ; ++index) {
+				if		(attributs.getQName(index).equals ("type"))  type = attributs.getValue(index);
+				else if (attributs.getQName(index).equals ("tribe")) tribe = Integer.parseInt(attributs.getValue(index));
 				/*
 				 * @author Belkacem Lahouel
 				 * adding the implementation of the life when a backup is restored...
@@ -92,8 +92,22 @@ public class SmallWorldHandler extends DefaultHandler  {
 			 */
 			if (i != null) {
 				if (!new_game) i.setLife (life);
-				smallworld.addIndividual (i ,team-1);
+				smallworld.addIndividual (i, tribe-1);
 				ca.add (i);
+			}
+		} else if (rawName.equals ("tribe")) {
+			/*
+			 * @author Belkacem @date 02/01/14
+			 * Implementation of the resources in common, for a tribe
+			 * how to make the tribes being created first? I cannot add individuals if they are not created
+			 */
+			int x = 0, y = 0;
+			String type = "";
+			for (int i=0 ; i<attributs.getLength() ; ++i) {
+				if		(attributs.getQName(i).equals("x"))			x = Integer.parseInt(attributs.getValue(i));
+				else if (attributs.getQName(i).equals("y"))			y = Integer.parseInt(attributs.getValue(i));
+				else if (attributs.getQName(i).equals("type"))		type = attributs.getValue(i);
+				smallworld.addTribe (type, smallworld.getBoard().get(x, y).getPosition());
 			}
 		} else if (rawName.equals ("board")) {
 			int l = 1, w = 1;
