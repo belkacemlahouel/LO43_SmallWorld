@@ -30,5 +30,6 @@ public class Robot extends Individual {
 	@Override
 	public int getVision () {return 15;}
 	
-	
+	@Override
+	public String getVitalResource () {return "Metal";}
 }

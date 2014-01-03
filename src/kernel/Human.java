@@ -34,4 +34,7 @@ public class Human extends Individual {
 	
 	@Override
 	public int getVision () {return 13;}
+	
+	@Override
+	public String getVitalResource () {return "Food";}
 }

@@ -29,4 +29,6 @@ public class Bee extends Individual{
 	@Override
 	public int getVision () {return 10;}
 
+	@Override
+	public String getVitalResource () {return "Plutonium";}
 }
