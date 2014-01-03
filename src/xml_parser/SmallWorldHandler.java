@@ -32,7 +32,28 @@ public class SmallWorldHandler extends DefaultHandler  {
 	@Override
 	public void startElement(String nameSpaceURI, String LocalName, String rawName, Attributes attributs) throws SAXException {
 		
-		if (rawName.equals ("case")) {
+		if (rawName.equals ("board")) {
+			int l = 1, w = 1;
+			for (int index=0 ; index<attributs.getLength() ; ++index){
+				if		(attributs.getQName(index).equals ("l")) l = Integer.parseInt(attributs.getValue (index));
+				else if (attributs.getQName(index).equals ("w")) w = Integer.parseInt(attributs.getValue (index));
+			}
+			smallworld.setBoard(new Board(l,w));
+		} else if (rawName.equals ("tribe")) {
+			/*
+			 * @author Belkacem @date 02/01/14
+			 * Implementation of the resources in common, for a tribe
+			 * how to make the tribes being created first? I cannot add individuals if they are not created
+			 */
+			int x = 0, y = 0;
+			String type = "";
+			for (int i=0 ; i<attributs.getLength() ; ++i) {
+				if		(attributs.getQName(i).equals("x"))			x = Integer.parseInt(attributs.getValue(i));
+				else if (attributs.getQName(i).equals("y"))			y = Integer.parseInt(attributs.getValue(i));
+				else if (attributs.getQName(i).equals("type"))		type = attributs.getValue(i);
+				smallworld.addTribe (type, smallworld.getBoard().get(x, y).getPosition());
+			}
+		} else if (rawName.equals ("case")) {
 			int x = 1, y = 1;
 			for (int index = 0; index<attributs.getLength(); ++index) {
 				if		(attributs.getQName(index).equals ("x")) x = Integer.parseInt(attributs.getValue (index));
@@ -92,31 +113,10 @@ public class SmallWorldHandler extends DefaultHandler  {
 			 */
 			if (i != null) {
 				if (!new_game) i.setLife (life);
-				if (type.equals (smallworld.getTribeAt(tribe-1).getIndividualType())) smallworld.addIndividual (i, tribe-1);
+				if (smallworld.getTribeList() != null && !smallworld.getTribeList().isEmpty() && smallworld.getTribeList().size() > tribe-1 && type.equals (smallworld.getTribeAt(tribe-1).getIndividualType().toLowerCase())) smallworld.addIndividual (i, tribe-1);
 				else System.err.println ("- Error in the XML file, wrong type association between individual and tribe");
 				ca.add (i);
 			}
-		} else if (rawName.equals ("tribe")) {
-			/*
-			 * @author Belkacem @date 02/01/14
-			 * Implementation of the resources in common, for a tribe
-			 * how to make the tribes being created first? I cannot add individuals if they are not created
-			 */
-			int x = 0, y = 0;
-			String type = "";
-			for (int i=0 ; i<attributs.getLength() ; ++i) {
-				if		(attributs.getQName(i).equals("x"))			x = Integer.parseInt(attributs.getValue(i));
-				else if (attributs.getQName(i).equals("y"))			y = Integer.parseInt(attributs.getValue(i));
-				else if (attributs.getQName(i).equals("type"))		type = attributs.getValue(i);
-				smallworld.addTribe (type, smallworld.getBoard().get(x, y).getPosition());
-			}
-		} else if (rawName.equals ("board")) {
-			int l = 1, w = 1;
-			for (int index=0 ; index<attributs.getLength() ; ++index){
-				if		(attributs.getQName(index).equals ("l")) l = Integer.parseInt(attributs.getValue (index));
-				else if (attributs.getQName(index).equals ("w")) w = Integer.parseInt(attributs.getValue (index));
-			}
-			smallworld.setBoard(new Board(l,w));
 		}
 	}
 	

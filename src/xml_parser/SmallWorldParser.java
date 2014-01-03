@@ -4,9 +4,9 @@ import kernel.SmallWorld;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
-
 
 public class SmallWorldParser {
 	
@@ -17,20 +17,18 @@ public class SmallWorldParser {
 	private boolean new_game = true;
 	private SmallWorldHandler gestionnaire;
 	
-	public SmallWorldParser() {
-		
-	}
+	public SmallWorldParser() {}
 	
-	public SmallWorld createSW(String path){
+	public SmallWorld createSW (String path){
 		SAXParserFactory fabrique = SAXParserFactory.newInstance();
-		javax.xml.parsers.SAXParser parseur = null;
+		SAXParser parseur = null;
 		
 		try {
 			parseur = fabrique.newSAXParser();
 		} catch (SAXException e1) {
-			e1.printStackTrace();
+			System.err.println ("- Exception: SAX");
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			System.err.println ("- Exception: ParserConfiguration");
 		}
 		
 		File fichier = new File(path);
@@ -39,9 +37,9 @@ public class SmallWorldParser {
 		try {
 			parseur.parse (fichier, gestionnaire);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println ("- Exception: IO");
 		} catch (SAXException e) {
-			e.printStackTrace();
+			System.err.println ("- Exception: SAX");
 		}
 		
 		return gestionnaire.getSW();
