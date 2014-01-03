@@ -2,28 +2,19 @@ package gui;
 
 import kernel.*;
 import xml_parser.*;
-
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 
 /* The MenuPanel class corresponds to the panel that is on the left during the game, giving several options to the player */
@@ -42,9 +33,7 @@ public class MenuPanel extends JPanel{
 	 */
 	private boolean play = false;
 	
-	public MenuPanel(final SmallWorldGUI swGUI,final SmallWorld sw,final ResourcePanel resPan)
-	{
-		
+	public MenuPanel(final SmallWorldGUI swGUI,final SmallWorld sw,final ResourcePanel resPan) {
 		super();
 		GridLayout menuGrid = new GridLayout(15,1);
 	    menuGrid.setVgap(5);
@@ -54,9 +43,9 @@ public class MenuPanel extends JPanel{
 
 	    tribesComboBox = new JComboBox();
 	    
-	    for(int i=0;i<sw.getTribeList().size();i++)
-	    {
-	    	tribesComboBox.addItem("Tribe " + (i+1) + " : " + sw.getTribeAt(i).getPopulation().get(0).getTypeName());
+	    for(int i=0 ; i<sw.getTribeList().size() ; ++i) {
+	    	// tribesComboBox.addItem("Tribe " + (i+1) + " : " + sw.getTribeAt(i).getPopulation().get(0).getTypeName());
+			tribesComboBox.addItem ("Tribe " + (i+1) + " : " + sw.getTribeAt(i).getIndividualType());
 	    }
 	    
 	    resourcesComboBox = new JComboBox();
@@ -67,17 +56,17 @@ public class MenuPanel extends JPanel{
 	    resourcesComboBox.addItem("Nourriture");
 	    resourcesComboBox.addItem("Plutonium");
 	    
-	    addRes = new JToggleButton("Ajouter ressource");
-	    addIndiv = new JButton("Ajouter individu");
-	    mainTitle = new JLabel ("Menu d'actions");
-	    pause = new JButton("Play/Pause");
+	    addRes =		new JToggleButton("Ajouter ressource");
+	    addIndiv =		new JButton("Ajouter individu");
+	    mainTitle =		new JLabel ("Menu d'actions");
+	    pause =			new JButton("Play/Pause");
 	    viewResources = new JCheckBox("Voir/Cacher ressources");
-	    save = new JButton("Sauvegarder partie");
-	    exit = new JButton("Revenir au menu");
+	    save =			new JButton("Sauvegarder partie");
+	    exit =			new JButton("Revenir au menu");
+		
 	    try {
 			saveFileChooser = new JFileChooser(new File("data//save").getCanonicalFile());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    
@@ -98,27 +87,21 @@ public class MenuPanel extends JPanel{
 	    
 	    addIndiv.addActionListener(new ActionListener(){
 	    	
-	    	public void actionPerformed(ActionEvent arg0){	
+	    	public void actionPerformed(ActionEvent arg0) {	
 	    		
-	    		if(sw.getTribeAt(tribesComboBox.getSelectedIndex()).getPopulation().get(0) instanceof Human)
-	    		{
-	    			Human h = new Human(sw.getBoard().randPosition(),"");
-	    			swGUI.getMap().addIndividualGUI(new ElementGUI(h));
-	    			sw.addIndividual(h,tribesComboBox.getSelectedIndex());
-	    			
-	    		}
-	    		else if(sw.getTribeAt(tribesComboBox.getSelectedIndex()).getPopulation().get(0) instanceof Robot)
-	    		{
-	    			Robot h = new Robot(sw.getBoard().randPosition(),"");
-	    			swGUI.getMap().addIndividualGUI(new ElementGUI(h));
-	    			sw.addIndividual(h,tribesComboBox.getSelectedIndex());
-	    				    		}
-	    		else if(sw.getTribeAt(tribesComboBox.getSelectedIndex()).getPopulation().get(0) instanceof Bee)
-	    		{
-	    			Bee h = new Bee(sw.getBoard().randPosition(),"");
-	    			swGUI.getMap().addIndividualGUI(new ElementGUI(h));
-	    			sw.addIndividual(h,tribesComboBox.getSelectedIndex());
-	    		}
+	    		/*
+				 * @author Belkacem @date 03/01/14
+				 * Testing individual types modification
+				 */
+				Individual tmp = null;
+				if (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getIndividualType().equals("Human")) {
+					tmp = new Human (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getBasePosition(), "");
+				} else if (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getIndividualType().equals("Bee")) {
+					tmp = new Bee (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getBasePosition(), "");
+				} else if (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getIndividualType().equals("Robot")) {
+					tmp = new Robot (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getBasePosition(), "");
+				}
+				sw.addIndividual (tmp, tribesComboBox.getSelectedIndex());
 				
 				/*
 				 * @author Belkacem Lahouel
@@ -128,7 +111,7 @@ public class MenuPanel extends JPanel{
 	    	}
 		});
 	    
-	    viewResources.addActionListener(new ActionListener(){
+	    viewResources.addActionListener (new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				resPan.setVisible(((JCheckBox)e.getSource()).isSelected());
@@ -166,27 +149,22 @@ public class MenuPanel extends JPanel{
 	    this.add(save);
 	    this.add(exit);
 	}
-
 	
 	public JComboBox getResourcesComboBox() {
 		return resourcesComboBox;
 	}
 
-
 	public void setResourcesComboBox(JComboBox resourcesComboBox) {
 		this.resourcesComboBox = resourcesComboBox;
 	}
-
 
 	public JToggleButton getAddRes() {
 		return addRes;
 	}
 
-
 	public void setAddRes(JToggleButton addRes) {
 		this.addRes = addRes;
 	}
-
 
 	/*
 	 * @author Belkacem

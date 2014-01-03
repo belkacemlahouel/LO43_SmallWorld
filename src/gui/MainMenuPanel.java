@@ -1,5 +1,7 @@
 package gui;
 
+import xml_parser.SmallWorldParser;
+import kernel.SmallWorld;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -18,35 +19,31 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
-import xml_parser.SmallWorldParser;
-import kernel.SmallWorld;
-
 public class MainMenuPanel extends JPanel {
-	private JButton start,edit,load,exit, reload;
+	
+	private JButton start, edit, load, exit, reload;
 	private JFileChooser loadFileChooser;
 	private Clip titleTheme;
 
-	public MainMenuPanel(final SmallWorldGUI swGUI,final SmallWorldParser SWP)
-	{
+	public MainMenuPanel (final SmallWorldGUI swGUI, final SmallWorldParser SWP) {
 		super();
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc1 = new GridBagConstraints();
 		
-		start = new JButton("Demarrage rapide");
-		edit = new JButton("Editer une map");
-		load = new JButton("Charger map");
-		reload = new JButton ("Reprendre une partie");
-		exit = new JButton("Quitter");
+		start =		new JButton ("Demarrage rapide");
+		edit =		new JButton ("Editer une map");
+		load =		new JButton ("Charger map");
+		reload =	new JButton ("Reprendre une partie");
+		exit =		new JButton ("Quitter");
+		
 		try {
 			loadFileChooser = new JFileChooser(new File("data//save").getCanonicalFile());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println ("- Exception: IO");
 		}
 		
-		start.addActionListener(new ActionListener(){
-	    	
+		start.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent arg0){	
 	    		titleTheme.stop();
 	    		SmallWorld sw = SWP.createSW("data//save//default.xml");
@@ -74,12 +71,11 @@ public class MainMenuPanel extends JPanel {
 	        titleTheme.open(audioInputStream);
 	        titleTheme.start();
 	    } catch(Exception ex) {
-	        System.out.println("Error while playing sound.");
+	        System.out.println ("Error while playing sound.");
 	        ex.printStackTrace();
 	    }
 		
-		load.addActionListener(new ActionListener(){
-	    	
+		load.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent arg0){	
 	    		loadFileChooser.showOpenDialog(null);
 	    		if(loadFileChooser.getSelectedFile() != null)
@@ -103,7 +99,7 @@ public class MainMenuPanel extends JPanel {
 		 * @author Belkacem
 		 * for the correction of the bug with lifes, when it comes to continue a game
 		 */
-		reload.addActionListener(new ActionListener(){
+		reload.addActionListener(new ActionListener() {
 	    	
 	    	public void actionPerformed(ActionEvent arg0){	
 	    		loadFileChooser.showOpenDialog(null);
@@ -158,23 +154,16 @@ public class MainMenuPanel extends JPanel {
 		this.add(exit, gbc1);
 	}
 	
-	public void paintComponent(Graphics g)
-	{
+	public void paintComponent (Graphics g) {
 		try {
 	        Image img = ImageIO.read(new File("data//background2.png"));
-
 		    g.drawImage(img,0,0, this);
-
-	      } catch (IOException e) {
-	        e.printStackTrace();
-	      }
-		
+		} catch (IOException e) {
+		  e.printStackTrace();
+		}
 	}
 
 	public Clip getTitleTheme() {
 		return titleTheme;
 	}
-	
-	
-	
 }

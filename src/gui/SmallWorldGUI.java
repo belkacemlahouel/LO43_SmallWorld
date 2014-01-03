@@ -4,43 +4,26 @@ import kernel.*;
 import xml_parser.*;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPanel;
 
-public class SmallWorldGUI extends JFrame{
+public class SmallWorldGUI extends JFrame {
 	
 	private MainMenuPanel mainMenu;
 	private MenuPanel leftBar;
 	private MapPanel map;
 	private MapBackgroundPanel mapBg;
 	private EditorPanel editPan;
-
+	private ResourcePanel resPan;
 
 	private SmallWorld sw;
 	
-	public SmallWorldGUI(SmallWorldParser SWP)
-	{
-		this.setTitle("SmallWorld");
-	    this.setSize(1280, 720);
-	    this.setLocationRelativeTo(null);
-	    this.setResizable(false);
-	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+	public SmallWorldGUI (SmallWorldParser SWP) {
+		super ();
+		setTitle("SmallWorld");
+	    setSize(1280, 720);
+	    setLocationRelativeTo(null);
+	    setResizable(false);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 	    getContentPane().setLayout(new BorderLayout());
 	    
 	    editPan = new EditorPanel(this);
@@ -48,11 +31,9 @@ public class SmallWorldGUI extends JFrame{
 	    mainMenu.setVisible(true);
 	    getContentPane().add(mainMenu);
 	    
-	 
-	    this.setVisible(true);
+	    setVisible(true);
 
 	    getContentPane().validate();
-	    
 	}
 	
 	/* This method changes the main menu into the game view, then starts the game automatically */
@@ -69,8 +50,7 @@ public class SmallWorldGUI extends JFrame{
 		this.resPan = resPan;
 	}
 
-	public void abortGame()
-	{
+	public void abortGame() {
 		sw = null;
 		
 		resPan.setVisible(false);
@@ -86,8 +66,7 @@ public class SmallWorldGUI extends JFrame{
 		mainMenu.getTitleTheme().start();
 	}
 	
-	public void startGame()
-	{
+	public void startGame() {
 		mainMenu.getTitleTheme().stop();
 		mainMenu.setVisible(false);
 		editPan.setVisible(false);
@@ -97,7 +76,7 @@ public class SmallWorldGUI extends JFrame{
 	    leftBar = new MenuPanel(this,this.sw,resPan); 
 		
 	    setGlassPane(resPan); // We add the resource panel over all the others
-	    this.getGlassPane().setVisible(false);
+	    getGlassPane().setVisible(false);
 	    mapBg = new MapBackgroundPanel();
 	    getContentPane().add(leftBar);
 	    getContentPane().add(mapBg,BorderLayout.EAST);
@@ -108,10 +87,9 @@ public class SmallWorldGUI extends JFrame{
 	    sw.start();
 	}
 	
-	public void editMap()
-	{
+	public void editMap() {
 		mainMenu.setVisible(false);
-		this.remove(mainMenu);
+		remove(mainMenu);
 		getContentPane().add(editPan);
 		editPan.setVisible(true);
 		getContentPane().validate();
@@ -173,8 +151,5 @@ public class SmallWorldGUI extends JFrame{
 
 	public void setMapBg(MapBackgroundPanel mapBg) {
 		this.mapBg = mapBg;
-	}
-
-	private ResourcePanel resPan;
-	
+	}	
 }

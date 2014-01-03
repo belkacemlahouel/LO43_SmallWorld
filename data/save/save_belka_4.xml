@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SmallWorld>
   <board l="60" w="60">
+	<tribe x="3" y="4" type="human" />
+	<tribe x="40" y="40" type="bee" />
+	<tribe x="50" y="20" type="robot" />
+	
     <case x="5" y="12">
       <ressource type="wood" life="48" />
       <individual type="human" life="35" team="2" />

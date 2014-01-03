@@ -1,6 +1,7 @@
 package kernel;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -12,6 +13,21 @@ public abstract class Individual extends Element {
 	protected Element target_element;
 	protected int priority;
 	protected Clip kick;
+	
+	/*
+	 * @author Belkacem @date 02/01/14
+	 * Implementation of the resources sharing between individuals of the same tribe
+	 */
+	protected WeakReference<Tribe> tribe;
+	
+	/*
+	 * @author Belkacem @date 02/01/14
+	 * Checking if an Individual is this Individual's Friend
+	 * New version, coming from the new "tribe" attribute
+	 */
+	public boolean isFriend (Individual e) {
+		return tribe.get().getPopulation().contains(e);
+	}
 	
 	public Individual (Position pos_, String name_) {
 		super (pos_, name_);
@@ -212,7 +228,7 @@ public abstract class Individual extends Element {
 		 * Maybe sometimes, they prefer to go on the same Position as an ennemy
 		 *		and they choose to pick up Resources > kill Individual
 		 * Sometimes also, they are on a Resource and they do not want to move away...
-		 *		So I have to create a new bunch of Individuals to unblock the game
+		 *		So I have to create a new bunch of Individuals to unblock the game			######## problem solved
 		 */
 	}
 	
@@ -228,6 +244,7 @@ public abstract class Individual extends Element {
 	public abstract int		getTotalPick ();
 	// public abstract String	getRaceName ();
 	public abstract int		getVision ();
+	public abstract String	getVitalResource ();
 	
 	/*
 	 * getters and setters for Individual class

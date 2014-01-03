@@ -17,18 +17,13 @@ public class SmallWorld extends Thread {
 	private SmallWorldGUI gui;
 	
 	public SmallWorld () {
-
 		super ("Small World"); // Construction of the Thread
 		
 		tribe_list = new ArrayList<Tribe> ();
 		resources = new ArrayList<Resource> ();
-		
-		tribe_list.add(new Tribe ());
-		tribe_list.add(new Tribe ());
-		tribe_list.add(new Tribe ());
 	}
 	
-	public SmallWorld (int nbTribes) {
+	/*public SmallWorld (int nbTribes) {
 
 		super ("Small World"); // Construction of the Thread
 		
@@ -40,7 +35,7 @@ public class SmallWorld extends Thread {
 		}
 		resources = new ArrayList<Resource> ();
 		
-	}
+	}*/
 	
 	public Position getBestNextPosition (Individual tmp) {
 		Position final_pos = tmp.getAimPosition ();
@@ -181,7 +176,7 @@ public class SmallWorld extends Thread {
 	}
 
 	public synchronized void move (Individual tmp, Position new_pos) { // synchronized?
-		if (!tmp.getPosition().equals(new_pos)) {
+		if (tmp != null && new_pos != null && !tmp.getPosition().equals(new_pos)) {
 			gui.getMap().getCorrespondingElementGUI(tmp).setPrec_position(tmp.getPosition ());
 			small_world.get(tmp.getPosition ()).remove (tmp);
 			tmp.setPosition (new_pos);
@@ -189,6 +184,11 @@ public class SmallWorld extends Thread {
 		}
 	}
 	
+	public Tribe addTribe (String type, Position base) {
+		Tribe tmp = new Tribe (type, base);
+		tribe_list.add (tmp);
+		return tmp;
+	}
 	
 	/*
 	 * getters and setters for SmallWorld class

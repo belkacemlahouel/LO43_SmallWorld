@@ -1,5 +1,6 @@
 package gui;
 
+import kernel.*;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,45 +11,32 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import kernel.Bee;
-import kernel.Board;
-import kernel.Food;
-import kernel.Human;
-import kernel.Metal;
-import kernel.Plutonium;
-import kernel.Position;
-import kernel.Robot;
-import kernel.Rock;
-import kernel.SmallWorld;
-import kernel.Wood;
-import xml_parser.SmallWorldParser;
-
-public class EditorPanel extends JPanel{
-	private JLabel title1,mapSizeText,resSizeText,textNbTribes;
-	private JComboBox mapSize,resSize,nbTribes;
-	private JButton addTribe, exit,start,add,validate;
+public class EditorPanel extends JPanel {
+	
+	private JLabel title1, mapSizeText, resSizeText, textNbTribes;
+	private JComboBox mapSize, resSize, nbTribes;
+	private JButton addTribe, exit, start, add, validate;
 	private ArrayList<TribeEditor> tribeEditorList;
 	private GridBagConstraints gbc1;
 	
 	
-	public EditorPanel(final SmallWorldGUI swGUI)
-	{
+	public EditorPanel (final SmallWorldGUI swGUI) {
 		super();
 		
 		tribeEditorList = new ArrayList<TribeEditor>();
-		add = new JButton("Valider");
-		title1 = new JLabel("Tribus");
-		mapSizeText = new JLabel("Taille de la map : ");
-		resSizeText = new JLabel("Abondance des ressources : ");
-		textNbTribes = new JLabel("Nombre de tribus : ");
-		validate = new JButton("C'est parti !");
+		
+		add =			new JButton("Valider");
+		title1 =		new JLabel("Tribus");
+		mapSizeText =	new JLabel("Taille de la map : ");
+		resSizeText =	new JLabel("Abondance des ressources : ");
+		textNbTribes =	new JLabel("Nombre de tribus : ");
+		validate =		new JButton("C'est parti !");
 		
 		mapSize = new JComboBox();
 		mapSize.addItem("Petite");
@@ -66,7 +54,7 @@ public class EditorPanel extends JPanel{
 		nbTribes.addItem("3");
 		nbTribes.addItem("4");
 		nbTribes.addItem("5");
-		nbTribes.addItem("6");
+		nbTribes.addItem("6");		
 		
 		this.setLayout(new GridBagLayout());
 		gbc1 = new GridBagConstraints();
@@ -116,7 +104,8 @@ public class EditorPanel extends JPanel{
 		
 		validate.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent arg0){
-	    		SmallWorld sw = new SmallWorld(nbTribes.getSelectedIndex()+1);
+	    		// SmallWorld sw = new SmallWorld(nbTribes.getSelectedIndex()+1);
+				SmallWorld sw = new SmallWorld ();
 	    		sw.setGui(swGUI);
 	    		swGUI.setSw(sw);
 	    		generateBoard(sw);
@@ -138,30 +127,27 @@ public class EditorPanel extends JPanel{
 				nbTribes.setSelectedIndex(0);
 				resSize.setSelectedIndex(0);
 				validate.setVisible(false);
+				
 				updateTribeEditorList(0);
 	    	}
 		});
 	}
 	
-	public void paintComponent(Graphics g)
-	{
+	public void paintComponent(Graphics g) {
 		try {
 	        Image img = ImageIO.read(new File("data//background1.png"));
-
 		    g.drawImage(img,0,0, this);
-
-	      } catch (IOException e) {
-	        e.printStackTrace();
-	      }
-		
+			
+		} catch (IOException e) {
+		  e.printStackTrace();
+		}
 	}
 	
 	private void updateTribeEditorList(int choosedNbTribes) {
 		
 		gbc1.gridy = 4;
 		
-		for(int i=0;i<tribeEditorList.size();i++)
-		{
+		for(int i=0 ; i<tribeEditorList.size() ; ++i) {
 			this.remove(tribeEditorList.get(i).getTitle());
 			this.remove(tribeEditorList.get(i).getRaceChoice());
 		}
@@ -172,142 +158,110 @@ public class EditorPanel extends JPanel{
 		
 		tribeEditorList.removeAll(tribeEditorList);
 		
-		for(int i=0;i<choosedNbTribes;i++)
-		{
+		for(int i=0 ; i<choosedNbTribes ; ++i) {
 			gbc1.gridx = 0;
 			this.tribeEditorList.add(new TribeEditor());
-			tribeEditorList.get(i).getTitle().setText("Tribe " + (i+1) + " :");
+			tribeEditorList.get(i).getTitle().setText ("Tribu " + (i+1) + " :");
 			this.add(tribeEditorList.get(i).getTitle(),gbc1);
-			gbc1.gridx ++;
+			++ gbc1.gridx;
 			this.add(tribeEditorList.get(i).getRaceChoice(),gbc1);
-			gbc1.gridy++;
+			++ gbc1.gridy;
 		}
 		
-		this.add(validate,gbc1);
-		
-		this.revalidate();
+		add(validate,gbc1);
+		revalidate();
 	}
 	
-	public void generateBoard(SmallWorld sw)
-	{
+	public void generateBoard (SmallWorld sw) {
+		
 		/* 0 = small board, 1 = mean board, 2 = big board */
-		if(mapSize.getSelectedIndex() == 0)
-		{
-			Board b = new Board(50,30);
-			sw.setBoard(b);
-		}
-		else if(mapSize.getSelectedIndex() == 1)
-		{
-			Board b = new Board(70,50);
-			sw.setBoard(b);
-		}
-		else if(mapSize.getSelectedIndex() == 2)
-		{
-			Board b = new Board(110,72);
-			sw.setBoard(b);
-		}
-	}
-	
-	/* This method creates 5 individuals in every choosen tribe, at totally random positions */
-	
-	public void generateTribes(SmallWorld sw)
-	{
+		Board b = null;
+		if		(mapSize.getSelectedIndex() == 0) b = new Board(50,30);
+		else if (mapSize.getSelectedIndex() == 1) b = new Board(70,50);
+		else if (mapSize.getSelectedIndex() == 2) b = new Board(110,72);
 		
-		for(int i=0; i<tribeEditorList.size();i++)
-		{
-			/* 0 = Human, 1 = Robot, 2 = Bee*/
-			if(tribeEditorList.get(i).getRaceChoice().getSelectedIndex() == 0)
-			{
-				for(int j=0;j<5;j++)
-				{
-					Position randPosition = sw.getBoard().randPosition();
-					Human h = new Human(randPosition,"");
-					sw.getTribe_list().get(i).addIndividual(h);
-					sw.getBoard().get(randPosition).add(h);
+		if (b != null) sw.setBoard (b);
+		else System.err.println ("- Error, Board null");
+	}
+	
+	/*
+	 * This method creates 5 +- 1 individuals in each tribe, in their tribe's base position
+	 */
+	public void generateTribes (SmallWorld sw) {
+		
+		/*
+		 * @author Belkacem @date 02/01/14
+		 * Changement in the creation of tribes
+		 */
+		for (TribeEditor e : tribeEditorList) {
+			String type = null;
+			if		(e.getSelectedType().equals("Humain"))			type = "Human";
+			else if (e.getSelectedType().equals("Robot"))			type = "Robot";
+			else if (e.getSelectedType().equals("Abeille Mutante")) type = "Bee";
+			else System.err.println ("- Error, wrong type association");
+			
+			if (type != null) {
+				Tribe tmp = sw.addTribe (type, sw.getBoard().randPosition());
+				int nb_ind = Tools.rand (5, 3);
+				/*
+				 * @author Belkacem @date 03/01/14
+				 * Random number of tribes, 5 +- 1 = choice in {3, 4, 5}
+				 */
+				for (int i=0 ; i<nb_ind ; ++i) {
+					Individual x = tmp.addIndividual ();
+					sw.getBoard().get(tmp.getBasePosition()).add(x);
 				}
-			}
-			else if(tribeEditorList.get(i).getRaceChoice().getSelectedIndex() == 1)
-			{
-				for(int j=0;j<5;j++)
-				{
-					Position randPosition = sw.getBoard().randPosition();
-					Robot h = new Robot(randPosition,"");
-					sw.getTribe_list().get(i).addIndividual(h);
-					sw.getBoard().get(randPosition).add(h);
-				}
-			}
-			else if(tribeEditorList.get(i).getRaceChoice().getSelectedIndex() == 2)
-			{
-				for(int j=0;j<5;j++)
-				{
-					Position randPosition = sw.getBoard().randPosition();
-					Bee h = new Bee(randPosition,"");
-					sw.getTribe_list().get(i).addIndividual(h);	
-					sw.getBoard().get(randPosition).add(h);
-				}
+
+				System.out.println ("" + tmp);
 			}
 		}
 	}
 	
-	public void generateResources(SmallWorld sw)
-	{
+	public void generateResources (SmallWorld sw) {
 		int nbEach = 0;
 		
 		/* 0 = a few, 1 = a bit more, 2 = a lot */
-		if(resSize.getSelectedIndex() == 0)
-		{
+		if(resSize.getSelectedIndex() == 0) {
 			nbEach = 3;
-		}
-		else if(resSize.getSelectedIndex() == 1)
-		{
+		} else if(resSize.getSelectedIndex() == 1) {
 			nbEach = 7;
-		}
-		else if(resSize.getSelectedIndex() == 2)
-		{
+		} else if(resSize.getSelectedIndex() == 2) {
 			nbEach = 13;
 		}
 		
-		for(int i=0;i<nbEach;i++)
-		{
+		for (int i=0 ; i<nbEach ; ++i) {
 			Position randPosition = sw.getBoard().randPosition();
 			Wood r = new Wood(randPosition,"");
 			sw.addResource(r);	
 			sw.getBoard().get(randPosition).add(r);
 		}
 		
-		for(int i=0;i<nbEach;i++)
-		{
+		for (int i=0 ; i<nbEach ; ++i) {
 			Position randPosition = sw.getBoard().randPosition();
 			Plutonium r = new Plutonium(randPosition,"");
 			sw.addResource(r);	
 			sw.getBoard().get(randPosition).add(r);
 		}
 		
-		for(int i=0;i<nbEach;i++)
-		{
+		for (int i=0 ; i<nbEach ; ++i) {
 			Position randPosition = sw.getBoard().randPosition();
 			Rock r = new Rock(randPosition,"");
 			sw.addResource(r);	
 			sw.getBoard().get(randPosition).add(r);
 		}
 		
-		for(int i=0;i<nbEach;i++)
-		{
+		for (int i=0 ; i<nbEach ; ++i) {
 			Position randPosition = sw.getBoard().randPosition();
 			Metal r = new Metal(randPosition,"");
 			sw.addResource(r);	
 			sw.getBoard().get(randPosition).add(r);
 		}
 		
-		for(int i=0;i<nbEach;i++)
-		{
+		for (int i=0 ; i<nbEach ; ++i) {
 			Position randPosition = sw.getBoard().randPosition();
 			Food r = new Food(randPosition,"");
 			sw.addResource(r);	
 			sw.getBoard().get(randPosition).add(r);
 		}
 	}
-	
-	
-	
 }
