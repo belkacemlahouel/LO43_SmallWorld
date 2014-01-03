@@ -14,8 +14,9 @@ public class JDOMSave {
 	
 	public JDOMSave()
 	{
+		DocType dtd = new DocType("SmallWorld", "structure.dtd");
 		racine = new org.jdom2.Element("SmallWorld");
-		document = new Document(racine);
+		document = new Document(racine, dtd);
 	}
 	
 	 public void SavetoXML(SmallWorld sw,String fileName){
@@ -30,7 +31,19 @@ public class JDOMSave {
 		 board.setAttribute(l);
 		 Attribute w = new Attribute("w", Integer.toString(width));
 		 board.setAttribute(w);
+		 //creation of the different tags <tribe>
+		 for (int i = 0; i < sw.getTribeList().size(); i++){
+			 org.jdom2.Element tribe = new org.jdom2.Element("tribe");
+			 Attribute x = new Attribute("x", Integer.toString(sw.getTribeAt(i).getBasePosition().getX()));
+			 tribe.setAttribute(x);
+			 Attribute y = new Attribute("y", Integer.toString(sw.getTribeAt(i).getBasePosition().getY()));
+			 tribe.setAttribute(y);
+			 Attribute type = new Attribute("type", sw.getTribeAt(i).getIndividualType());
+			 tribe.setAttribute(type);
+			 board.addContent(tribe);
+		 }
 		 
+		 //Creation of the different tag <case>
 		 for(int i = 0; i < length; i++){
 			 for(int j = 0; j < width; j++){
 				 if(!map[i][j].getElementsList().isEmpty()){

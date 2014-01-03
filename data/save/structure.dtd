@@ -1,0 +1,18 @@
+<!ELEMENT SmallWorld (board)>
+<!ELEMENT board (tribe*,case*)>
+<!ELEMENT tribe EMPTY>
+<!ELEMENT case (ressource*, individual*)>
+<!ELEMENT ressource EMPTY>
+<!ELEMENT individual EMPTY>
+
+<!ATTLIST board l CDATA #REQUIRED
+				w CDATA #REQUIRED>
+<!ATTLIST tribe 	x CDATA #REQUIRED
+					y CDATA #REQUIRED
+					type (human|robot|bee) #REQUIRED>
+<!ATTLIST case 	x CDATA #REQUIRED
+				y CDATA #REQUIRED>
+<!ATTLIST ressource type CDATA #REQUIRED
+					life CDATA "10">
+<!ATTLIST individual  	type (human|robot|bee) #REQUIRED
+						team CDATA #REQUIRED>
