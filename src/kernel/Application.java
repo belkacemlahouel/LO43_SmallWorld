@@ -8,9 +8,6 @@ import gui.*;
  *	UTBM - LO43 - A2013
  *	Lahouel Belkacem
  *	Cadoret Luc - Le Morvan Valentin
- *	
- * 
- * WHY IS TEAM 1 ALWAYS WINNING?
 */
 
 public class Application {
