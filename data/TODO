@@ -1,33 +1,39 @@
-@author Belkacem @date 27/12/13 - dernière version en date sur bitbucket
-	Faire des slots de sauvegarde => encapsulation ++, le joueur ne peut (à moins d'être un peu expérimenté) créer sa map sans passer par l'éditeur
-	Améliorer l'éditeur pour pouvoir choisir l'endroit des ressources
-+	Améliorer l'affichage des status en cours de jeu
-	Améliorer l'IA en créant (interfaces ?) des "pouvoirs"
-		Combatif, Recolteur, Sniper (longue vue), Intelligent (ferait attention aux mouvement après bouger), Médecin (peut soigner les autres), Puissant,...
+@author Belkacem @date 27/12/13 - derniÃ¨re version en date sur bitbucket
+	Faire des slots de sauvegarde => encapsulation ++, le joueur ne peut (Ã  moins d'Ãªtre un peu expÃ©rimentÃ©) crÃ©er sa map sans passer par l'Ã©diteur
+	AmÃ©liorer l'Ã©diteur pour pouvoir choisir l'endroit des ressources
++	AmÃ©liorer l'affichage des status en cours de jeu
+	AmÃ©liorer l'IA en crÃ©ant (interfaces ?) des "pouvoirs"
+		Combatif, Recolteur, Sniper (longue vue), Intelligent (ferait attention aux mouvement aprÃ¨s bouger), MÃ©decin (peut soigner les autres), Puissant,...
 	Changer le mouvement (x++, y++) des individus par quelque chose de plus random... Choisir lequel des deux axes bouger
-	Implémenter des cases non traversables ? Dans lesquelles on ne mettrait par exemple des maisons, arbres, etc
-#	Récoltes par tribu
+	ImplÃ©menter des cases non traversables ? Dans lesquelles on ne mettrait par exemple des maisons, arbres, etc
+#	RÃ©coltes par tribu
 	Civilisations
 #	Bases
-#	Implémenter les autres ressources, pour les Civilisations etc
+#	ImplÃ©menter les autres ressources, pour les Civilisations etc
 	Lors du retour au menu principal (sans pause) il y a un bug : fermeture du thread Small World ?
-	Améliorer le traitement des sauvegardes : on pourrait seulement récupérer une map et donc osef des individus ou récupérer tout
-	Sprites avec une légère différence pour les types d'individus avec des pouvoirs (lunettes, gros, ...)
-	Sprites différents selon l'appartenance à la team, donc avec même des couleurs différentes... Si il y a deux équipes d'humains, il y a confusion
-	Génération de noms aléatoires (au moins pour les teams ?)
+	AmÃ©liorer le traitement des sauvegardes : on pourrait seulement rÃ©cupÃ©rer une map et donc osef des individus ou rÃ©cupÃ©rer tout
+	Sprites avec une lÃ©gÃ¨re diffÃ©rence pour les types d'individus avec des pouvoirs (lunettes, gros, ...)
+	Sprites diffÃ©rents selon l'appartenance Ã  la team, donc avec mÃªme des couleurs diffÃ©rentes... Si il y a deux Ã©quipes d'humains, il y a confusion
+	GÃ©nÃ©ration de noms alÃ©atoires (au moins pour les teams ?)
 	Suppression des cadavres et des ressources (disparition en fondu, progressive ?)
 
 @author Luc
 +	Drag'n'Drop pour ajouter des ressources en milieu de jeu (Enfin, pas exactement du drag n drop...)
-+	Bug avec les audios : quand on revient au menu principal on est censé ré-écouter la bonne musique, or c'est la musique du jeu qui reste
++	Bug avec les audios : quand on revient au menu principal on est censÃ© rÃ©-Ã©couter la bonne musique, or c'est la musique du jeu qui reste
 
 @author Belkacem
-	Ligne juste au dessus du MapPanel qui sert à rien, laide ; donc à enlever...
-#	Créer des tribus, qui ne sont jamais vides
-#	Mettre les boutons à la même taille, plus harmonieux
-#	Un Individu ne peut exister sans Tribu, ou alors la Tribu est un singleton de lui-même
+	Ligne juste au dessus du MapPanel qui sert Ã  rien, laide ; donc Ã  enlever...
+#	CrÃ©er des tribus, qui ne sont jamais vides
+#	Mettre les boutons Ã  la mÃªme taille, plus harmonieux
+#	Un Individu ne peut exister sans Tribu, ou alors la Tribu est un singleton de lui-mÃªme
 +	Enlever le rond noir qui s'affiche quand on mets les status
-+	Une fois que l'on a choisi le nombre de tribus, on n'est pas censé pouvoir le changer après donc désactiver boutons
-#	Nombre de ressources (par défaut) aléatoire pour chaque type...
-	Etant donné la nature du projet (vivarium) ne sommes nous pas censés faire quelque chose qui marche même si il n'y a pas d'ennemis ?
-	Bug : quand on revient au menu après avoir fini une partie, la même liste des options précédentes est affichée... et directement plus besoin de cliquer sur le premier bouton
++	Une fois que l'on a choisi le nombre de tribus, on n'est pas censÃ© pouvoir le changer aprÃ¨s donc dÃ©sactiver boutons
+#	Nombre de ressources (par dÃ©faut) alÃ©atoire pour chaque type...
+	Etant donnÃ© la nature du projet (vivarium) ne sommes nous pas censÃ©s faire quelque chose qui marche mÃªme si il n'y a pas d'ennemis ?
++	Bug : quand on revient au menu aprÃ¨s avoir fini une partie, la mÃªme liste des options prÃ©cÃ©dentes est affichÃ©e... et directement plus besoin de cliquer sur le premier bouton
+	La string du type de chaque Ã©lÃ©ment devrait Ãªtre statique...
+	Est-ce qu on est sÃ»rs de l'efficacitÃ© des setters sur les positions (Ã  partir d'entiers) rien ne nous dit que les positions rÃ©fÃ©rencÃ©es ensuite sont dans le board
+	What the fuck ? On peut ajouter n'importe quel type d'individu lÃ , Ã  n'importe quelle tribe, si on se trompe (genre on dÃ©clare dans le mauvais ordre...)
+	Ajouter la possibilitÃ© de choisir le nombre d'individus par team
+	Bug dÃ©marrage rapide : pourquoi est-ce que le parseur est lancÃ© anyway omg ?
+	
