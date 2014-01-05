@@ -3,6 +3,7 @@ package kernel;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -13,6 +14,7 @@ public abstract class Individual extends Element {
 	protected Element target_element;
 	protected int priority;
 	protected Clip kick;
+	protected int civilization_std_bonus = 0;
 	
 	/*
 	 * @author Belkacem @date 02/01/14
@@ -48,9 +50,19 @@ public abstract class Individual extends Element {
 	}
 
 	public void attack (Element e) {
+		/*
+		 * @author Belkacem @date 05/01/14
+		 * if the guy's life is too small (even critical), it will (at least try, depending on the Tribe's stock) heal from the Tribe stock
+		 */
+		if (life < getCriticalLife()) {
+			int tmp_heal = Math.max(0, Math.min(tribe.get().getResources().get(getVitalResource()), getTotalPick()));
+			tmp_heal *= vitalResourcePower();
+			life += tmp_heal; // Don't need to test this guy's interval, its life is critical
+			tribe.get().getResources().put (getVitalResource(), tribe.get().getResources().get(getVitalResource())-tmp_heal);
+		}
+		
 		if (e != null && e.getPosition().equals(pos)) {
 			if (e instanceof Individual) {
-				
 				try {
 					kick.start();
 				} catch(Exception ex) {
@@ -60,8 +72,41 @@ public abstract class Individual extends Element {
 				
 				e.attack_received(getTotalDmg ());
 			} else if (e instanceof Resource && life < getMaxLife ()) {
-				int tmp = getTotalPick ();
-				life = Math.max(0, Math.min((life + tmp), getMaxLife ())); // TODO
+				/*
+				 * @author Belkacem @date 05/01/14
+				 * Implementation of the Resources sharing inside each tribe
+				 * If there is more than 50 in Wood and in Rock, the tribe moves to the next civilization
+				 * This civilization offers them a bonus in attack
+				 */
+				int tmp = Math.max (0, Math.min(getTotalPick (), e.getLife())); // We test the interval of life for this Resource's stock
+				
+				if (e.getTypeName().equalsIgnoreCase(getVitalResource())) {
+					System.err.println ("OKAI");
+					tmp *= vitalResourcePower();
+					life = Math.max(0, Math.min((life + tmp), getMaxLife ())); // we test the interval of life for this guy
+					tmp /= vitalResourcePower();
+					
+					/*
+					 * @author Belkacem @date 05/01/14
+					 * When a guy picks some VitalResource, now he will pick the same amount for the tribe (or less, if there is not anymore left)
+					 * Or more (in the case where he does not need everything)
+					 */
+					int tmp_for_tribe = Math.max (0, Math.min (e.getLife()-tmp, getTotalPick())); // We assume we already took this resource in tmp qty
+					tribe.get().getResources().put (getVitalResource(), tribe.get().getResources().get(getVitalResource())+tmp_for_tribe);
+					tmp += tmp_for_tribe;
+				} else {
+					System.err.println ("NOT OKAI : " + e.getTypeName() + " != " + getVitalResource());
+					tribe.get().getResources().put(e.getTypeName(), tribe.get().getResources().get(e.getTypeName())+tmp);
+					
+					if (tribe.get().getResources().get("Wood") > 50 && tribe.get().getResources().get("Rock") > 50) {
+						for (Individual x : tribe.get().getPopulation()) {
+							x.nextCivilization(); System.out.println ("Next civilization");
+						}
+						
+						tribe.get().getResources().put("Wood", tribe.get().getResources().get("Wood")-50);
+						tribe.get().getResources().put("Rock", tribe.get().getResources().get("Rock")-50);
+					}
+				}
 				e.attack_received(tmp);
 			}
 		}
@@ -127,7 +172,7 @@ public abstract class Individual extends Element {
 			int nb_ennemies = 0, nb_friends = 0, nb_resources = 0;
 			int tot_received = 0, tot_given = 0;
 			
-			//System.out.println ("TYPE NAME: " + getTypeName() + " checking " + e.getTypeName ());
+			// System.out.println ("TYPE NAME: " + getTypeName() + " checking " + e.getTypeName ());
 			
 			ArrayList<Element> tmp = sw.getBoard().get(e.getPosition()).getElementsList();
 			for (Element g : tmp) {
@@ -205,22 +250,48 @@ public abstract class Individual extends Element {
 					 * test the number of ennemies on a resource
 					 * bigger priority when the qty is large... override, in function of the type of the Individual
 					 */
-					if (e instanceof Food) {
+					/*if (e instanceof Food) {
 						if (getLife() <= getCriticalLife()) {
 							rep += 30;
 						} else {
 							rep += 20/(getLife()-getCriticalLife());
 						}
-					}
+					}*/
 
 					/*
-					 * TODO
-					 * We will treat other kind of Resources afterwards
+					 * @author Belkacem @date 05/01/14
+					 * Same importance for the Vital Resource (in function of the type of the individual)
+					 * The more we get closer to a new Civilization age, the more the priority for wood and rock is big
+					 * A new Civilization age comes every 50 (of Wood and Rock)
 					 */
+					if (e.getTypeName().equalsIgnoreCase(getVitalResource())) {
+						if (getLife() <= getCriticalLife()) {
+							rep += 30;
+						} else {
+							rep += 20/(getLife()-getCriticalLife());
+						}
+					} else if (e instanceof Wood || e instanceof Rock) {
+						// System.out.println(e.getTypeName());
+						
+						if (tribe.get() == null) System.err.println ("- Error, Tribe for this Individual is null");
+						
+						HashMap<String, Integer> xyz = tribe.get().getResources();
+						
+						/*for (String key : xyz.keySet()) {
+							System.out.println("\t" + key);
+						}*/
+						
+						// System.out.println(tribe.get().getResources().get(e.getTypeName()));
+						if (100 > tribe.get().getResources().get(e.getTypeName())) {
+							rep += 10/(100-tribe.get().getResources().get(e.getTypeName()));
+						} else {
+							rep += 20;
+						}
+					}
 				}
 			}
 		}
-		//System.out.println ("\tPRIORITY: " + rep + "\n\t" + aim_position);
+		// System.out.println ("\tPRIORITY: " + rep + "\n\t" + aim_position);
 		return rep;
 		
 		
@@ -245,6 +316,8 @@ public abstract class Individual extends Element {
 	// public abstract String	getRaceName ();
 	public abstract int		getVision ();
 	public abstract String	getVitalResource ();
+	public abstract int		vitalResourcePower();
+	public abstract void	nextCivilization ();
 	
 	/*
 	 * getters and setters for Individual class
@@ -256,6 +329,7 @@ public abstract class Individual extends Element {
 	// Normally we should have only call to this function...
 	public Element			getTargetElement ()				/*{Element tmp = target_element; target_element = null; return tmp;}*/
 															{return target_element;}
+	public void				setTribe (Tribe t)				{tribe = new WeakReference<Tribe> (t);}
 	
 	@Override
 	public String toString () {return getTypeName () + "\"" + name + "\" at " + pos + " life: " + life;}

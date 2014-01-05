@@ -56,7 +56,7 @@ public class EditorPanel extends JPanel {
 		nbTribes.addItem("5");
 		nbTribes.addItem("6");		
 		
-		this.setLayout(new GridBagLayout());
+		setLayout(new GridBagLayout());
 		gbc1 = new GridBagConstraints();
 		gbc1.fill = GridBagConstraints.HORIZONTAL;
 		gbc1.insets = new Insets(10,10,10,10);
@@ -64,25 +64,25 @@ public class EditorPanel extends JPanel {
 		gbc1.ipady = 20;
 		gbc1.gridx = 0;
 		gbc1.gridy = 1;
-		this.add(mapSizeText,gbc1);
+		add(mapSizeText,gbc1);
 		gbc1.gridx = 1;
 		gbc1.gridy = 1;
-		this.add(mapSize,gbc1);
+		add(mapSize,gbc1);
 		gbc1.gridx = 0;
 		gbc1.gridy = 2;
-		this.add(resSizeText,gbc1);
+		add(resSizeText,gbc1);
 		gbc1.gridx = 1;
 		gbc1.gridy = 2;
-		this.add(resSize,gbc1);
+		add(resSize,gbc1);
 		gbc1.gridx = 0;
 		gbc1.gridy = 3;
-		this.add(textNbTribes,gbc1);
+		add(textNbTribes,gbc1);
 		gbc1.gridx = 1;
 		gbc1.gridy = 3;
-		this.add(nbTribes,gbc1);
+		add(nbTribes,gbc1);
 		gbc1.gridx = 2;
 		gbc1.gridy = 3;
-		this.add(add,gbc1);
+		add(add,gbc1);
 		gbc1.gridx = 0;
 		gbc1.gridy = 4;
 		
@@ -148,23 +148,23 @@ public class EditorPanel extends JPanel {
 		gbc1.gridy = 4;
 		
 		for(int i=0 ; i<tribeEditorList.size() ; ++i) {
-			this.remove(tribeEditorList.get(i).getTitle());
-			this.remove(tribeEditorList.get(i).getRaceChoice());
+			remove(tribeEditorList.get(i).getTitle());
+			remove(tribeEditorList.get(i).getRaceChoice());
 		}
 		
-		this.remove(validate);
+		remove(validate);
 		
-		this.repaint();
+		repaint();
 		
 		tribeEditorList.removeAll(tribeEditorList);
 		
 		for(int i=0 ; i<choosedNbTribes ; ++i) {
 			gbc1.gridx = 0;
-			this.tribeEditorList.add(new TribeEditor());
+			tribeEditorList.add(new TribeEditor());
 			tribeEditorList.get(i).getTitle().setText ("Tribu " + (i+1) + " :");
-			this.add(tribeEditorList.get(i).getTitle(),gbc1);
+			add(tribeEditorList.get(i).getTitle(),gbc1);
 			++ gbc1.gridx;
-			this.add(tribeEditorList.get(i).getRaceChoice(),gbc1);
+			add(tribeEditorList.get(i).getRaceChoice(),gbc1);
 			++ gbc1.gridy;
 		}
 		
@@ -195,10 +195,13 @@ public class EditorPanel extends JPanel {
 		 */
 		for (TribeEditor e : tribeEditorList) {
 			String type = null;
-			if		(e.getSelectedType().equals("Humain"))			type = "Human";
-			else if (e.getSelectedType().equals("Robot"))			type = "Robot";
-			else if (e.getSelectedType().equals("Abeille Mutante")) type = "Bee";
-			else System.err.println ("- Error, wrong type association");
+			// System.out.println("L198: " + e.getSelectedType());
+			/*if		(e.getSelectedType().equalsIgnoreCase ("Humain"))			type = "Human";
+			else if (e.getSelectedType().equalsIgnoreCase ("Robot"))			type = "Robot";
+			else if (e.getSelectedType().equalsIgnoreCase ("Abeille Mutante"))	type = "Bee";
+			else System.err.println ("- Error, wrong type association");*/
+			
+			type = e.getSelectedType ();
 			
 			if (type != null) {
 				Tribe tmp = sw.addTribe (type, sw.getBoard().randPosition());
@@ -212,7 +215,7 @@ public class EditorPanel extends JPanel {
 					sw.getBoard().get(tmp.getBasePosition()).add(x);
 				}
 
-				System.out.println ("" + tmp);
+				// System.out.println ("" + tmp);
 			}
 		}
 	}
@@ -221,13 +224,9 @@ public class EditorPanel extends JPanel {
 		int nbEach = 0;
 		
 		/* 0 = a few, 1 = a bit more, 2 = a lot */
-		if(resSize.getSelectedIndex() == 0) {
-			nbEach = 3;
-		} else if(resSize.getSelectedIndex() == 1) {
-			nbEach = 7;
-		} else if(resSize.getSelectedIndex() == 2) {
-			nbEach = 13;
-		}
+		if		(resSize.getSelectedIndex() == 0)		nbEach = 3;
+		else if (resSize.getSelectedIndex() == 1)		nbEach = 7;
+		else if (resSize.getSelectedIndex() == 2)		nbEach = 13;
 		
 		for (int i=0 ; i<nbEach ; ++i) {
 			Position randPosition = sw.getBoard().randPosition();
@@ -259,7 +258,7 @@ public class EditorPanel extends JPanel {
 		
 		for (int i=0 ; i<nbEach ; ++i) {
 			Position randPosition = sw.getBoard().randPosition();
-			Food r = new Food(randPosition,"");
+			Food r = new Food(randPosition, "");
 			sw.addResource(r);	
 			sw.getBoard().get(randPosition).add(r);
 		}

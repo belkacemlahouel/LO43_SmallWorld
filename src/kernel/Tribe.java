@@ -30,6 +30,10 @@ public class Tribe {
 		resources.put ("Plutonium", 0);
 		resources.put ("Metal", 0);
 		
+		/*for (String key : resources.keySet()) {
+			System.out.println("\t\t" + key);
+		}*/
+		
 		if (individual_type == null) System.err.println ("- Error, Individual Type in Tribe null");
 		
 		/*if (individual_type != null) {
@@ -61,12 +65,12 @@ public class Tribe {
 	public Individual addIndividual () {
 		Individual tmp = null;
 		
-		if		(individual_type.equals("Human"))	tmp = new Human (base_position, "");
-		else if (individual_type.equals("Bee"))		tmp = new Bee (base_position, "");
-		else if (individual_type.equals("Robot"))	tmp = new Robot (base_position, "");
+		if		(individual_type.equalsIgnoreCase ("Human"))	tmp = new Human (base_position, "");
+		else if (individual_type.equalsIgnoreCase ("Bee"))		tmp = new Bee (base_position, "");
+		else if (individual_type.equalsIgnoreCase ("Robot"))	tmp = new Robot (base_position, "");
 		else System.err.println ("- Error, type not found");
 		
-		if (tmp != null) population.add (tmp);
+		if (tmp != null) {population.add (tmp); tmp.setTribe(this);}
 		else System.err.println ("- Problem, individual type not found");
 		
 		return tmp;
@@ -103,10 +107,10 @@ public class Tribe {
 	/*
 	 * classic getters and setters for tribes
 	 */
-	public void						addIndividual (Individual i)	{population.add (i);}
-	public ArrayList<Individual>	getPopulation ()				{return population;}
-	public HashMap<String, Integer>	getResources ()					{return resources;}
-	public Position					getBasePosition ()				{return base_position;}
-	public String					getIndividualType ()			{return individual_type;}
-	public void						setPopulation (ArrayList<Individual> tmp) {population = tmp;}
+	public void						addIndividual (Individual i)				{population.add (i);}
+	public ArrayList<Individual>	getPopulation ()							{return population;}
+	public HashMap<String, Integer>	getResources ()								{return resources;}
+	public Position					getBasePosition ()							{return base_position;}
+	public String					getIndividualType ()						{return individual_type;}
+	public void						setPopulation (ArrayList<Individual> tmp)	{population = tmp;}
 }

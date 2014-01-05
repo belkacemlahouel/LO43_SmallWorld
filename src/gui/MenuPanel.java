@@ -19,10 +19,10 @@ import javax.swing.JToggleButton;
 
 /* The MenuPanel class corresponds to the panel that is on the left during the game, giving several options to the player */
 
-public class MenuPanel extends JPanel{
+public class MenuPanel extends JPanel {
 	private JButton pause, addIndiv,save,exit;
 	private JLabel mainTitle, barTitle, game_over, winners;
-	private JComboBox tribesComboBox,resourcesComboBox;
+	private JComboBox tribesComboBox, resourcesComboBox;
 	private JCheckBox viewResources;
 	private JFileChooser saveFileChooser;
 	private JToggleButton addRes;
@@ -33,7 +33,7 @@ public class MenuPanel extends JPanel{
 	 */
 	private boolean play = false;
 	
-	public MenuPanel(final SmallWorldGUI swGUI,final SmallWorld sw,final ResourcePanel resPan) {
+	public MenuPanel(final SmallWorldGUI swGUI, final SmallWorld sw, final ResourcePanel resPan) {
 		super();
 		GridLayout menuGrid = new GridLayout(15,1);
 	    menuGrid.setVgap(5);
@@ -45,11 +45,23 @@ public class MenuPanel extends JPanel{
 	    
 	    for(int i=0 ; i<sw.getTribeList().size() ; ++i) {
 	    	// tribesComboBox.addItem("Tribe " + (i+1) + " : " + sw.getTribeAt(i).getPopulation().get(0).getTypeName());
-			tribesComboBox.addItem ("Tribe " + (i+1) + " : " + sw.getTribeAt(i).getIndividualType());
+			// tribesComboBox.addItem ("Tribu " + (i+1) + " : " + sw.getTribeAt(i).getIndividualType());
+			
+			/*
+			 * @author Belkacem @date 04/01/14
+			 * French names in the buttons
+			 */
+			// System.out.println (sw.getTribeAt(i).getIndividualType());
+			String fr_type = null;
+			if		(sw.getTribeAt(i).getIndividualType().equalsIgnoreCase ("Human"))	fr_type = "humain";
+			else if (sw.getTribeAt(i).getIndividualType().equalsIgnoreCase ("Bee"))		fr_type = "abeille mutante";
+			else if (sw.getTribeAt(i).getIndividualType().equalsIgnoreCase ("Robot"))	fr_type = "robot";
+			else System.err.println ("- Error type not found");
+			
+			tribesComboBox.addItem ("Tribu " + (i+1) + " " + fr_type);
 	    }
 	    
 	    resourcesComboBox = new JComboBox();
-	    
 	    resourcesComboBox.addItem("Pierre");
 	    resourcesComboBox.addItem("Bois");
 	    resourcesComboBox.addItem("Metal");
@@ -81,7 +93,7 @@ public class MenuPanel extends JPanel{
 				 * @author Belkacem
 				 * If we go to pause, we print the SmallWorld status
 				 */
-				if (!play) System.out.print("" + sw);
+				// if (!play) System.out.print("" + sw);
 			}
 		});
 	    
@@ -92,16 +104,30 @@ public class MenuPanel extends JPanel{
 	    		/*
 				 * @author Belkacem @date 03/01/14
 				 * Testing individual types modification
+				 * 
+				 * @author Belkacem @date 04/01/14
+				 * Modification of the way an Individual is added to its tribe
+				 * We now use the index in the combo box, to add it to the (index)th tribe
 				 */
-				Individual tmp = null;
-				if (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getIndividualType().equals("Human")) {
+				
+				// System.out.println (tribesComboBox.getSelectedItem() + ", " + sw.getTribeAt(tribesComboBox.getSelectedIndex()).getIndividualType());
+				
+				if (sw.getTribeList().size() > tribesComboBox.getSelectedIndex()) {
+					Individual i = sw.getTribeAt(tribesComboBox.getSelectedIndex()).addIndividual();
+					swGUI.getMap().addIndividualGUI(new ElementGUI(i));
+				} else System.err.println ("- Error, too big index, the #th tribes does not exist");
+				
+				/*Individual tmp = null;
+				if (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getIndividualType().contains("humain")) {
 					tmp = new Human (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getBasePosition(), "");
-				} else if (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getIndividualType().equals("Bee")) {
+				} else if (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getIndividualType().contains("abeille")) {
 					tmp = new Bee (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getBasePosition(), "");
-				} else if (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getIndividualType().equals("Robot")) {
+				} else if (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getIndividualType().contains("robot")) {
 					tmp = new Robot (sw.getTribeAt(tribesComboBox.getSelectedIndex()).getBasePosition(), "");
 				}
-				sw.addIndividual (tmp, tribesComboBox.getSelectedIndex());
+				
+				if (tmp != null) sw.addIndividual (tmp, tribesComboBox.getSelectedIndex());
+				else System.err.println ("- Error, Individual cannot be added");*/
 				
 				/*
 				 * @author Belkacem Lahouel
@@ -114,7 +140,13 @@ public class MenuPanel extends JPanel{
 	    viewResources.addActionListener (new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				resPan.refresh(swGUI);
 				resPan.setVisible(((JCheckBox)e.getSource()).isSelected());
+				/*
+				 * @author Belkacem @date 05/01/14
+				 * This was not enough, to just set the panel to visible.
+				 * We also have to refresh it
+				 */
 			}
 	    });
 	    

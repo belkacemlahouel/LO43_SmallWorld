@@ -1,21 +1,15 @@
 package gui;
 
 import kernel.*;
-import xml_parser.*;
-
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /* This class rules the display of the menu */
@@ -133,8 +127,7 @@ public class MapPanel extends JPanel implements MouseListener {
 		this.resList = resList;
 	}
 	
-	public void changeElementGUIToDead()
-	{
+	public void changeElementGUIToDead() {
 		for(int i=0;i<indivList.size();i++)
 		{
 			if(indivList.get(i).getElem().isDead())
@@ -147,15 +140,12 @@ public class MapPanel extends JPanel implements MouseListener {
 		}
 	}
 	
-	public void addIndividualGUI(ElementGUI e)
-	{
+	public void addIndividualGUI(ElementGUI e) {
 		indivList.add(e);
 	}
 	
-	public synchronized ElementGUI getCorrespondingElementGUI(Individual i)
-	{
-		for(ElementGUI e:indivList)
-		{
+	public synchronized ElementGUI getCorrespondingElementGUI (Individual i) {
+		for (ElementGUI e : indivList) {
 			if(e.getElem() == i) return e;
 		}
 		
@@ -169,8 +159,7 @@ public class MapPanel extends JPanel implements MouseListener {
 		if(swGUI.getLeftBar().getAddRes().isSelected())
 		{
 			/*0 : rock, 1 : wood, 2 : metal, 3 : food, 4 : plutonium*/
-			switch(swGUI.getLeftBar().getResourcesComboBox().getSelectedIndex())
-			{
+			switch(swGUI.getLeftBar().getResourcesComboBox().getSelectedIndex()) {
 				case 0:
 					Rock r = new Rock(c.getPosition(),"");
 					c.add(r);

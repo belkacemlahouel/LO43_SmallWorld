@@ -19,23 +19,9 @@ public class SmallWorld extends Thread {
 	public SmallWorld () {
 		super ("Small World"); // Construction of the Thread
 		
-		tribe_list = new ArrayList<Tribe> ();
-		resources = new ArrayList<Resource> ();
+		tribe_list = new ArrayList<Tribe> (0);
+		resources = new ArrayList<Resource> (0);
 	}
-	
-	/*public SmallWorld (int nbTribes) {
-
-		super ("Small World"); // Construction of the Thread
-		
-		tribe_list = new ArrayList<Tribe> ();
-		
-		for(int i=0;i<nbTribes;i++)
-		{
-			tribe_list.add(new Tribe());
-		}
-		resources = new ArrayList<Resource> ();
-		
-	}*/
 	
 	public Position getBestNextPosition (Individual tmp) {
 		Position final_pos = tmp.getAimPosition ();
@@ -124,7 +110,10 @@ public class SmallWorld extends Thread {
 							}
 
 							tmp_pos = getBestNextPosition (tmp);
-							move (tmp, tmp_pos);
+							
+							if (tmp_pos == null) System.err.println ("** New position is null");
+							else if (tmp == null) System.err.println ("** Player to move is null");
+							else move (tmp, tmp_pos);
 
 							if (!has_played) {
 								tmp.attack(getFirstElementSamePos (tmp));
@@ -133,6 +122,26 @@ public class SmallWorld extends Thread {
 						}
 					}
 				}
+				
+				/*
+				 * @author Belkacem @date 05/01/14
+				 * Creating new individuals if there is enough "vital" resource
+				*/
+				for (Tribe t : tribe_list) {
+					String vital_resource = null;
+					if		(t.getIndividualType().equalsIgnoreCase("human"))		vital_resource = "Food";
+					else if (t.getIndividualType().equalsIgnoreCase("bee"))			vital_resource = "Plutonium";
+					else if (t.getIndividualType().equalsIgnoreCase("robot"))		vital_resource = "Metal";
+					else System.err.println ("- Error, impossible to create " + t.getIndividualType() + "; it doesn't exist");
+					
+					if (vital_resource!= null && t.getResources().get(vital_resource) > 100) {
+						Individual i = t.addIndividual ();
+						i.setTribe (t);
+						t.getResources().put (vital_resource, t.getResources().get(vital_resource)-100);
+						gui.getMap().addIndividualGUI (new ElementGUI(i));
+					}
+				}
+				
 				gui.updateMapPanel();
 			}
 			
@@ -144,7 +153,6 @@ public class SmallWorld extends Thread {
 		}
 		
 		System.out.println ("\n\n\tEnd of Small World...");
-		// Are the dead tribes (defeated one) removed? Can we still add elements to them?
 		
 		gui.disableButtons ();
 		
@@ -155,11 +163,8 @@ public class SmallWorld extends Thread {
 			}
 			++ tmp_num;
 		}
-		
-		
 	}
 	
-	// Or we could just check after each action and bury deads on this Position...
 	public synchronized void buryDeads (Position p) {
 		small_world.get(p).buryDeads();
 		
@@ -167,7 +172,7 @@ public class SmallWorld extends Thread {
 			Iterator<Individual> it = t.getPopulation().iterator();
 			while (it.hasNext()) {
 				Individual x = it.next();
-				if (x.isDead ()) {
+ 				if (x.isDead ()) {
 					it.remove();
 					return ; // assuming there is not two identical Individuals
 				}
@@ -176,7 +181,7 @@ public class SmallWorld extends Thread {
 	}
 
 	public synchronized void move (Individual tmp, Position new_pos) { // synchronized?
-		if (tmp != null && new_pos != null && !tmp.getPosition().equals(new_pos)) {
+		if (!tmp.getPosition().equals(new_pos)) {
 			gui.getMap().getCorrespondingElementGUI(tmp).setPrec_position(tmp.getPosition ());
 			small_world.get(tmp.getPosition ()).remove (tmp);
 			tmp.setPosition (new_pos);

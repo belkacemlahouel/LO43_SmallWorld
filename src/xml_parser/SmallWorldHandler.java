@@ -63,11 +63,11 @@ public class SmallWorldHandler extends DefaultHandler  {
 				else if (attributs.getQName(index).equals ("life")) life = Integer.parseInt(attributs.getValue(index));
 			}
 			
-			if		(type.equals ("rock"))		r = new Rock		(ca.getPosition(), "");
-			else if (type.equals ("metal"))		r = new Metal		(ca.getPosition(), "");
-			else if (type.equals ("food"))		r = new Food		(ca.getPosition(), "");
-			else if (type.equals ("plutonium"))	r = new Plutonium	(ca.getPosition(), "");
-			else if (type.equals ("wood"))		r = new Wood		(ca.getPosition(), "");
+			if		(type.equalsIgnoreCase ("rock"))		r = new Rock		(ca.getPosition(), "");
+			else if (type.equalsIgnoreCase ("metal"))		r = new Metal		(ca.getPosition(), "");
+			else if (type.equalsIgnoreCase ("food"))		r = new Food		(ca.getPosition(), "");
+			else if (type.equalsIgnoreCase ("plutonium"))	r = new Plutonium	(ca.getPosition(), "");
+			else if (type.equalsIgnoreCase ("wood"))		r = new Wood		(ca.getPosition(), "");
 			else System.err.println ("- Error, " + type + " as a Resource not found");
 			
 			if (r != null) {
@@ -106,7 +106,10 @@ public class SmallWorldHandler extends DefaultHandler  {
 			 */
 			if (i != null) {
 				if (!new_game) i.setLife (life);
-				if (smallworld.getTribeList() != null && smallworld.getTribeList().size() > tribe && type.equals (smallworld.getTribeAt(tribe).getIndividualType().toLowerCase())) smallworld.addIndividual (i, tribe);
+				if (smallworld.getTribeList() != null && smallworld.getTribeList().size() > tribe && type.equals (smallworld.getTribeAt(tribe).getIndividualType().toLowerCase())) {
+					smallworld.addIndividual (i, tribe);
+					i.setTribe(smallworld.getTribeAt(tribe));
+				}
 				else System.err.println ("- Error in the XML file, wrong type association between individual and tribe");
 				ca.add (i);
 			}

@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 
 public class MainMenuPanel extends JPanel {
 	
-	private JButton start, edit, load, exit, reload;
+	private JButton quick_start, edit, map_load, exit, game_reload;
 	private JFileChooser loadFileChooser;
 	private Clip titleTheme;
 
@@ -31,11 +31,11 @@ public class MainMenuPanel extends JPanel {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc1 = new GridBagConstraints();
 		
-		start =		new JButton ("Demarrage rapide");
-		edit =		new JButton ("Editer une map");
-		load =		new JButton ("Charger map");
-		reload =	new JButton ("Reprendre une partie");
-		exit =		new JButton ("Quitter");
+		quick_start =	new JButton ("Demarrage rapide");
+		edit =			new JButton ("Editer une map");
+		map_load =		new JButton ("Charger map");
+		game_reload =	new JButton ("Reprendre une partie");
+		exit =			new JButton ("Quitter");
 		
 		try {
 			loadFileChooser = new JFileChooser(new File("data//save").getCanonicalFile());
@@ -43,7 +43,7 @@ public class MainMenuPanel extends JPanel {
 			System.err.println ("- Exception: IO");
 		}
 		
-		start.addActionListener(new ActionListener() {
+		quick_start.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent arg0){	
 	    		titleTheme.stop();
 	    		SmallWorld sw = SWP.createSW("data//save//default.xml");
@@ -71,11 +71,11 @@ public class MainMenuPanel extends JPanel {
 	        titleTheme.open(audioInputStream);
 	        titleTheme.start();
 	    } catch(Exception ex) {
-	        System.out.println ("Error while playing sound.");
+	        System.err.println ("Error while playing sound.");
 	        ex.printStackTrace();
 	    }
 		
-		load.addActionListener(new ActionListener() {
+		map_load.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent arg0){	
 	    		loadFileChooser.showOpenDialog(null);
 	    		if(loadFileChooser.getSelectedFile() != null)
@@ -99,7 +99,7 @@ public class MainMenuPanel extends JPanel {
 		 * @author Belkacem
 		 * for the correction of the bug with lifes, when it comes to continue a game
 		 */
-		reload.addActionListener(new ActionListener() {
+		game_reload.addActionListener(new ActionListener() {
 	    	
 	    	public void actionPerformed(ActionEvent arg0){	
 	    		loadFileChooser.showOpenDialog(null);
@@ -127,7 +127,7 @@ public class MainMenuPanel extends JPanel {
 		gbc1.ipady = 20;
 		gbc1.insets = new Insets(10,10,10,10);
 		gbc1.gridy = 1;
-		this.add(start,gbc1);
+		add(quick_start,gbc1);
 
 		gbc1.fill = GridBagConstraints.BOTH; // gbc1.fill = GridBagConstraints.VERTICAL;
 		/*
@@ -136,13 +136,13 @@ public class MainMenuPanel extends JPanel {
 		 */
 		gbc1.gridx = 1;
 		gbc1.gridy = 2;
-		this.add(edit,gbc1);
+		add(edit,gbc1);
 		gbc1.gridx = 1;
 		gbc1.gridy = 3;
-		this.add(load,gbc1);
+		add(map_load,gbc1);
 		gbc1.gridx = 1;
 		gbc1.gridy = 4;
-		this.add(reload,gbc1);
+		add(game_reload,gbc1);
 		
 		/*
 		 * @author Belkacem Lahouel
@@ -151,7 +151,7 @@ public class MainMenuPanel extends JPanel {
 		 */
 		gbc1.gridx = 1;
 		gbc1.gridy = 5;
-		this.add(exit, gbc1);
+		add(exit, gbc1);
 	}
 	
 	public void paintComponent (Graphics g) {
