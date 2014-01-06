@@ -11,6 +11,8 @@
     </case>
     <case x="8" y="8">
       <individual type="human" team="2" />
+      <individual type="human" team="2" />
+      <individual type="human" team="2" />
     </case>
     <case x="17" y="44">
       <individual type="robot" team="1" />
@@ -18,13 +20,12 @@
     <case x="25" y="14">
       <ressource type="food" life="100" />
     </case>
-    <case x="25" y="22">
-      <individual type="robot" team="1" />
-    </case>
     <case x="26" y="54">
       <individual type="robot" team="1" />
     </case>
     <case x="31" y="1">
+      <individual type="bee" team="3" />
+      <individual type="bee" team="3" />
       <individual type="bee" team="3" />
     </case>
     <case x="40" y="42">
