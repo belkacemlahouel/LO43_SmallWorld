@@ -1,86 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SmallWorld SYSTEM "structure.dtd">
 <SmallWorld>
-  <board l="60" w="60">
-    <case x="5" y="23">
+  <board l="70" w="50">
+    <tribe x="26" y="49" type="Robot" />
+    <tribe x="57" y="9" type="Bee" />
+    <tribe x="66" y="23" type="Human" />
+    <case x="1" y="11">
+      <ressource type="plutonium" life="100" />
+    </case>
+    <case x="5" y="19">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="7" y="6">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="8" y="20">
+      <ressource type="metal" life="100" />
+    </case>
+    <case x="10" y="25">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="11" y="41">
+      <ressource type="metal" life="100" />
+    </case>
+    <case x="14" y="42">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="15" y="47">
+      <ressource type="plutonium" life="100" />
+    </case>
+    <case x="17" y="4">
+      <ressource type="plutonium" life="100" />
+    </case>
+    <case x="19" y="24">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="20" y="19">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="21" y="37">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="22" y="1">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="22" y="5">
+      <ressource type="plutonium" life="100" />
+    </case>
+    <case x="22" y="12">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="25" y="42">
+      <ressource type="plutonium" life="100" />
+    </case>
+    <case x="27" y="44">
+      <ressource type="metal" life="100" />
+    </case>
+    <case x="27" y="48">
+      <ressource type="plutonium" life="100" />
+      <individual type="robot" life="50" team="1" />
+      <individual type="robot" life="50" team="1" />
+      <individual type="robot" life="50" team="1" />
+      <individual type="robot" life="50" team="1" />
+      <individual type="robot" life="50" team="1" />
+      <individual type="robot" life="50" team="1" />
       <individual type="robot" life="50" team="1" />
     </case>
-    <case x="5" y="24">
-      <individual type="robot" life="50" team="1" />
+    <case x="28" y="44">
+      <ressource type="wood" life="100" />
     </case>
-    <case x="5" y="59">
-      <individual type="robot" life="50" team="1" />
+    <case x="29" y="29">
+      <ressource type="food" life="100" />
     </case>
-    <case x="12" y="10">
-      <individual type="robot" life="50" team="1" />
+    <case x="30" y="2">
+      <ressource type="rock" life="100" />
     </case>
-    <case x="18" y="20">
-      <individual type="robot" life="50" team="1" />
+    <case x="31" y="18">
+      <ressource type="rock" life="100" />
     </case>
-    <case x="19" y="21">
-      <individual type="robot" life="50" team="1" />
+    <case x="32" y="47">
+      <ressource type="metal" life="100" />
     </case>
-    <case x="19" y="33">
-      <individual type="robot" life="50" team="1" />
+    <case x="35" y="21">
+      <ressource type="rock" life="100" />
+      <ressource type="rock" life="100" />
     </case>
-    <case x="19" y="36">
-      <individual type="robot" life="50" team="1" />
+    <case x="37" y="9">
+      <ressource type="food" life="100" />
     </case>
-    <case x="19" y="40">
-      <individual type="robot" life="50" team="1" />
+    <case x="40" y="0">
+      <ressource type="metal" life="100" />
     </case>
-    <case x="21" y="40">
-      <individual type="robot" life="50" team="1" />
+    <case x="40" y="20">
+      <ressource type="plutonium" life="100" />
     </case>
-    <case x="22" y="22">
-      <individual type="robot" life="15" team="1" />
+    <case x="41" y="4">
+      <ressource type="metal" life="100" />
     </case>
-    <case x="22" y="36">
-      <individual type="robot" life="9" team="1" />
+    <case x="43" y="38">
+      <ressource type="food" life="100" />
     </case>
-    <case x="25" y="28">
-      <individual type="robot" life="50" team="1" />
+    <case x="46" y="8">
+      <ressource type="wood" life="100" />
     </case>
-    <case x="28" y="19">
-      <individual type="robot" life="50" team="1" />
+    <case x="46" y="34">
+      <ressource type="food" life="100" />
     </case>
-    <case x="31" y="6">
-      <individual type="robot" life="50" team="1" />
+    <case x="49" y="4">
+      <ressource type="food" life="100" />
     </case>
-    <case x="33" y="30">
-      <individual type="robot" life="50" team="1" />
+    <case x="50" y="25">
+      <ressource type="rock" life="100" />
     </case>
-    <case x="35" y="48">
-      <individual type="robot" life="50" team="1" />
+    <case x="51" y="13">
+      <ressource type="rock" life="100" />
+      <individual type="bee" life="100" team="2" />
+      <individual type="bee" life="100" team="2" />
+      <individual type="bee" life="100" team="2" />
+      <individual type="bee" life="100" team="2" />
+      <individual type="bee" life="100" team="2" />
+      <individual type="bee" life="100" team="2" />
+      <individual type="bee" life="100" team="2" />
+      <individual type="bee" life="100" team="2" />
     </case>
-    <case x="35" y="58">
-      <individual type="robot" life="50" team="1" />
+    <case x="55" y="38">
+      <ressource type="wood" life="100" />
     </case>
-    <case x="40" y="25">
-      <individual type="robot" life="10" team="1" />
+    <case x="57" y="27">
+      <ressource type="food" life="100" />
     </case>
-    <case x="42" y="12">
-      <individual type="robot" life="50" team="1" />
+    <case x="64" y="33">
+      <ressource type="wood" life="100" />
     </case>
-    <case x="42" y="39">
-      <individual type="robot" life="50" team="1" />
+    <case x="67" y="26">
+      <ressource type="metal" life="100" />
+      <individual type="human" life="100" team="3" />
+      <individual type="human" life="100" team="3" />
+      <individual type="human" life="100" team="3" />
+      <individual type="human" life="100" team="3" />
+      <individual type="human" life="100" team="3" />
+      <individual type="human" life="100" team="3" />
+      <individual type="human" life="100" team="3" />
+      <individual type="human" life="100" team="3" />
+      <individual type="human" life="100" team="3" />
     </case>
-    <case x="44" y="28">
-      <individual type="robot" life="50" team="1" />
-    </case>
-    <case x="49" y="50">
-      <individual type="robot" life="50" team="1" />
-    </case>
-    <case x="51" y="18">
-      <individual type="robot" life="50" team="1" />
-    </case>
-    <case x="51" y="27">
-      <individual type="robot" life="10" team="1" />
-    </case>
-    <case x="51" y="53">
-      <individual type="robot" life="50" team="1" />
-    </case>
-    <case x="52" y="26">
-      <individual type="robot" life="50" team="1" />
+    <case x="68" y="9">
+      <ressource type="rock" life="100" />
     </case>
   </board>
 </SmallWorld>
