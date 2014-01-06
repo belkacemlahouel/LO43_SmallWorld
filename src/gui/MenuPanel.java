@@ -21,7 +21,7 @@ import javax.swing.JToggleButton;
 
 public class MenuPanel extends JPanel {
 	private JButton pause, addIndiv,save,exit;
-	private JLabel mainTitle, barTitle, game_over, winners;
+	private JLabel mainTitle, barTitle, pauseLabel, game_over, winners;
 	private JComboBox tribesComboBox, resourcesComboBox;
 	private JCheckBox viewResources;
 	private JFileChooser saveFileChooser;
@@ -41,17 +41,17 @@ public class MenuPanel extends JPanel {
 	    this.setBackground(Color.WHITE);
 	    this.setPreferredSize(new Dimension(170,720));
 
+	    pauseLabel = new JLabel("EN PAUSE");
+	    pauseLabel.setVisible(true);
+	    
 	    tribesComboBox = new JComboBox();
 	    
 	    for(int i=0 ; i<sw.getTribeList().size() ; ++i) {
-	    	// tribesComboBox.addItem("Tribe " + (i+1) + " : " + sw.getTribeAt(i).getPopulation().get(0).getTypeName());
-			// tribesComboBox.addItem ("Tribu " + (i+1) + " : " + sw.getTribeAt(i).getIndividualType());
 			
 			/*
 			 * @author Belkacem @date 04/01/14
 			 * French names in the buttons
 			 */
-			// System.out.println (sw.getTribeAt(i).getIndividualType());
 			String fr_type = null;
 			if		(sw.getTribeAt(i).getIndividualType().equalsIgnoreCase ("Human"))	fr_type = "humain";
 			else if (sw.getTribeAt(i).getIndividualType().equalsIgnoreCase ("Bee"))		fr_type = "abeille mutante";
@@ -89,11 +89,14 @@ public class MenuPanel extends JPanel {
 		pause.addActionListener (new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
 				play = !play;
-				/*
-				 * @author Belkacem
-				 * If we go to pause, we print the SmallWorld status
-				 */
-				// if (!play) System.out.print("" + sw);
+				if(!play)
+				{
+					pauseLabel.setVisible(true);
+				}
+				else
+				{
+					pauseLabel.setVisible(false);
+				}
 			}
 		});
 	    
@@ -140,13 +143,7 @@ public class MenuPanel extends JPanel {
 	    viewResources.addActionListener (new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				resPan.refresh(swGUI);
 				resPan.setVisible(((JCheckBox)e.getSource()).isSelected());
-				/*
-				 * @author Belkacem @date 05/01/14
-				 * This was not enough, to just set the panel to visible.
-				 * We also have to refresh it
-				 */
 			}
 	    });
 	    
@@ -180,6 +177,7 @@ public class MenuPanel extends JPanel {
 	    this.add(viewResources);
 	    this.add(save);
 	    this.add(exit);
+	    this.add(pauseLabel);
 	}
 	
 	public JComboBox getResourcesComboBox() {

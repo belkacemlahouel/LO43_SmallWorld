@@ -12,7 +12,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-/* This class rules the display of the menu */
+/* 
+ * Author of the whole class : Luc CADORET
+ * This class rules the display of the map which show graphically to the player all the elements that are interacting 
+ */
 
 public class MapPanel extends JPanel implements MouseListener {
 	
@@ -55,6 +58,12 @@ public class MapPanel extends JPanel implements MouseListener {
 	    this.setVisible(true);
 	}
 	
+	/*
+	 * Author : Luc CADORET
+	 * This function is called at every turn, see if some ElemenGUI are dead since the last turn, and calls all function that
+	 * display what's happening on the screen
+	 */
+	
 	public void paintComponent(Graphics g){
 	    int x;
 	    int y;
@@ -80,13 +89,25 @@ public class MapPanel extends JPanel implements MouseListener {
 	    
 	 }
 
+	/*
+	 * Author : Luc CADORET
+	 * This function draws the resources on the map, if they are still alive (their life is > to 0) 
+	 */
+	
 	public void drawResList(Graphics g)
 	{		
 		for(int n=0;n<resList.size();n++)
 		{
+			if(!resList.get(n).getElem().isDead())
         	g.drawImage(resList.get(n).getImgElementUp(),resList.get(n).getPos().getX()*10,resList.get(n).getPos().getY()*10, this);
 		}
 	}
+	
+	/*
+	 * Author : Luc CADORET
+	 * This function draw the ElementGUI corresponding to the individuals. The ElementGUI searches the right picture to show on the screen
+	 * depending on the direction he's moving, and the fact that he's dead or alive
+	 */
 	
 	public void drawIndivList(Graphics g)
 	{		
@@ -95,20 +116,6 @@ public class MapPanel extends JPanel implements MouseListener {
 			g.drawImage(indivList.get(n).getCorrespondingImg(),indivList.get(n).getPos().getX()*10,indivList.get(n).getPos().getY()*10,this);
 		}
 		
-	}
-	
-	/* This function computes the difference on the X axis beetwen this and another position p */
-	
-	public int diffX(Position p1,Position p2)
-	{
-		return p1.getX() - p2.getX();
-	}
-	
-	/* This function computes the difference on the Y axis beetwen this and another position p */
-
-	public int diffY(Position p1,Position p2)
-	{
-		return p1.getY() - p2.getY();
 	}
 
 	public ArrayList<ElementGUI> getIndivList() {
@@ -127,6 +134,10 @@ public class MapPanel extends JPanel implements MouseListener {
 		this.resList = resList;
 	}
 	
+	/* This function sets the ElementGUI to dead (see the corresponding boolean) if the individual that they are refering to is actually
+	 * dead (live <= 0)
+	 */
+	
 	public void changeElementGUIToDead() {
 		for(int i=0;i<indivList.size();i++)
 		{
@@ -144,6 +155,8 @@ public class MapPanel extends JPanel implements MouseListener {
 		indivList.add(e);
 	}
 	
+	/* This function returns the ElementGUI that corresponds to an individual */
+	
 	public synchronized ElementGUI getCorrespondingElementGUI (Individual i) {
 		for (ElementGUI e : indivList) {
 			if(e.getElem() == i) return e;
@@ -152,6 +165,8 @@ public class MapPanel extends JPanel implements MouseListener {
 		return null;
 	}
 
+	/* This function is the one that is adding the resource into the game when the player clicks on the map */
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Case c = computePosition(e.getX(),e.getY());
@@ -203,6 +218,8 @@ public class MapPanel extends JPanel implements MouseListener {
 		
 		return swGUI.getSw().getBoard().get(goodX, goodY);
 	}
+	
+	/* The following functions are useless, but here, because we implement the MouseListener class */
 	
 	@Override
 	public void mouseEntered(MouseEvent e) {

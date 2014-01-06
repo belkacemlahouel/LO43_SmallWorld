@@ -20,6 +20,8 @@
 @author Luc
 +	Drag'n'Drop pour ajouter des ressources en milieu de jeu (Enfin, pas exactement du drag n drop...)
 +	Bug avec les audios : quand on revient au menu principal on est censé ré-écouter la bonne musique, or c'est la musique du jeu qui reste
+	Implémenter un "burydead" pour les ressources (déjà fait ??)
+	Les ressources générées avec l'éditeur sont inépuisables ??? pk ??
 
 @author Belkacem
 	Ligne juste au dessus du MapPanel qui sert à rien, laide ; donc à enlever...

@@ -114,7 +114,6 @@ public class SmallWorldGUI extends JFrame {
 	public void updateMapPanel()
 	{
 		map.repaint();
-		// resPan.refresh(this);
 		resPan.repaint();
 	}
 	
