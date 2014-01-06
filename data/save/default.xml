@@ -2,9 +2,9 @@
 <!DOCTYPE SmallWorld SYSTEM "structure.dtd">
 <SmallWorld>
   <board l="60" w="60">
-    <tribe x="25" y="21" type="robot" />
-    <tribe x="8" y="9" type="human" />
-    <tribe x="30" y="2" type="bee" />
+    <tribe x="15" y="20" type="robot" />
+    <tribe x="35" y="50" type="human" />
+    <tribe x="55" y="30" type="bee" />
     <case x="5" y="12">
       <ressource type="wood" life="100" />
     </case>
