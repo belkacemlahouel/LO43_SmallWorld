@@ -145,6 +145,9 @@ public class SmallWorldGUI extends JFrame {
 	public void showWinners (String type, int num) {
 		leftBar.showWinners(type, num);
 	}
+	public void showGameOver () {
+		leftBar.showGameOver();
+	}
 	
 	public MapBackgroundPanel getMapBg() {
 		return mapBg;

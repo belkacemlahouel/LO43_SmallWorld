@@ -235,7 +235,11 @@ public class EditorPanel extends JPanel {
 			sw.getBoard().get(randPosition).add(r);
 		}
 		
-		for (int i=0 ; i<nbEach ; ++i) {
+		/*
+		 * @author Belkacem
+		 * There is less plutonium in the real life, it seems logical to /2
+		 */
+		for (int i=0 ; i<nbEach/2 ; ++i) {
 			Position randPosition = sw.getBoard().randPosition();
 			Plutonium r = new Plutonium(randPosition,"");
 			sw.addResource(r);	
