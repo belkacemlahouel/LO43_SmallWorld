@@ -6,7 +6,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /*
  * Le Morvan Valentin - Info 01
- * Parser implementation for the XML file
+ * Handler implementation for the XML file
  * The XML file can either describe just a map (loading map) or an entire game in pause (continue game)
  */
 

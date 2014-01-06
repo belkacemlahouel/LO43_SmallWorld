@@ -6,7 +6,11 @@ import org.jdom2.*;
 import org.jdom2.output.*;
 
 import kernel.*;
-
+/*
+ * Le Morvan Valentin - Info 01
+ * Saving the ongoing game into an XML
+ * The created XML contain every information on the map (size, resources, individuals)
+ */
 public class JDOMSave {
 
 	static org.jdom2.Element racine;

@@ -8,6 +8,10 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
+/*
+ * Le Morvan Valentin - Info 01
+ * Using the SmallWorldHandler class, this class parse the XML to create a SmallWorld object.
+ */
 public class SmallWorldParser {
 	
 	/*
