@@ -45,5 +45,5 @@ public class Human extends Individual {
 	public int vitalResourcePower () {return 1;}
 	
 	@Override
-	public void nextCivilization () {System.out.println ("NEXT CIVILIZATION : HUMAN"); civilization_std_bonus += 3;}
+	public void nextCivilization () {civilization_std_bonus += 3;}
 }

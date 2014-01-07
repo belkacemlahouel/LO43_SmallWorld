@@ -244,7 +244,7 @@ public abstract class Individual extends Element {
 						 * There is a higher priority
 						 */
 						if (tot_given > tot_received) {
-							rep += 20*(nb_ennemies + (tot_given-tot_received));
+							rep += getPriorityFight()*(nb_ennemies + (tot_given-tot_received)); // *20
 						}
 					}
 				} else if (e instanceof Resource) {
@@ -275,9 +275,9 @@ public abstract class Individual extends Element {
 					 */
 					if (e.getTypeName().equalsIgnoreCase(getVitalResource())) {
 						if (getLife() <= getCriticalLife()) {
-							rep += 30;
+							rep += getPriorityPick()+10; // 30;
 						} else {
-							rep += 20/(getLife()-getCriticalLife());
+							rep += getPriorityPick()/(getLife()-getCriticalLife()); // 20/...
 						}
 					} else if (e instanceof Wood || e instanceof Rock) {
 						// System.out.println(e.getTypeName());
@@ -292,9 +292,9 @@ public abstract class Individual extends Element {
 						
 						// System.out.println(tribe.get().getResources().get(e.getTypeName()));
 						if (100 > tribe.get().getResources().get(e.getTypeName())) {
-							rep += 10/(100-tribe.get().getResources().get(e.getTypeName()));
+							rep += getPriorityPick()/(2*(100-tribe.get().getResources().get(e.getTypeName()))); // 10/(100-tribe.get().getResources().get(e.getTypeName()));
 						} else {
-							rep += 20;
+							rep += getPriorityPick(); // 20;
 						}
 					}
 				}
@@ -339,6 +339,13 @@ public abstract class Individual extends Element {
 	public Element			getTargetElement ()				/*{Element tmp = target_element; target_element = null; return tmp;}*/
 															{return target_element;}
 	public void				setTribe (Tribe t)				{tribe = new WeakReference<Tribe> (t);}
+	
+	/*
+	 * @author Belkacem @date 07/01/14
+	 * Implementing pickers and fighters 
+	 */
+	public int				getPriorityFight ()				{return 20;}
+	public int				getPriorityPick ()				{return 20;}
 	
 	@Override
 	public String toString () {return getTypeName () + "\"" + name + "\" at " + pos + " life: " + life;}
