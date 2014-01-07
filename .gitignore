@@ -8,3 +8,4 @@ dist
 /bin
 .project
 .classpath
+/data/Thumbs.db

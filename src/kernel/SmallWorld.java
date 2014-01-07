@@ -1,5 +1,7 @@
 package kernel;
 
+import kernel.resources.Resource;
+import kernel.individuals.Individual;
 import gui.*;
 import java.util.ArrayList;
 import java.util.Iterator;

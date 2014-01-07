@@ -1,5 +1,9 @@
 package kernel;
 
+import kernel.individuals.Individual;
+import kernel.individuals.Robot;
+import kernel.individuals.Human;
+import kernel.individuals.Bee;
 import java.util.ArrayList;
 import java.util.HashMap;
 

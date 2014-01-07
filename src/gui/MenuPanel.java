@@ -1,5 +1,6 @@
 package gui;
 
+import kernel.individuals.Individual;
 import kernel.*;
 import xml_parser.*;
 import java.awt.Color;

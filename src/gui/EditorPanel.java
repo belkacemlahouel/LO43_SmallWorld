@@ -1,5 +1,11 @@
 package gui;
 
+import kernel.resources.Plutonium;
+import kernel.resources.Rock;
+import kernel.resources.Food;
+import kernel.resources.Metal;
+import kernel.resources.Wood;
+import kernel.individuals.Individual;
 import kernel.*;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;

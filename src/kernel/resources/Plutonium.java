@@ -1,4 +1,6 @@
-package kernel;
+package kernel.resources;
+
+import kernel.Position;
 
 public class Plutonium extends Resource {
 	public Plutonium (Position p, String name) {

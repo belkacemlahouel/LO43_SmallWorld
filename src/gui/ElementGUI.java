@@ -1,5 +1,7 @@
 package gui;
 
+import kernel.resources.Resource;
+import kernel.individuals.Individual;
 import kernel.*;
 import java.awt.Image;
 import java.io.File;

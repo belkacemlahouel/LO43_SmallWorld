@@ -1,5 +1,15 @@
 package xml_parser;
 
+import kernel.resources.Plutonium;
+import kernel.resources.Rock;
+import kernel.resources.Food;
+import kernel.resources.Metal;
+import kernel.resources.Resource;
+import kernel.resources.Wood;
+import kernel.individuals.Individual;
+import kernel.individuals.Robot;
+import kernel.individuals.Human;
+import kernel.individuals.Bee;
 import kernel.*;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
