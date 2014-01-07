@@ -178,7 +178,7 @@ public class EditorPanel extends JPanel {
 		Board b = null;
 		if		(mapSize.getSelectedIndex() == 0) b = new Board(50,30);
 		else if (mapSize.getSelectedIndex() == 1) b = new Board(70,50);
-		else if (mapSize.getSelectedIndex() == 2) b = new Board(110,72);
+		else if (mapSize.getSelectedIndex() == 2) b = new Board(110,69);
 		
 		if (b != null) sw.setBoard (b);
 		else System.err.println ("- Error, Board null");
@@ -195,11 +195,6 @@ public class EditorPanel extends JPanel {
 		 */
 		for (TribeEditor e : tribeEditorList) {
 			String type = null;
-			// System.out.println("L198: " + e.getSelectedType());
-			/*if		(e.getSelectedType().equalsIgnoreCase ("Humain"))			type = "Human";
-			else if (e.getSelectedType().equalsIgnoreCase ("Robot"))			type = "Robot";
-			else if (e.getSelectedType().equalsIgnoreCase ("Abeille Mutante"))	type = "Bee";
-			else System.err.println ("- Error, wrong type association");*/
 			
 			type = e.getSelectedType ();
 			
@@ -219,6 +214,10 @@ public class EditorPanel extends JPanel {
 			}
 		}
 	}
+	
+	/* Author : Luc CADORET
+	 * This function generates the resources on the map, and add
+	 */
 	
 	public void generateResources (SmallWorld sw) {
 		int nbEach = 0;

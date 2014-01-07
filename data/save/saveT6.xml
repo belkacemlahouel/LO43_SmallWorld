@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SmallWorld SYSTEM "structure.dtd">
+<SmallWorld>
+  <board l="110" w="72">
+    <tribe x="1" y="14" type="human" />
+    <case x="14" y="39">
+      <individual type="human" life="62" team="1" />
+    </case>
+    <case x="20" y="47">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="39" y="14">
+      <individual type="human" life="62" team="1" />
+      <individual type="human" life="62" team="1" />
+    </case>
+    <case x="39" y="27">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="51" y="71">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="52" y="67">
+      <ressource type="metal" life="70" />
+    </case>
+    <case x="77" y="28">
+      <ressource type="metal" life="70" />
+    </case>
+    <case x="80" y="10">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="90" y="6">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="91" y="40">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="92" y="56">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="94" y="15">
+      <ressource type="plutonium" life="50" />
+    </case>
+    <case x="104" y="15">
+      <ressource type="metal" life="70" />
+    </case>
+    <case x="105" y="62">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="106" y="29">
+      <ressource type="wood" life="100" />
+    </case>
+  </board>
+</SmallWorld>

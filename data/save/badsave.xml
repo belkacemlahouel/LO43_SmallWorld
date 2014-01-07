@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SmallWorld SYSTEM "structure.dtd">
+<SmallWorld>
+  <board l="70" w="50">
+    <tribe x="41" y="23" type="Human" />
+    <tribe x="42" y="48" type="Human" />
+    <tribe x="21" y="7" type="Human" />
+    <tribe x="15" y="45" type="Human" />
+    <case x="0" y="44">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="1" y="38">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="2" y="20">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="4" y="22">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="4" y="45">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="6" y="28">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="7" y="14">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="11" y="27">
+      <ressource type="plutonium" life="100" />
+    </case>
+    <case x="11" y="29">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="11" y="34">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="13" y="9">
+      <individual type="human" life="100" team="3" />
+    </case>
+    <case x="13" y="46">
+      <individual type="human" life="100" team="4" />
+    </case>
+    <case x="14" y="42">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="18" y="17">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="18" y="38">
+      <ressource type="metal" life="100" />
+    </case>
+    <case x="21" y="26">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="22" y="41">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="24" y="16">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="30" y="22">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="31" y="17">
+      <ressource type="plutonium" life="100" />
+    </case>
+    <case x="34" y="9">
+      <ressource type="plutonium" life="100" />
+    </case>
+    <case x="34" y="21">
+      <individual type="human" life="100" team="1" />
+    </case>
+    <case x="36" y="27">
+      <ressource type="metal" life="100" />
+    </case>
+    <case x="38" y="29">
+      <ressource type="metal" life="100" />
+    </case>
+    <case x="43" y="43">
+      <individual type="human" life="100" team="2" />
+    </case>
+    <case x="45" y="4">
+      <ressource type="metal" life="100" />
+    </case>
+    <case x="46" y="14">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="47" y="9">
+      <ressource type="metal" life="100" />
+    </case>
+    <case x="49" y="9">
+      <ressource type="metal" life="100" />
+    </case>
+    <case x="50" y="27">
+      <ressource type="plutonium" life="100" />
+    </case>
+    <case x="56" y="49">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="59" y="35">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="61" y="44">
+      <ressource type="plutonium" life="100" />
+    </case>
+    <case x="65" y="43">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="69" y="29">
+      <ressource type="rock" life="100" />
+    </case>
+  </board>
+</SmallWorld>

@@ -87,18 +87,8 @@ public class MapPanel extends JPanel implements MouseListener {
 	    		x = swGUI.getSw().getTribeAt(i).getBasePosition().getX();
 	    		y = swGUI.getSw().getTribeAt(i).getBasePosition().getY();
 	    		
-	    		if(swGUI.getSw().getTribeAt(i).getIndividualType().equals("human")){
-	    			Image base = ImageIO.read(new File("data//house.png"));
-	    			g.drawImage(base, x*caseSize, y*caseSize, this);
-	    		} 
-	    		else if(swGUI.getSw().getTribeAt(i).getIndividualType().equals("robot")){
-	    			Image base = ImageIO.read(new File("data//baseRobot.png"));
-	    			g.drawImage(base, x*caseSize, y*caseSize, this);
-	    		}
-	    		else if(swGUI.getSw().getTribeAt(i).getIndividualType().equals("bee")){
-	    			Image base = ImageIO.read(new File("data//hive.png"));
-	    			g.drawImage(base, x*caseSize, y*caseSize, this);
-	    		}	    		
+	    		Image base = ImageIO.read(new File("data//" + swGUI.getSw().getTribeAt(i).getIndividualType() + "base.png"));
+	    		g.drawImage(base, x*caseSize, y*caseSize, this);
 	    	}
 	    }catch (IOException e) {
 	        e.printStackTrace();
