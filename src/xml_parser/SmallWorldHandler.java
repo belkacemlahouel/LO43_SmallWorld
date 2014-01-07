@@ -32,7 +32,7 @@ public class SmallWorldHandler extends DefaultHandler  {
 	@Override
 	public void startElement(String nameSpaceURI, String LocalName, String rawName, Attributes attributs) throws SAXException {
 		
-		if (rawName.equals ("tribe")) {
+		if (rawName.equalsIgnoreCase ("tribe")) {
 			/*
 			 * @author Belkacem @date 02/01/14
 			 * Implementation of the resources in common, for a tribe
@@ -41,26 +41,26 @@ public class SmallWorldHandler extends DefaultHandler  {
 			int x = 0, y = 0;
 			String type = "";
 			for (int i=0 ; i<attributs.getLength() ; ++i) {
-				if		(attributs.getQName(i).equals("x"))			x = Integer.parseInt(attributs.getValue(i));
-				else if (attributs.getQName(i).equals("y"))			y = Integer.parseInt(attributs.getValue(i));
-				else if (attributs.getQName(i).equals("type"))		type = attributs.getValue(i);
+				if		(attributs.getQName(i).equalsIgnoreCase ("x"))			x = Integer.parseInt(attributs.getValue(i));
+				else if (attributs.getQName(i).equalsIgnoreCase ("y"))			y = Integer.parseInt(attributs.getValue(i));
+				else if (attributs.getQName(i).equalsIgnoreCase ("type"))		type = attributs.getValue(i);
 			}
 			smallworld.addTribe (type, smallworld.getBoard().get(x, y).getPosition());
-		} else if (rawName.equals ("case")) {
+		} else if (rawName.equalsIgnoreCase ("case")) {
 			int x = 1, y = 1;
 			for (int index = 0; index<attributs.getLength(); ++index) {
-				if		(attributs.getQName(index).equals ("x")) x = Integer.parseInt(attributs.getValue (index));
-				else if (attributs.getQName(index).equals ("y")) y = Integer.parseInt(attributs.getValue (index));
+				if		(attributs.getQName(index).equalsIgnoreCase ("x")) x = Integer.parseInt(attributs.getValue (index));
+				else if (attributs.getQName(index).equalsIgnoreCase ("y")) y = Integer.parseInt(attributs.getValue (index));
 				ca = smallworld.getBoard().get (x, y);
 			}
-		} else if (rawName.equals("ressource")) { // TODO: divide this in all the resources (rock, food, metal, etc)
+		} else if (rawName.equalsIgnoreCase ("ressource")) { // TODO: divide this in all the resources (rock, food, metal, etc)
 			String type = "";
 			Resource r = null;
 			int life = 0;
 			
 			for (int index=0 ; index<attributs.getLength() ; ++index){
-				if		(attributs.getQName(index).equals ("type"))	type = attributs.getValue(index);
-				else if (attributs.getQName(index).equals ("life")) life = Integer.parseInt(attributs.getValue(index));
+				if		(attributs.getQName(index).equalsIgnoreCase ("type"))	type = attributs.getValue(index);
+				else if (attributs.getQName(index).equalsIgnoreCase ("life")) life = Integer.parseInt(attributs.getValue(index));
 			}
 			
 			if		(type.equalsIgnoreCase ("rock"))		r = new Rock		(ca.getPosition(), "");
@@ -75,7 +75,7 @@ public class SmallWorldHandler extends DefaultHandler  {
 				smallworld.addResource (r);
 				ca.add (r);
 			}
-		} else if (rawName.equals ("individual")) {
+		} else if (rawName.equalsIgnoreCase ("individual")) {
 			/*
 			 * @author Belkacem Lahouel
 			 * adding the life backup when a game is continued
@@ -86,19 +86,19 @@ public class SmallWorldHandler extends DefaultHandler  {
 			
 			// récupération des valeurs des attributs:
 			for (int index=0 ; index<attributs.getLength() ; ++index) {
-				if		(attributs.getQName(index).equals ("type"))  type = attributs.getValue(index);
-				else if (attributs.getQName(index).equals ("team")) tribe = Integer.parseInt(attributs.getValue(index)) -1;// The value of this variable represent the index in the list, 1 less than the number of the tribe.
+				if		(attributs.getQName(index).equalsIgnoreCase ("type"))  type = attributs.getValue(index);
+				else if (attributs.getQName(index).equalsIgnoreCase ("team")) tribe = Integer.parseInt(attributs.getValue(index)) -1;// The value of this variable represent the index in the list, 1 less than the number of the tribe.
 				/*
 				 * @author Belkacem Lahouel
 				 * adding the implementation of the life when a backup is restored...
 				 */
-				else if (attributs.getQName(index).equals ("life")) life = Integer.parseInt(attributs.getValue(index));
+				else if (attributs.getQName(index).equalsIgnoreCase ("life")) life = Integer.parseInt(attributs.getValue(index));
 			}
 			
 			// création de l'objet dans la team donnée:
-			if		(type.equals ("human"))	i = new Human	(ca.getPosition(), "");
-			else if (type.equals ("robot"))	i = new Robot	(ca.getPosition(), "");
-			else if (type.equals ("bee"))	i = new Bee		(ca.getPosition(), "");
+			if		(type.equalsIgnoreCase ("human"))	i = new Human	(ca.getPosition(), "");
+			else if (type.equalsIgnoreCase ("robot"))	i = new Robot	(ca.getPosition(), "");
+			else if (type.equalsIgnoreCase ("bee"))		i = new Bee		(ca.getPosition(), "");
 			
 			/*
 			 * @author Belkacem Lahouel
@@ -114,13 +114,13 @@ public class SmallWorldHandler extends DefaultHandler  {
 				ca.add (i);
 			}
 		}
-		else if (rawName.equals ("board")) {
+		else if (rawName.equalsIgnoreCase ("board")) {
 			int l = 1, w = 1;
 			for (int index=0 ; index<attributs.getLength() ; ++index){
-				if		(attributs.getQName(index).equals ("l")) l = Integer.parseInt(attributs.getValue (index));
-				else if (attributs.getQName(index).equals ("w")) w = Integer.parseInt(attributs.getValue (index));
+				if		(attributs.getQName(index).equalsIgnoreCase ("l")) l = Integer.parseInt(attributs.getValue (index));
+				else if (attributs.getQName(index).equalsIgnoreCase ("w")) w = Integer.parseInt(attributs.getValue (index));
 			}
-			smallworld.setBoard(new Board(l,w));
+			smallworld.setBoard (new Board(l,w));
 		} 
 	}
 	
