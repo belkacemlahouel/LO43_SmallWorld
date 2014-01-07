@@ -224,11 +224,17 @@ public class MenuPanel extends JPanel {
 	 * adding the printing of the winning team
 	 */
 	public void showWinners (String type, int num) {
-		game_over = new JLabel ("GAME OVER");
-		winners = new JLabel ("Tribe n°" + num + " (" + type + ") WON!");
+		game_over = new JLabel ("\tGAME OVER");
+		winners = new JLabel ("Tribu n°" + num + " (" + type + ") a gagné!");
 		winners.setVisible (true);
 		game_over.setVisible (true);
 		add (game_over);
 		add (winners);
+	}
+	
+	public void showGameOver () {
+		game_over = new JLabel ("\tGAME OVER");
+		game_over.setVisible (true);
+		add (game_over);
 	}
 }

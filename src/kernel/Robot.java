@@ -10,7 +10,7 @@ public class Robot extends Individual {
 	public int getReach() {return 3;}
 
 	@Override
-	public int getMaxLife() {return 50;}
+	public int getMaxLife() {return 50 + civilization_std_bonus*2;}
 
 	@Override
 	public int getStdDmg() {return 15;}
@@ -37,5 +37,5 @@ public class Robot extends Individual {
 	public int vitalResourcePower () {return 1;}
 	
 	@Override
-	public void nextCivilization () {civilization_std_bonus += 4;}
+	public void nextCivilization () {System.out.println ("NEXT CIVILIZATION : ROBOT"); civilization_std_bonus += 4;}
 }

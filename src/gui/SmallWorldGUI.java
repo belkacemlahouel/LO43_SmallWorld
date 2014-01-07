@@ -4,6 +4,8 @@ import kernel.*;
 import xml_parser.*;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 
 public class SmallWorldGUI extends JFrame {
@@ -80,7 +82,11 @@ public class SmallWorldGUI extends JFrame {
 	    mapBg = new MapBackgroundPanel();
 	    getContentPane().add(leftBar);
 	    getContentPane().add(mapBg,BorderLayout.EAST);
-	    mapBg.add(map);
+		mapBg.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx=0;
+		gbc.gridy=0;
+	    mapBg.add(map,gbc);
 	    getContentPane().validate();
 	    mapBg.getMapTheme().start();
 	    
@@ -143,6 +149,9 @@ public class SmallWorldGUI extends JFrame {
 	 */
 	public void showWinners (String type, int num) {
 		leftBar.showWinners(type, num);
+	}
+	public void showGameOver () {
+		leftBar.showGameOver();
 	}
 	
 	public MapBackgroundPanel getMapBg() {

@@ -15,7 +15,7 @@ public class Human extends Individual {
 	public int getReach () {return 1;}
 	
 	@Override
-	public int getMaxLife() {return 100;}
+	public int getMaxLife() {return 100 + civilization_std_bonus*2;}
 	
 	@Override
 	public int getStdDmg() {return 20;}
@@ -42,5 +42,5 @@ public class Human extends Individual {
 	public int vitalResourcePower () {return 1;}
 	
 	@Override
-	public void nextCivilization () {civilization_std_bonus += 3;}
+	public void nextCivilization () {System.out.println ("NEXT CIVILIZATION : HUMAN"); civilization_std_bonus += 3;}
 }
