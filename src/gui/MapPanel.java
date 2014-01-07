@@ -125,7 +125,7 @@ public class MapPanel extends JPanel implements MouseListener {
 	{		
 		for(int n=0;n<this.indivList.size();n++)
 		{
-			if(this.indivList.get(n).getDeadCount()<10)
+			if(this.indivList.get(n).getDeadCount()<30)
 			{
 				g.drawImage(indivList.get(n).getCorrespondingImg(),indivList.get(n).getPos().getX()*10,indivList.get(n).getPos().getY()*10,this);
 		
@@ -261,7 +261,7 @@ public class MapPanel extends JPanel implements MouseListener {
 		
 	}
 	
-	/* This method increments the "deadcount" of every individual every turn. Once at 10, we stop printing this individual */
+	/* This method increments the "deadcount" of every individual every turn. Once at 30, we stop printing this individual */
 	
 	public synchronized void deadCounter(){
 			for(ElementGUI e : indivList){
