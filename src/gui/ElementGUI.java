@@ -14,6 +14,7 @@ public class ElementGUI {
 	private Position prec_position; // The precedent position in the movement 
 	private boolean endMove;
 	private boolean isDead;
+	private int deadCount;
 	
 	
 	public ElementGUI(Individual i)
@@ -43,6 +44,7 @@ public class ElementGUI {
 	      } catch (IOException e) {
 	        e.printStackTrace();
 	    }
+		deadCount = 0;
 		
 		elem = i;
 		prec_position = i.getPosition();
@@ -145,6 +147,14 @@ public class ElementGUI {
 		{
 			return imgElementUp;
 		}
+	}
+
+	public void incrementDeadCount() {
+		++deadCount;
+	}
+
+	public int getDeadCount() {
+		return deadCount;
 	}
 	
 }
