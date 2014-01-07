@@ -10,4 +10,7 @@ public class FighterHuman extends Human {
 	
 	@Override
 	public int getPriorityFight () {return super.getPriorityFight()*3/2;}
+	
+	@Override
+	public int getTotalDmg () {return super.getTotalDmg()*2;}
 }

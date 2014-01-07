@@ -10,4 +10,7 @@ public class PickerRobot extends Robot {
 	
 	@Override
 	public int getPriorityPick () {return super.getPriorityFight()*3/2;}
+	
+	@Override
+	public int getTotalPick () {return super.getTotalPick()*2;}
 }

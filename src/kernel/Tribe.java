@@ -6,6 +6,15 @@ import kernel.individuals.Human;
 import kernel.individuals.Bee;
 import java.util.ArrayList;
 import java.util.HashMap;
+import kernel.individuals.FighterBee;
+import kernel.individuals.FighterHuman;
+import kernel.individuals.FighterRobot;
+import kernel.individuals.PickerBee;
+import kernel.individuals.PickerHuman;
+import kernel.individuals.PickerRobot;
+import kernel.individuals.SuperBee;
+import kernel.individuals.SuperHuman;
+import kernel.individuals.SuperRobot;
 
 public class Tribe {
 	
@@ -65,14 +74,38 @@ public class Tribe {
 	 *							and the resource to heal yourself (food, plutonium, ...)
 	 * The second type of resources change following the type of the Individual
 	 * 
+	 * @author Belkacem @date 07/01/14
+	 * Implementation of pickers/fighters/supers/normal with probabilities: 0.2, 0.2, 0.1, 0.5
 	 */
 	public Individual addIndividual () {
 		Individual tmp = null;
+		int capa_proba = Tools.rand(10, 1);
 		
-		if		(individual_type.equalsIgnoreCase ("Human"))	tmp = new Human (base_position, "");
-		else if (individual_type.equalsIgnoreCase ("Bee"))		tmp = new Bee (base_position, "");
-		else if (individual_type.equalsIgnoreCase ("Robot"))	tmp = new Robot (base_position, "");
-		else System.err.println ("- Error, type not found");
+		if (capa_proba >= 6) { // normal
+			System.out.println("Normal");
+			if		(individual_type.equalsIgnoreCase ("Human"))	tmp = new Human (base_position, "");
+			else if (individual_type.equalsIgnoreCase ("Bee"))		tmp = new Bee (base_position, "");
+			else if (individual_type.equalsIgnoreCase ("Robot"))	tmp = new Robot (base_position, "");
+			else System.err.println ("- Error, type not found");
+		} else if (capa_proba == 4 || capa_proba == 5) { // fighter
+			System.out.println("Fighter");
+			if		(individual_type.equalsIgnoreCase ("Human"))	tmp = new FighterHuman (base_position, "");
+			else if (individual_type.equalsIgnoreCase ("Bee"))		tmp = new FighterBee (base_position, "");
+			else if (individual_type.equalsIgnoreCase ("Robot"))	tmp = new FighterRobot (base_position, "");
+			else System.err.println ("- Error, type not found");
+		} else if (capa_proba == 3 || capa_proba == 2) { // picker
+			System.out.println("Picker");
+			if		(individual_type.equalsIgnoreCase ("Human"))	tmp = new PickerHuman (base_position, "");
+			else if (individual_type.equalsIgnoreCase ("Bee"))		tmp = new PickerBee (base_position, "");
+			else if (individual_type.equalsIgnoreCase ("Robot"))	tmp = new PickerRobot (base_position, "");
+			else System.err.println ("- Error, type not found");
+		} else { // super
+			System.out.println("Super");
+			if		(individual_type.equalsIgnoreCase ("Human"))	tmp = new SuperHuman (base_position, "");
+			else if (individual_type.equalsIgnoreCase ("Bee"))		tmp = new SuperBee (base_position, "");
+			else if (individual_type.equalsIgnoreCase ("Robot"))	tmp = new SuperRobot (base_position, "");
+			else System.err.println ("- Error, type not found");
+		}
 		
 		if (tmp != null) {population.add (tmp); tmp.setTribe(this);}
 		else System.err.println ("- Problem, individual type not found");

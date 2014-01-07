@@ -10,4 +10,7 @@ public class PickerHuman extends Human {
 	
 	@Override
 	public int getPriorityFight () {return super.getPriorityFight()*3/2;}
+	
+	@Override
+	public int getTotalPick () {return super.getTotalPick()*2;}
 }
