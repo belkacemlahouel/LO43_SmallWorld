@@ -29,9 +29,9 @@ public class TribeEditor {
 		 * @author Belkacem @date 03/01/14
 		 * This type does not match types in kernel
 		 */
-		if		(raceChoice.getSelectedItem().equals("Humain"))				return "Human";
-		else if (raceChoice.getSelectedItem().equals("Abeille Mutante"))	return "Bee";
-		else if (raceChoice.getSelectedItem().equals("Robot"))				return "Robot";
+		if		(raceChoice.getSelectedItem().equals("Humain"))				return "human";
+		else if (raceChoice.getSelectedItem().equals("Abeille Mutante"))	return "bee";
+		else if (raceChoice.getSelectedItem().equals("Robot"))				return "robot";
 		else {
 			System.err.println ("- Error: Wrong type selected");
 			return null;
