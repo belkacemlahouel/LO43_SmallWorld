@@ -82,25 +82,25 @@ public class Tribe {
 		int capa_proba = Tools.rand(10, 1);
 		
 		if (capa_proba >= 6) { // normal
-			System.out.println("Normal");
+			// System.out.println("Normal");
 			if		(individual_type.equalsIgnoreCase ("Human"))	tmp = new Human (base_position, "");
 			else if (individual_type.equalsIgnoreCase ("Bee"))		tmp = new Bee (base_position, "");
 			else if (individual_type.equalsIgnoreCase ("Robot"))	tmp = new Robot (base_position, "");
 			else System.err.println ("- Error, type not found");
 		} else if (capa_proba == 4 || capa_proba == 5) { // fighter
-			System.out.println("Fighter");
+			// System.out.println("Fighter");
 			if		(individual_type.equalsIgnoreCase ("Human"))	tmp = new FighterHuman (base_position, "");
 			else if (individual_type.equalsIgnoreCase ("Bee"))		tmp = new FighterBee (base_position, "");
 			else if (individual_type.equalsIgnoreCase ("Robot"))	tmp = new FighterRobot (base_position, "");
 			else System.err.println ("- Error, type not found");
 		} else if (capa_proba == 3 || capa_proba == 2) { // picker
-			System.out.println("Picker");
+			// System.out.println("Picker");
 			if		(individual_type.equalsIgnoreCase ("Human"))	tmp = new PickerHuman (base_position, "");
 			else if (individual_type.equalsIgnoreCase ("Bee"))		tmp = new PickerBee (base_position, "");
 			else if (individual_type.equalsIgnoreCase ("Robot"))	tmp = new PickerRobot (base_position, "");
 			else System.err.println ("- Error, type not found");
 		} else { // super
-			System.out.println("Super");
+			// System.out.println("Super");
 			if		(individual_type.equalsIgnoreCase ("Human"))	tmp = new SuperHuman (base_position, "");
 			else if (individual_type.equalsIgnoreCase ("Bee"))		tmp = new SuperBee (base_position, "");
 			else if (individual_type.equalsIgnoreCase ("Robot"))	tmp = new SuperRobot (base_position, "");

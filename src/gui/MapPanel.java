@@ -91,6 +91,7 @@ public class MapPanel extends JPanel implements MouseListener {
 	{		
 		for(int n=0;n<resList.size();n++)
 		{
+			if(!resList.get(n).getElem().isDead())
         	g.drawImage(resList.get(n).getImgElementUp(),resList.get(n).getPos().getX()*10,resList.get(n).getPos().getY()*10, this);
 		}
 	}
