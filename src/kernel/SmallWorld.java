@@ -94,7 +94,7 @@ public class SmallWorld extends Thread {
 		Position tmp_pos;
 		boolean has_played;
 
-		while (nbRemainingTribes () > 1) {
+		while (nbRemainingTribes () > 0) {
 			if (gui.getPlay()) {
 				for (int i=0 ; i<maxSizeTribeList() ; i++) {
 					for (int j=0 ; j<tribe_list.size() ; ++j) {
@@ -157,12 +157,14 @@ public class SmallWorld extends Thread {
 		gui.disableButtons ();
 		
 		int tmp_num = 1;
+		boolean done = false;
 		for (Tribe t : tribe_list) {
 			if (t.getPopulation().size() > 0) {
 				gui.showWinners (t.getPopulation().get(0).getTypeName(), tmp_num);
 			}
 			++ tmp_num;
 		}
+		if (!done) gui.showGameOver();
 	}
 	
 	public synchronized void buryDeads (Position p) {
@@ -186,6 +188,11 @@ public class SmallWorld extends Thread {
 			small_world.get(tmp.getPosition ()).remove (tmp);
 			tmp.setPosition (new_pos);
 			small_world.get(new_pos).add (tmp);
+			/*
+			 * @author Belkacem @date 06/01/14
+			 * On each movement, the Indivudals loses life (1 LP)
+			 */
+			tmp.setLife(tmp.getLife()-1);
 		}
 	}
 	

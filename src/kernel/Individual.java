@@ -71,7 +71,7 @@ public abstract class Individual extends Element {
 			    }
 				
 				e.attack_received(getTotalDmg ());
-			} else if (e instanceof Resource && life < getMaxLife ()) {
+			} else if (e instanceof Resource) { // && life < getMaxLife ()) {
 				/*
 				 * @author Belkacem @date 05/01/14
 				 * Implementation of the Resources sharing inside each tribe
@@ -81,7 +81,7 @@ public abstract class Individual extends Element {
 				int tmp = Math.max (0, Math.min(getTotalPick (), e.getLife())); // We test the interval of life for this Resource's stock
 				
 				if (e.getTypeName().equalsIgnoreCase(getVitalResource())) {
-					System.err.println ("OKAI");
+					// System.err.println ("OKAI");
 					tmp *= vitalResourcePower();
 					life = Math.max(0, Math.min((life + tmp), getMaxLife ())); // we test the interval of life for this guy
 					tmp /= vitalResourcePower();
@@ -95,7 +95,7 @@ public abstract class Individual extends Element {
 					tribe.get().getResources().put (getVitalResource(), tribe.get().getResources().get(getVitalResource())+tmp_for_tribe);
 					tmp += tmp_for_tribe;
 				} else {
-					System.err.println ("NOT OKAI : " + e.getTypeName() + " != " + getVitalResource());
+					// System.err.println ("NOT OKAI : " + e.getTypeName() + " != " + getVitalResource());
 					tribe.get().getResources().put(e.getTypeName(), tribe.get().getResources().get(e.getTypeName())+tmp);
 					
 					if (tribe.get().getResources().get("Wood") > 50 && tribe.get().getResources().get("Rock") > 50) {
