@@ -90,7 +90,7 @@ public class SmallWorldHandler extends DefaultHandler  {
 			 * @author Belkacem Lahouel
 			 * adding the life backup when a game is continued
 			 */
-			int life = 10, tribe = 0;
+			int life = 100, tribe = 0;
 			String type = "";
 			Individual i = null;
 			

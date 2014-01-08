@@ -18,15 +18,15 @@
       <ressource type="plutonium" life="100" />
     </case>
     <case x="8" y="8">
-      <individual type="human" life="10" team="2" />
-      <individual type="human" life="10" team="2" />
-      <individual type="human" life="10" team="2" />
+      <individual type="human" life="100" team="2" />
+      <individual type="human" life="100" team="2" />
+      <individual type="human" life="100" team="2" />
     </case>
     <case x="8" y="40">
       <ressource type="wood" life="100" />
     </case>
     <case x="17" y="44">
-      <individual type="robot" life="10" team="1" />
+      <individual type="robot" life="100" team="1" />
     </case>
     <case x="18" y="30">
       <ressource type="wood" life="100" />
@@ -35,7 +35,7 @@
       <ressource type="food" life="100" />
     </case>
     <case x="26" y="54">
-      <individual type="robot" life="10" team="1" />
+      <individual type="robot" life="100" team="1" />
     </case>
     <case x="29" y="25">
       <ressource type="rock" life="100" />
@@ -44,15 +44,15 @@
       <ressource type="plutonium" life="100" />
     </case>
     <case x="31" y="1">
-      <individual type="bee" life="10" team="3" />
-      <individual type="bee" life="10" team="3" />
-      <individual type="bee" life="10" team="3" />
+      <individual type="bee" life="100" team="3" />
+      <individual type="bee" life="100" team="3" />
+      <individual type="bee" life="100" team="3" />
     </case>
     <case x="38" y="19">
       <ressource type="metal" life="100" />
     </case>
     <case x="40" y="42">
-      <individual type="robot" life="10" team="1" />
+      <individual type="robot" life="100" team="1" />
     </case>
     <case x="43" y="21">
       <ressource type="plutonium" life="100" />

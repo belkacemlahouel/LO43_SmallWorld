@@ -13,6 +13,7 @@
 <!ATTLIST case 	x CDATA #REQUIRED
 				y CDATA #REQUIRED>
 <!ATTLIST ressource type CDATA #REQUIRED
-					life CDATA "10">
+					life CDATA "100">
 <!ATTLIST individual  	type (human|robot|bee) #REQUIRED
+						life CDATA "100"
 						team CDATA #REQUIRED>
