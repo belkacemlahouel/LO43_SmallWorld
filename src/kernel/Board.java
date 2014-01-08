@@ -1,5 +1,7 @@
 package kernel;
 
+import kernel.individuals.Individual;
+import kernel.individuals.Robot;
 import java.util.ArrayList;
 
 /**

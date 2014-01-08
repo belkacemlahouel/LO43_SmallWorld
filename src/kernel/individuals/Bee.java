@@ -1,4 +1,7 @@
-package kernel;
+package kernel.individuals;
+
+import kernel.Position;
+import kernel.Tools;
 
 public class Bee extends Individual{
 	public Bee (Position p, String name) {
@@ -36,5 +39,5 @@ public class Bee extends Individual{
 	public int vitalResourcePower () {return 2;}
 	
 	@Override
-	public void nextCivilization () {System.out.println ("NEXT CIVILIZATION : BEE"); civilization_std_bonus += 1;}
+	public void nextCivilization () {civilization_std_bonus += 2;}
 }

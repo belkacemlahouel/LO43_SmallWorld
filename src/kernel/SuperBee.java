@@ -1,5 +1,7 @@
 package kernel;
 
+import kernel.individuals.Bee;
+
 public class SuperBee extends Bee{
 	
 	public SuperBee(Position p, String name){

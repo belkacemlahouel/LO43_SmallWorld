@@ -1,4 +1,6 @@
-package kernel;
+package kernel.resources;
+
+import kernel.Position;
 
 /*
  *	Class Food inheriting from Resource

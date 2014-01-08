@@ -1,5 +1,7 @@
 package kernel;
 
+import kernel.individuals.Robot;
+
 public class SuperRobot extends Robot {
 	
 	public SuperRobot(Position p, String name){

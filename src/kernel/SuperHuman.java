@@ -1,5 +1,7 @@
 package kernel;
 
+import kernel.individuals.Human;
+
 public class SuperHuman extends Human {
 
 		public SuperHuman(Position p, String name){

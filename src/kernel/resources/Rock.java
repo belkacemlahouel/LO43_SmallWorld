@@ -1,4 +1,6 @@
-package kernel;
+package kernel.resources;
+
+import kernel.Position;
 
 public class Rock extends Resource{
 	public Rock (Position p, String name) {

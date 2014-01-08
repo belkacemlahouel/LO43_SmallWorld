@@ -1,4 +1,6 @@
-package kernel;
+package kernel.resources;
+
+import kernel.Position;
 
 public class Wood extends Resource {
 	public Wood (Position p, String name) {

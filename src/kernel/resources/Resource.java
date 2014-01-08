@@ -1,4 +1,7 @@
-package kernel;
+package kernel.resources;
+
+import kernel.Element;
+import kernel.Position;
 
 /*
  * This class implements the Resources, inheriting from Element

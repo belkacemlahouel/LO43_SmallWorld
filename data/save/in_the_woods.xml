@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SmallWorld SYSTEM "structure.dtd">
+<SmallWorld>
+  <board l="110" w="72">
+    <tribe x="88" y="2" type="Human" />
+    <case x="2" y="44">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="3" y="40">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="3" y="47">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="4" y="40">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="4" y="51">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="5" y="10">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="6" y="45">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="8" y="37">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="9" y="31">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="10" y="36">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="10" y="40">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="10" y="41">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="10" y="44">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="10" y="47">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="11" y="43">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="11" y="53">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="12" y="36">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="12" y="48">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="14" y="30">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="15" y="41">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="15" y="46">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="16" y="36">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="16" y="51">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="19" y="37">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="19" y="44">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="19" y="47">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="21" y="42">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="21" y="52">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="22" y="36">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="23" y="12">
+      <ressource type="metal" life="70" />
+    </case>
+    <case x="23" y="44">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="23" y="49">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="24" y="54">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="25" y="36">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="26" y="30">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="26" y="40">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="26" y="54">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="27" y="36">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="27" y="45">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="27" y="48">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="28" y="53">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="29" y="35">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="29" y="44">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="31" y="34">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="32" y="46">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="32" y="51">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="33" y="50">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="34" y="59">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="35" y="43">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="35" y="55">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="36" y="63">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="38" y="48">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="38" y="63">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="39" y="33">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="39" y="36">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="39" y="38">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="39" y="51">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="39" y="54">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="39" y="59">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="40" y="41">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="40" y="56">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="40" y="60">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="40" y="62">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="41" y="44">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="41" y="58">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="41" y="59">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="41" y="61">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="68" y="34">
+      <ressource type="food" life="100" />
+    </case>
+    <case x="70" y="23">
+      <ressource type="plutonium" life="50" />
+    </case>
+    <case x="83" y="55">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="83" y="58">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="84" y="54">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="86" y="52">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="87" y="2">
+      <ressource type="metal" life="70" />
+    </case>
+    <case x="88" y="2">
+      <individual type="human" life="100" team="1" />
+      <individual type="human" life="100" team="1" />
+      <individual type="human" life="100" team="1" />
+    </case>
+    <case x="88" y="50">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="89" y="49">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="90" y="46">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="91" y="60">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="92" y="44">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="93" y="42">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="93" y="59">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="93" y="62">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="94" y="41">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="94" y="60">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="94" y="61">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="95" y="18">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="95" y="59">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="95" y="60">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="96" y="42">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="96" y="58">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="96" y="60">
+      <ressource type="rock" life="100" />
+      <ressource type="rock" life="100" />
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="96" y="62">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="96" y="63">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="96" y="64">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="97" y="41">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="97" y="58">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="97" y="59">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="97" y="60">
+      <ressource type="rock" life="100" />
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="97" y="61">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="97" y="62">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="97" y="64">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="98" y="59">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="98" y="60">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="98" y="61">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="99" y="40">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="99" y="59">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="99" y="62">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="99" y="64">
+      <ressource type="rock" life="100" />
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="100" y="57">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="100" y="58">
+      <ressource type="rock" life="100" />
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="100" y="59">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="100" y="60">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="100" y="61">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="100" y="62">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="100" y="63">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="101" y="40">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="101" y="61">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="101" y="63">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="102" y="58">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="102" y="59">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="102" y="60">
+      <ressource type="rock" life="100" />
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="102" y="61">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="102" y="62">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="102" y="63">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="103" y="40">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="103" y="58">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="103" y="59">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="103" y="60">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="103" y="61">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="103" y="62">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="104" y="59">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="104" y="61">
+      <ressource type="rock" life="100" />
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="104" y="63">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="105" y="40">
+      <ressource type="wood" life="100" />
+    </case>
+    <case x="105" y="59">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="105" y="61">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="106" y="13">
+      <ressource type="metal" life="70" />
+    </case>
+    <case x="106" y="62">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="106" y="64">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="107" y="32">
+      <ressource type="rock" life="100" />
+    </case>
+    <case x="108" y="39">
+      <ressource type="wood" life="100" />
+    </case>
+  </board>
+</SmallWorld>

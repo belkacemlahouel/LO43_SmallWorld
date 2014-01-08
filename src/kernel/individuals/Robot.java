@@ -1,4 +1,7 @@
-package kernel;
+package kernel.individuals;
+
+import kernel.Position;
+import kernel.Tools;
 
 public class Robot extends Individual {
 	
@@ -37,5 +40,5 @@ public class Robot extends Individual {
 	public int vitalResourcePower () {return 1;}
 	
 	@Override
-	public void nextCivilization () {System.out.println ("NEXT CIVILIZATION : ROBOT"); civilization_std_bonus += 4;}
+	public void nextCivilization () {civilization_std_bonus += 5;}
 }
