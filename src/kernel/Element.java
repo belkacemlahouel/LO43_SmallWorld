@@ -1,6 +1,9 @@
 package kernel;
 
-/**
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
  *	An Element is something on the map
  *	It can either be an Individual or a Resource
  *	This is an abstract class

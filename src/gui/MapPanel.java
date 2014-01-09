@@ -90,7 +90,7 @@ public class MapPanel extends JPanel implements MouseListener {
 	        e.printStackTrace();
 	      }
 	    try {
-	    	for (int i = 0; i < swGUI.getSw().getTribe_list().size(); i++ ){
+	    	for (int i = 0; i < swGUI.getSw().getTribeList().size(); i++ ){
 	    		x = swGUI.getSw().getTribeAt(i).getBasePosition().getX();
 	    		y = swGUI.getSw().getTribeAt(i).getBasePosition().getY();
 	    		

@@ -2,7 +2,16 @@ package kernel.resources;
 
 import kernel.Position;
 
-public class Rock extends Resource{
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
+ *	Class Rock inheriting from Resource
+ *	This resource helps individuals (all of them) to improves themselves
+ *  This helps the passage from one civilization to another
+*/
+
+public class Rock extends Resource {
 	public Rock (Position p, String name) {
 		super (p, name);
 		life = 100;

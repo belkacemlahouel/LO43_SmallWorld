@@ -124,8 +124,8 @@ public class JDOMSave {
 							 ind.setAttribute (life);
 							 
 							 // To set the "team" attribute we have to look for the individual in each team.
-							 for (int t = 0; t < sw.getTribe_list().size(); t++){
-								 if (sw.getTribe_list().get(t).getPopulation().contains(elem)){
+							 for (int t = 0; t < sw.getTribeList().size(); t++){
+								 if (sw.getTribeList().get(t).getPopulation().contains(elem)){
 									 Attribute team = new Attribute("team",Integer.toString(t+1));
 									 ind.setAttribute(team);
 								 }

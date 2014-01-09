@@ -1,16 +1,17 @@
 package kernel;
 
-import kernel.*;
-import xml_parser.*;
-
-/*
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
  * Implementation of static methods used as tools during the project
  * For example, the generation of a random number between two others
 */
 
 public class Tools {
 	/*
-	 *	Random value between lower and higher
+	 *	Random value between lower and higher as [lower, higher]
+	 *  It is inverted because the operation made (which is higher - lower)...
 	*/
 	public static int rand (int higher, int lower) {
 		return (int) ((Math.random() * (higher - lower)) + lower);

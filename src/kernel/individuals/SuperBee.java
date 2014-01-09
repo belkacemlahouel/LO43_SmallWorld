@@ -2,6 +2,14 @@ package kernel.individuals;
 
 import kernel.Position;
 
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
+ * The super stronger, and is cheated :p (but there is a smaller probability to fall on it)
+ * It has almost everything two times more powerful
+ */
+
 public class SuperBee extends Bee {
 
 	public SuperBee (Position p, String name) {

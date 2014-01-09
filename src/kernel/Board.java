@@ -1,10 +1,12 @@
 package kernel;
 
 import kernel.individuals.Individual;
-import kernel.individuals.Robot;
 import java.util.ArrayList;
 
-/**
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
  *	This class just represents the map
  *	On each Case, there is a set of Elements
  *	There is references on the Elements stored inside each case
@@ -36,7 +38,7 @@ public class Board {
 	
 	/*	
 	 *	Constructor
-	 *	I have to initialize each Case with a Position, and no Elements list
+	 *	I have to initialize each Case with a Position, and no elements in the element list
 	 *	The one time Positions are instancied is here, and only here
 	 *	Initializations afterwards (when the XML parser is complete) 
 	*/
@@ -58,15 +60,13 @@ public class Board {
 	}
 
 	/*
-	 *	Should add a method to get a direct Position from a starting Position and a reach, in one direction
-	 *	Firstly we move on x, then on y (for the Human, but it might be different for the other Individuals)
+	 *	Firstly we move on x, then on y
 	*/
 	public Position getNextPosition (Individual e, Position final_pos) {
 		int tmp_x = e.getPosition().getX(), tmp_y = e.getPosition().getY(), tmp_dist = 0;
 
 		if ((Math.abs(e.getPosition().getX() - final_pos.getX()) > 0 || Math.abs(e.getPosition().getY() - final_pos.getY()) > 0)) {
-			// && final_pos.getX() < board.length && final_pos.getY() < board[0].length) {
-
+			
 			while (tmp_x != final_pos.getX() && tmp_dist < e.getReach()) { // It cannot be < 0, only == 0
 
 				tmp_x += (final_pos.getX() - tmp_x)/(Math.abs(final_pos.getX() - tmp_x)); // We get closer to the final position, careful to the sign...
@@ -82,45 +82,8 @@ public class Board {
 			return get(tmp_x, tmp_y).getPosition();
 
 		} else { // therefore, if we are here we should already be on final_pos (Position) and nothing to do...
-			return final_pos; // What if the guy is actually blocked? TODO
+			return final_pos;
 		}
-	}
-	
-	/*
-	 * Override for the Individual type "Robot"
-	 * Normally, if it is an Individual, the first method is called
-	 * Unless it's a Robot, and this one is called
-	 */
-	public Position getNextPosition (Robot e, Position final_pos) {
-		
-		int tmp_x = e.getPosition().getX();
-		int tmp_y = e.getPosition().getY();						// (tmp_x, tmp_y) gives us the tmp (meaning intermediary) position of e
-		int tmp_dist = 0;										// distance done so far
-		int dist = Tools.distance (e.getPosition(), final_pos);	// distance to the final position
-		boolean horizontal;										// direction of the move
-		int tmp = 0;
-		
-		/*if (Tools.rand(1, 0) == 0) horizontal = false; // check if 1 || 0 are included
-		else horizontal = true;*/
-		horizontal = false;
-		
-		while (tmp_dist < dist && tmp_dist < e.getReach ()) {
-			tmp = Tools.rand (1, e.getReach ());
-
-			if (horizontal) {
-				tmp = Math.min (tmp, Math.max ((final_pos.getX() - tmp_x), 0));
-				tmp_x += tmp;
-			} else {
-				// tmp = Math.min ((final_pos.getY() - tmp_y), Math.max (tmp, 0));
-				tmp = Math.min (tmp, Math.max ((final_pos.getY() - tmp_y), 0));
-				tmp_y += tmp;
-			}
-			
-			horizontal = !horizontal;
-			tmp_dist += tmp;
-		}
-		
-		return get(tmp_x, tmp_y).getPosition();					// returning the intermediary Position, in the direction of final_pos
 	}
 	
 	/*

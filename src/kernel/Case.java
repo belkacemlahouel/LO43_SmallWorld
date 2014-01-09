@@ -3,10 +3,12 @@ package kernel;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/*
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
  *	Class managing the Cases
  *	A Case has one Position and is stored in the Board
- *		Recall: the Board should be implementing a singleton pattern
 */
 
 public class Case {
@@ -21,11 +23,6 @@ public class Case {
 	public Case (Position p) {
 		pos = p;
 		elementsList = new ArrayList<Element> ();
-	}
-
-	public Case (int x_, int y_) {
-		Position pos_ = new Position (x_, y_);
-		new Case (pos_); // TODO Maybe reference issues here
 	}
 
 	public Position getPosition () {
