@@ -225,16 +225,20 @@ public class SmallWorld extends Thread {
 	 */
 	public synchronized void move (Individual tmp, Position new_pos) {
 		if (!tmp.getPosition().equals(new_pos)) {
-			gui.getMap().getCorrespondingElementGUI(tmp).setPrec_position(tmp.getPosition ());
-			small_world.get(tmp.getPosition ()).remove (tmp);
-			tmp.setPosition (new_pos);
-			small_world.get(new_pos).add (tmp);
-			/*
-			 * @author Belkacem @date 06/01/14
-			 * On each movement, the Indivudals now loses life (1 LP)
-			 * It is more realistic
-			 */
-			tmp.setLife(tmp.getLife()-1);
+			try {
+				gui.getMap().getCorrespondingElementGUI(tmp).setPrec_position(tmp.getPosition ());
+				small_world.get(tmp.getPosition ()).remove (tmp);
+				tmp.setPosition (new_pos);
+				small_world.get(new_pos).add (tmp);
+				/*
+				 * @author Belkacem @date 06/01/14
+				 * On each movement, the Indivudals now loses life (1 LP)
+				 * It is more realistic
+				 */
+				tmp.setLife(tmp.getLife()-1);
+			} catch (NullPointerException e) {
+				System.err.println ("- Error, NullPointerException in SmallWorld.move()");
+			}
 		}
 	}
 	
