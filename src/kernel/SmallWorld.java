@@ -259,7 +259,7 @@ public class SmallWorld extends Thread {
 	/*
 	 * Classic getters methods for SmallWorld class
 	 */
-	public SmallWorldGUI		getGui()					{return gui;}
+	public SmallWorldGUI		getGui()					{return this.gui;}
 	public Board				getBoard ()					{return small_world;}
 	public Tribe				getTribeAt (int index)		{return tribe_list.get(index);}
 	public ArrayList<Tribe>		getTribeList ()				{return tribe_list;}
@@ -268,7 +268,7 @@ public class SmallWorld extends Thread {
 	/*
 	 * Classic setters methods for SmallWorld Class
 	 */
-	public void					setGui (SmallWorldGUI gui)	{gui = gui;}
+	public void					setGui (SmallWorldGUI gui)	{this.gui = gui;}
 	public void					setBoard (Board b)			{small_world = b;}
 	
 	/*

@@ -3,7 +3,7 @@ package kernel.resources;
 import kernel.Element;
 import kernel.Position;
 
-/*/***************************************************************
+/***************************************************************
  *  @author Belkacem Lahouel - UTBM - A2013
  *  Project: LO43, Small World
  ***************************************************************
