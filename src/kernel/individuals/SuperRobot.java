@@ -6,6 +6,7 @@ public class SuperRobot extends Robot {
 	
 	public SuperRobot (Position p, String name) {
 		super(p, name);
+		super_indiv = true;
 	}
 	
 	@Override

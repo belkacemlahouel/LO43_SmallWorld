@@ -9,6 +9,9 @@ public class FighterRobot extends Robot {
 	}
 	
 	@Override
+	public int getPriorityPick () {return (int) super.getPriorityPick()*2/3;}
+	
+	@Override
 	public int getPriorityFight () {return super.getPriorityFight()*3/2;}
 	
 	@Override

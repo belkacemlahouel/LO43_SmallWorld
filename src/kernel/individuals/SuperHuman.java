@@ -6,6 +6,8 @@ public class SuperHuman extends Human {
 
 	public SuperHuman (Position p, String name) {
 		super(p, name);
+		super_indiv = true;
+		System.out.println("SUPER");
 	}
 	
 	@Override

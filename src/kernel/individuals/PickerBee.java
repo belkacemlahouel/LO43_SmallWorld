@@ -9,7 +9,10 @@ public class PickerBee extends Bee {
 	}
 	
 	@Override
-	public int getPriorityFight () {return super.getPriorityFight()*3/2;}
+	public int getPriorityPick () {return (int) super.getPriorityPick()*3/2;}
+	
+	@Override
+	public int getPriorityFight () {return super.getPriorityFight()*2/3;}
 	
 	@Override
 	public int getTotalPick () {return super.getTotalPick()*2;}

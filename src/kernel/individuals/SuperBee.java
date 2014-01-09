@@ -6,6 +6,8 @@ public class SuperBee extends Bee {
 
 	public SuperBee (Position p, String name) {
 		super(p, name);
+		super_indiv = true;
+		System.out.println("SUPER");
 	}
 	
 	@Override

@@ -21,33 +21,42 @@ public class ElementGUI {
 	
 	public ElementGUI(Individual i)
 	{
-		try{
-			imgElementDown = ImageIO.read(new File("data//" + i.getTypeName () + "down.png")); // The file of the element is referred as it's name + the .png file extension
-	      } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-		try{
-			imgElementUp = ImageIO.read(new File("data//" + i.getTypeName () + "up.png")); // The file of the element is referred as it's name + the .png file extension
-	      } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-		try{
-			imgElementRight = ImageIO.read(new File("data//" + i.getTypeName () + "Right.png")); // The file of the element is referred as it's name + the .png file extension
-	      } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-		try{
-			imgElementLeft = ImageIO.read(new File("data//" + i.getTypeName () + "Left.png")); // The file of the element is referred as it's name + the .png file extension
-	      } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-		try{
-			imgElementDead = ImageIO.read(new File("data//"+i.getTypeName() + "dead.png")); // The file of the element is referred as it's name + the .png file extension
-	      } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-		deadCount = 0;
+		/*
+		 * Implementation of the images for Super individuals
+		 */
+		String capa = "";
+		// if (i instanceof SuperBee || i instanceof SuperHuman || i instanceof SuperRobot) {
+		if (i.isSuper()) {
+			capa = "super";
+		}
 		
+		try{
+			imgElementDown = ImageIO.read(new File("data\\" + capa + i.getTypeName () + "down.png")); // The file of the element is referred as it's name + the .png file extension
+		  } catch (IOException e) {
+			e.printStackTrace();
+		}
+		try{
+			imgElementUp = ImageIO.read(new File("data\\" + capa + i.getTypeName () + "up.png")); // The file of the element is referred as it's name + the .png file extension
+		  } catch (IOException e) {
+			e.printStackTrace();
+		}
+		try{
+			imgElementRight = ImageIO.read(new File("data\\" + capa + i.getTypeName () + "Right.png")); // The file of the element is referred as it's name + the .png file extension
+		  } catch (IOException e) {
+			e.printStackTrace();
+		}
+		try{
+			imgElementLeft = ImageIO.read(new File("data\\" + capa + i.getTypeName () + "Left.png")); // The file of the element is referred as it's name + the .png file extension
+		  } catch (IOException e) {
+			e.printStackTrace();
+		}
+		try{
+			imgElementDead = ImageIO.read(new File("data\\"+ capa + i.getTypeName() + "dead.png")); // The file of the element is referred as it's name + the .png file extension
+		  } catch (IOException e) {
+			e.printStackTrace();
+		}
+		deadCount = 0;
+
 		elem = i;
 		prec_position = i.getPosition();
 	}

@@ -24,6 +24,8 @@ public abstract class Individual extends Element {
 	protected int priority;
 	protected Clip kick;
 	protected int civilization_std_bonus = 0;
+	protected boolean super_indiv = false;
+
 	
 	/*
 	 * @author Belkacem @date 02/01/14
@@ -109,7 +111,7 @@ public abstract class Individual extends Element {
 					
 					if (tribe.get().getResources().get("Wood") > 50 && tribe.get().getResources().get("Rock") > 50) {
 						for (Individual x : tribe.get().getPopulation()) {
-							x.nextCivilization(); System.out.println ("Next civilization");
+							x.nextCivilization(); // System.out.println ("Next civilization");
 						}
 						
 						tribe.get().getResources().put("Wood", tribe.get().getResources().get("Wood")-50);
@@ -346,6 +348,7 @@ public abstract class Individual extends Element {
 	 */
 	public int				getPriorityFight ()				{return 20;}
 	public int				getPriorityPick ()				{return 20;}
+	public boolean			isSuper ()						{return super_indiv;}
 	
 	@Override
 	public String toString () {return getTypeName () + "\"" + name + "\" at " + pos + " life: " + life;}
