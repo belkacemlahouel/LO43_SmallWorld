@@ -3,13 +3,18 @@ package gui;
 import kernel.individuals.Individual;
 import kernel.*;
 import xml_parser.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -231,6 +236,16 @@ public class MenuPanel extends JPanel {
 		game_over.setVisible (true);
 		add (game_over);
 		add (winners);
+	}
+	
+	public void paintComponent(Graphics g)
+	{
+		try {
+	        Image img = ImageIO.read(new File("data//leftbarbackground.png"));
+			g.drawImage(img, 0, 0, this);
+	      } catch (IOException e) {
+	        e.printStackTrace();
+	      }
 	}
 	
 	public void showGameOver () {
