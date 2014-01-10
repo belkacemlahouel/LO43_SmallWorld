@@ -17,6 +17,18 @@ import kernel.Tools;
 import kernel.Tribe;
 import kernel.resources.Wood;
 
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
+ * Implementation of standards for any individual
+ * This contains the priorities computation e.g.
+ * and attacks etc
+ * This class cannot be instancied
+ * The priorities changes for Fighters and Pickers are parametrized
+ * So, pickers/fighters just have to change these standard value
+ */
+
 public abstract class Individual extends Element {
 	
 	protected Position aim_position;
@@ -24,6 +36,7 @@ public abstract class Individual extends Element {
 	protected int priority;
 	protected Clip kick;
 	protected int civilization_std_bonus = 0;
+	protected boolean super_indiv = false;
 	
 	/*
 	 * @author Belkacem @date 02/01/14
@@ -90,7 +103,6 @@ public abstract class Individual extends Element {
 				int tmp = Math.max (0, Math.min(getTotalPick (), e.getLife())); // We test the interval of life for this Resource's stock
 				
 				if (e.getTypeName().equalsIgnoreCase(getVitalResource())) {
-					// System.err.println ("OKAI");
 					tmp *= vitalResourcePower();
 					life = Math.max(0, Math.min((life + tmp), getMaxLife ())); // we test the interval of life for this guy
 					tmp /= vitalResourcePower();
@@ -104,12 +116,11 @@ public abstract class Individual extends Element {
 					tribe.get().getResources().put (getVitalResource(), tribe.get().getResources().get(getVitalResource())+tmp_for_tribe);
 					tmp += tmp_for_tribe;
 				} else {
-					// System.err.println ("NOT OKAI : " + e.getTypeName() + " != " + getVitalResource());
 					tribe.get().getResources().put(e.getTypeName(), tribe.get().getResources().get(e.getTypeName())+tmp);
 					
 					if (tribe.get().getResources().get("Wood") > 50 && tribe.get().getResources().get("Rock") > 50) {
 						for (Individual x : tribe.get().getPopulation()) {
-							x.nextCivilization(); System.out.println ("Next civilization");
+							x.nextCivilization(); // System.out.println ("Next civilization");
 						}
 						
 						tribe.get().getResources().put("Wood", tribe.get().getResources().get("Wood")-50);
@@ -128,13 +139,10 @@ public abstract class Individual extends Element {
 	 * Check if they are friends: send tribeList?
 	 * I will have to compute the priority for each element: should I prefer closest elements?
 	 * weakest ennemy (Individual): less life
-	 * 
-	 * go void
 	 */
 	public Position newAim (SmallWorld sw) {
 		Position back_up = aim_position;
 		
-		// target_element = null;
 		aim_position = null;
 		priority = 0;
 		
@@ -164,9 +172,6 @@ public abstract class Individual extends Element {
 		return aim_position;
 	}
 	
-	
-	
-	
 	public int computePriority (SmallWorld sw, Element e) {
 		int rep = 0;
 		
@@ -180,9 +185,7 @@ public abstract class Individual extends Element {
 			 */
 			int nb_ennemies = 0, nb_friends = 0, nb_resources = 0;
 			int tot_received = 0, tot_given = 0;
-			
-			// System.out.println ("TYPE NAME: " + getTypeName() + " checking " + e.getTypeName ());
-			
+						
 			ArrayList<Element> tmp = sw.getBoard().get(e.getPosition()).getElementsList();
 			for (Element g : tmp) {
 				if (g instanceof Individual) {
@@ -197,7 +200,6 @@ public abstract class Individual extends Element {
 			}
 			
 			if (nb_resources > 0 || nb_ennemies > 0) {
-				// rep += nb_resources/4;
 				
 				/*
 				 * computatation of the distance part
@@ -253,20 +255,8 @@ public abstract class Individual extends Element {
 					 * this follows an inverse mathematical function
 					 * f : life |-> cst / (life - critical_life)
 					 * critical_life is a cst as well, and again it may change following the type of Individual
-					 * 
-					 * TODO
-					 * And we should avoid to target this element if there is ennemies on the same pos
-					 * test the number of ennemies on a resource
-					 * bigger priority when the qty is large... override, in function of the type of the Individual
 					 */
-					/*if (e instanceof Food) {
-						if (getLife() <= getCriticalLife()) {
-							rep += 30;
-						} else {
-							rep += 20/(getLife()-getCriticalLife());
-						}
-					}*/
-
+					
 					/*
 					 * @author Belkacem @date 05/01/14
 					 * Same importance for the Vital Resource (in function of the type of the individual)
@@ -280,17 +270,11 @@ public abstract class Individual extends Element {
 							rep += getPriorityPick()/(getLife()-getCriticalLife()); // 20/...
 						}
 					} else if (e instanceof Wood || e instanceof Rock) {
-						// System.out.println(e.getTypeName());
 						
 						if (tribe.get() == null) System.err.println ("- Error, Tribe for this Individual is null");
 						
 						HashMap<String, Integer> xyz = tribe.get().getResources();
 						
-						/*for (String key : xyz.keySet()) {
-							System.out.println("\t" + key);
-						}*/
-						
-						// System.out.println(tribe.get().getResources().get(e.getTypeName()));
 						if (100 > tribe.get().getResources().get(e.getTypeName())) {
 							rep += getPriorityPick()/(2*(100-tribe.get().getResources().get(e.getTypeName()))); // 10/(100-tribe.get().getResources().get(e.getTypeName()));
 						} else {
@@ -300,53 +284,49 @@ public abstract class Individual extends Element {
 				}
 			}
 		}
-		// System.out.println ("\tPRIORITY: " + rep + "\n\t" + aim_position);
 		return rep;
-		
 		
 		/*
 		 * Maybe sometimes, they prefer to go on the same Position as an ennemy
 		 *		and they choose to pick up Resources > kill Individual
-		 * Sometimes also, they are on a Resource and they do not want to move away...
-		 *		So I have to create a new bunch of Individuals to unblock the game			######## problem solved
 		 */
 	}
-	
-	/*
-	 * abstract methods for Individual class
-	 * replacing final and static attributes inside each kind of Individual (Human, Robot, etc)
-	 */
-	public abstract int		getReach ();
-	public abstract int		getMaxLife (); // to make the human avoid overhealth, we make him stop when its life is full
-	public abstract int		getStdDmg (); // generation of random damages, around one std value
-	public abstract int		getTotalDmg ();
-	public abstract int		getStdPick (); // generation of random damages on resources: it's the quantity picked up each time
-	public abstract int		getTotalPick ();
-	// public abstract String	getRaceName ();
-	public abstract int		getVision ();
-	public abstract String	getVitalResource ();
-	public abstract int		vitalResourcePower();
-	public abstract void	nextCivilization ();
 	
 	/*
 	 * getters and setters for Individual class
 	 * classic override on toString method
 	 */
 	public Position			getAimPosition ()				{return aim_position;}
-	public void				setPosition	(Position tmp_pos)	{pos = tmp_pos;}
 	public int				getCriticalLife ()				{return (int) getMaxLife()/5;}
-	// Normally we should have only call to this function...
-	public Element			getTargetElement ()				/*{Element tmp = target_element; target_element = null; return tmp;}*/
-															{return target_element;}
+	public Element			getTargetElement ()				{return target_element;}
 	public void				setTribe (Tribe t)				{tribe = new WeakReference<Tribe> (t);}
-	
+	public void				setPosition	(Position tmp_pos)	{pos = tmp_pos;}
+
 	/*
 	 * @author Belkacem @date 07/01/14
-	 * Implementing pickers and fighters 
+	 * Implementing pickers and fighters, and priorities for fighting and picking
 	 */
 	public int				getPriorityFight ()				{return 20;}
 	public int				getPriorityPick ()				{return 20;}
+	public boolean			isSuper ()						{return super_indiv;}
 	
 	@Override
 	public String toString () {return getTypeName () + "\"" + name + "\" at " + pos + " life: " + life;}
+	
+	/*
+	 * abstract methods for Individual class, making a template
+	 * I choosed to use these methods, and this pattern, because wa cannot have final and static attributes here,
+	 *		And cthen change them when inheriting
+	 * replacing final and static attributes inside each kind of Individual (Human, Robot, etc)
+	 */
+	public abstract int		getReach ();
+	public abstract int		getMaxLife ();		// to make the human avoid overhealth, we make him stop when its life is full
+	public abstract int		getStdDmg ();		// generation of random damages, around one std value
+	public abstract int		getTotalDmg ();
+	public abstract int		getStdPick ();		// generation of random damages on resources: it's the quantity picked up each time
+	public abstract int		getTotalPick ();
+	public abstract int		getVision ();
+	public abstract String	getVitalResource ();
+	public abstract int		vitalResourcePower();
+	public abstract void	nextCivilization ();
 }

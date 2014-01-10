@@ -3,7 +3,11 @@ package kernel.individuals;
 import kernel.Position;
 import kernel.Tools;
 
-/*
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
+ * Implementation of a regular ("normal") human
  * This class inheritates from Element
  * A Human (e.g.) has certain capabilities that Resources do not have (e.g. attack or move)
 */

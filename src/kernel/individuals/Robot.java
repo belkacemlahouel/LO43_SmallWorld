@@ -3,6 +3,14 @@ package kernel.individuals;
 import kernel.Position;
 import kernel.Tools;
 
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
+ * Implementation of a regular ("normal") robot
+ * This class inheritates from Element
+*/
+
 public class Robot extends Individual {
 	
 	public Robot (Position p, String name) {

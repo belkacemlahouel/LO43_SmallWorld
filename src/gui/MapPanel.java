@@ -90,7 +90,7 @@ public class MapPanel extends JPanel implements MouseListener {
 	        e.printStackTrace();
 	      }
 	    try {
-	    	for (int i = 0; i < swGUI.getSw().getTribe_list().size(); i++ ){
+	    	for (int i = 0; i < swGUI.getSw().getTribeList().size(); i++ ){
 	    		x = swGUI.getSw().getTribeAt(i).getBasePosition().getX();
 	    		y = swGUI.getSw().getTribeAt(i).getBasePosition().getY();
 	    		
@@ -192,41 +192,7 @@ public class MapPanel extends JPanel implements MouseListener {
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Case c = computePosition(e.getX(),e.getY());
 		
-		if(swGUI.getLeftBar().getAddRes().isSelected())
-		{
-			/*0 : rock, 1 : wood, 2 : metal, 3 : food, 4 : plutonium*/
-			switch(swGUI.getLeftBar().getResourcesComboBox().getSelectedIndex()) {
-				case 0:
-					Rock r = new Rock(c.getPosition(),"");
-					c.add(r);
-					resList.add(new ElementGUI(r));
-					break;
-				case 1:
-					Wood w = new Wood(c.getPosition(),"");
-					c.add(w);
-					resList.add(new ElementGUI(w));
-					break;
-				case 2:
-					Metal m = new Metal(c.getPosition(),"");
-					c.add(m);
-					resList.add(new ElementGUI(m));
-					break;
-				case 3:
-					Food f = new Food(c.getPosition(),"");
-					c.add(f);
-					resList.add(new ElementGUI(f));
-					break;
-				case 4:
-					Plutonium p = new Plutonium(c.getPosition(),"");
-					c.add(p);
-					resList.add(new ElementGUI(p));
-					break;
-			}
-			
-			repaint ();
-		}
 	}
 
 	/* This function looks at the coordinates (in pixel) of the mouse on the map, and returns the case in the board where the resource
@@ -265,7 +231,41 @@ public class MapPanel extends JPanel implements MouseListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
+		Case c = computePosition(e.getX(),e.getY());
 		
+		if(swGUI.getLeftBar().getAddRes().isSelected())
+		{
+			/*0 : rock, 1 : wood, 2 : metal, 3 : food, 4 : plutonium*/
+			switch(swGUI.getLeftBar().getResourcesComboBox().getSelectedIndex()) {
+				case 0:
+					Rock r = new Rock(c.getPosition(),"");
+					c.add(r);
+					resList.add(new ElementGUI(r));
+					break;
+				case 1:
+					Wood w = new Wood(c.getPosition(),"");
+					c.add(w);
+					resList.add(new ElementGUI(w));
+					break;
+				case 2:
+					Metal m = new Metal(c.getPosition(),"");
+					c.add(m);
+					resList.add(new ElementGUI(m));
+					break;
+				case 3:
+					Food f = new Food(c.getPosition(),"");
+					c.add(f);
+					resList.add(new ElementGUI(f));
+					break;
+				case 4:
+					Plutonium p = new Plutonium(c.getPosition(),"");
+					c.add(p);
+					resList.add(new ElementGUI(p));
+					break;
+			}
+			
+			repaint ();
+		}
 	}
 	
 	/* This method increments the "deadcount" of every individual every turn. Once at 30, we stop printing this individual */

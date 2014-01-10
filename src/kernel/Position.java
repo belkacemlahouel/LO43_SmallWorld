@@ -1,6 +1,8 @@
 package kernel;
-
-/*
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
  *	A Position is the set of coordinates (x, y) of an Element on the map (which is the Board)
 */
 
@@ -12,33 +14,34 @@ public class Position {
 		y = y_;
 	}
 
-	public int getX () {
-		return x;
-	}
-
-	public int getY () {
-		return y;
-	}
-
+	/*
+	 * Classic toString override
+	*/
 	@Override
 	public String toString () {
 		return "x: " + x + " y: " + y;
 	}
 	
-	// @Override
+	/*
+	 * Classic equals method
+	 * Comparing if two points are the same
+	 * This makes a strong verification (not just the reference)
+	*/
 	public boolean equals (Position pos) {
 		return pos.x == x && pos.y == y;
 	}
 
-	// TODO Bullshit, should remove those...
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
+	/*
+	 * Classic setters methods
+	 * One method for each coordinate
+	*/
+	public void setX(int x) {this.x = x;}
+	public void setY(int y) {this.y = y;}
 	
-
-
+	/*
+	 * Classic getters methods
+	 * One getter for each coordinate
+	*/
+	public int getX () {return x;}
+	public int getY () {return y;}
 }

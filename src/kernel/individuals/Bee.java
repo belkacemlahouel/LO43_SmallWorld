@@ -3,7 +3,15 @@ package kernel.individuals;
 import kernel.Position;
 import kernel.Tools;
 
-public class Bee extends Individual{
+/***************************************************************
+ *  @author Belkacem Lahouel - UTBM - A2013
+ *  Project: LO43, Small World
+ ***************************************************************
+ * Implementation of a regular ("normal") bee
+ */
+
+public class Bee extends Individual {
+	
 	public Bee (Position p, String name) {
 		super (p, name);
 	}
