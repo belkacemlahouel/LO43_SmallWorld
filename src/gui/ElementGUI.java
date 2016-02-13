@@ -31,27 +31,27 @@ public class ElementGUI {
 		}
 		
 		try{
-			imgElementDown = ImageIO.read(new File("data\\" + capa + i.getTypeName () + "down.png")); // The file of the element is referred as it's name + the .png file extension
+			imgElementDown = ImageIO.read(new File("data//" + capa + i.getTypeName () + "down.png")); // The file of the element is referred as it's name + the .png file extension
 		  } catch (IOException e) {
 			e.printStackTrace();
 		}
 		try{
-			imgElementUp = ImageIO.read(new File("data\\" + capa + i.getTypeName () + "up.png")); // The file of the element is referred as it's name + the .png file extension
+			imgElementUp = ImageIO.read(new File("data//" + capa + i.getTypeName () + "up.png")); // The file of the element is referred as it's name + the .png file extension
 		  } catch (IOException e) {
 			e.printStackTrace();
 		}
 		try{
-			imgElementRight = ImageIO.read(new File("data\\" + capa + i.getTypeName () + "Right.png")); // The file of the element is referred as it's name + the .png file extension
+			imgElementRight = ImageIO.read(new File("data//" + capa + i.getTypeName () + "Right.png")); // The file of the element is referred as it's name + the .png file extension
 		  } catch (IOException e) {
 			e.printStackTrace();
 		}
 		try{
-			imgElementLeft = ImageIO.read(new File("data\\" + capa + i.getTypeName () + "Left.png")); // The file of the element is referred as it's name + the .png file extension
+			imgElementLeft = ImageIO.read(new File("data//" + capa + i.getTypeName () + "Left.png")); // The file of the element is referred as it's name + the .png file extension
 		  } catch (IOException e) {
 			e.printStackTrace();
 		}
 		try{
-			imgElementDead = ImageIO.read(new File("data\\"+ capa + i.getTypeName() + "dead.png")); // The file of the element is referred as it's name + the .png file extension
+			imgElementDead = ImageIO.read(new File("data//"+ capa + i.getTypeName() + "dead.png")); // The file of the element is referred as it's name + the .png file extension
 		  } catch (IOException e) {
 			e.printStackTrace();
 		}

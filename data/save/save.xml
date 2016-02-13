@@ -6,11 +6,8 @@
     <tribe x="32" y="7" type="human" />
     <tribe x="2" y="1" type="bee" />
     <tribe x="52" y="35" type="human" />
-    <case x="29" y="12">
-      <individual type="human" life="67" team="4" />
-    </case>
-    <case x="41" y="23">
-      <individual type="human" life="1" team="4" />
+    <case x="33" y="15">
+      <individual type="human" life="60" team="4" />
     </case>
   </board>
 </SmallWorld>
