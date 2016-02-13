@@ -21,3 +21,5 @@ OR
 2. Copy/paste all the code inside the new project
 3. Refresh
 4. Work :-)
+
+Don't forget to import ./data/jdom/jdom-junit.jar in eclipse (right click on project > import > jar file).
